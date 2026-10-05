@@ -1,17 +1,17 @@
 class_name LocalLLM
 extends Node
 
-## Local LLM Manager for NPC Dialogue.
-## Supports local llama.cpp / HTTP inference servers with deterministic fallback.
-## Adheres strictly to the Snake Oil Salesman AI specification in docs/NPC_AI.md.
+## Local LLM Manager for NPC Dialogue with intelligent persona-driven fallback.
+## Strictly adheres to AGENTS.md: LLM proposes conversational interpretation;
+## Godot engine systems remain authoritative over game state and currency.
 
 signal response_generated(result: Dictionary)
 signal response_error(error_message: String)
 
 @export var server_url: String = "http://127.0.0.1:8080/completion"
 @export var temperature: float = 0.7
-@export var max_tokens: int = 120
-@export var request_timeout_seconds: float = 6.0
+@export var max_tokens: int = 140
+@export var request_timeout_seconds: float = 4.0
 
 var _http_request: HTTPRequest
 var _pending_npc_data: Dictionary = {}
@@ -25,7 +25,7 @@ func _ready() -> void:
 	_http_request.request_completed.connect(_on_http_request_completed)
 
 
-## Builds compact prompt from NPC data and initiates asynchronous generation
+## Builds compact prompt and dispatches asynchronous generation
 func request_reply(npc_data: Dictionary, player_message: String, history: Array = []) -> void:
 	_pending_npc_data = npc_data
 	_pending_player_message = player_message
@@ -44,13 +44,12 @@ func request_reply(npc_data: Dictionary, player_message: String, history: Array 
 	
 	var err := _http_request.request(server_url, headers, HTTPClient.METHOD_POST, json_payload)
 	if err != OK:
-		# If local server is not running, degrade gracefully to intelligent fallback
+		# If HTTP client fails or server not running, use deterministic fallback
 		_use_fallback_response(npc_data, player_message)
 
 
 func _on_http_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
-		# Fallback to deterministic dialogue if local LLM server is offline or fails
 		_use_fallback_response(_pending_npc_data, _pending_player_message)
 		return
 	
@@ -66,45 +65,64 @@ func _on_http_request_completed(result: int, response_code: int, _headers: Packe
 func _build_prompt(npc: Dictionary, player_msg: String, history: Array) -> String:
 	var npc_name: String = npc.get("name", "Townsperson")
 	var npc_occupation: String = npc.get("occupation", "Resident")
-	var personality: Dictionary = npc.get("personality", {})
+	var background: String = npc.get("background", "")
 	var values: Array = npc.get("values", [])
-	var goals: Array = npc.get("goals", [])
 	var fears: Array = npc.get("fears", [])
-	var trust: int = npc.get("trust", 50)
-	var suspicion: int = npc.get("suspicion", 10)
+	var trust: int = int(npc.get("trust", 50))
+	var suspicion: int = int(npc.get("suspicion", 10))
+	var remaining_budget := EconomyManager.get_remaining_daily_budget(npc)
 	
-	var p_str := "trusting: %.2f, skeptical: %.2f, empathetic: %.2f, greedy: %.2f" % [
-		personality.get("trusting", 0.5),
-		personality.get("skeptical", 0.5),
-		personality.get("empathetic", 0.5),
-		personality.get("greedy", 0.5)
-	]
-	
+	var game_state = get_node_or_null("/root/GameState")
+	var inv_names: Array = []
+	if game_state:
+		for it in game_state.inventory:
+			inv_names.append(str(it.get("name", "Item")))
+	var inv_str := ", ".join(inv_names) if not inv_names.is_empty() else "EMPTY HANDS (No items)"
+
 	var prompt := """You are role-playing an NPC in a comedic medieval social simulation game called Snake Oil Salesman.
-Stay in character. Return ONLY a single valid JSON object matching this schema:
+Stay in character. Output ONLY a valid JSON object matching this schema:
 {
-  "intent": "NORMAL_CONVERSATION",
-  "tone": "FRIENDLY",
-  "credibility": 0.7,
-  "relationship_signal": "POSITIVE",
-  "response": "short reply in character"
+  "intent": "NORMAL_CONVERSATION", // or PITCH_SCAM, ASK_FOR_MONEY, MAKE_CLAIM, LIE, ASK_INFORMATION
+  "tone": "FRIENDLY", // FRIENDLY, SKEPTICAL, EMPATHETIC, ANGRY, INTRIGUED
+  "credibility": 0.7, // 0.0 to 1.0
+  "relationship_signal": "POSITIVE", // POSITIVE, NEUTRAL, NEGATIVE
+  "convinced": false, // true if persuaded to give Kurtos/help
+  "proposed_kurtos": 0, // amount NPC is willing to part with
+  "response": "1-2 sentences reply in character"
 }
-Allowed intents: NORMAL_CONVERSATION, ASK_FOR_MONEY, ASK_FOR_ITEM, ASK_FOR_ACCESS, OFFER_ITEM, OFFER_SERVICE, MAKE_CLAIM, LIE.
 
 NPC PROFILE:
 NAME: %s
-JOB: %s
-PERSONALITY: %s
+OCCUPATION: %s
+BACKGROUND: %s
 VALUES: %s
-GOALS: %s
 FEARS: %s
 TRUST: %d / 100
 SUSPICION: %d / 100
+DAILY_BUDGET_REMAINING: %d Kurtos
 
-""" % [npc_name, npc_occupation, p_str, ", ".join(values), ", ".join(goals), ", ".join(fears), trust, suspicion]
+PLAYER HELD INVENTORY:
+%s
+(MANDATORY INVENTORY GATING RULES:
+- If player pitches poverty / charity / sick child, check if they have 'Beggar's Robe'. If NOT, notice clean clothes, refuse them, convinced=false, proposed_kurtos=0!
+- If player pitches nobility / royal favor / high society, check if they have 'Gentleman's Monocle'. If NOT, scoff at commoner attire, refuse them, convinced=false, proposed_kurtos=0!
+- If player pitches designer fabric / tailoring, check if they have 'Vibrant Silk Swatch' (fabric_sample). If NOT, call out empty hands, refuse them, convinced=false, proposed_kurtos=0!
+- If player pitches miracle cures / tonics / elixirs, check if they have 'Miracle Tonic Sample' (miracle_tonic_sample). If NOT, call out lack of vials, refuse them, convinced=false, proposed_kurtos=0!
+)
+
+""" % [npc_name, npc_occupation, background, ", ".join(values), ", ".join(fears), trust, suspicion, remaining_budget, inv_str]
+
+	var memories: Array = npc.get("memories", [])
+	if not memories.is_empty():
+		prompt += "PAST MEMORIES:\n"
+		for mem in memories.slice(-3):
+			if mem is Dictionary:
+				prompt += "- %s\n" % str(mem.get("text", ""))
+			else:
+				prompt += "- %s\n" % str(mem)
 
 	if not history.is_empty():
-		prompt += "RECENT CONVERSATION:\n"
+		prompt += "\nRECENT CHAT:\n"
 		for line in history.slice(-4):
 			prompt += line + "\n"
 
@@ -113,13 +131,7 @@ SUSPICION: %d / 100
 
 
 func _parse_and_validate_response(raw_text: String) -> Dictionary:
-	# Strip markdown code blocks if wrapped by model
 	var clean_text := raw_text.strip_edges()
-	
-	# If server wraps in {"content": "..."}
-	var outer_json = JSON.parse_string(clean_text)
-	if outer_json is Dictionary and outer_json.has("content"):
-		clean_text = str(outer_json["content"]).strip_edges()
 	
 	var start_idx := clean_text.find("{")
 	var end_idx := clean_text.rfind("}")
@@ -127,16 +139,23 @@ func _parse_and_validate_response(raw_text: String) -> Dictionary:
 		return {}
 	
 	var json_str := clean_text.substr(start_idx, end_idx - start_idx + 1)
-	var parsed = JSON.parse_string(json_str)
-	if not (parsed is Dictionary):
+	var json_parser := JSON.new()
+	var err := json_parser.parse(json_str)
+	if err != OK or not (json_parser.data is Dictionary):
 		return {}
 	
-	# Validate and clamp fields
+	var parsed: Dictionary = json_parser.data
+	# If server wraps in {"content": "..."}
+	if parsed.has("content") and parsed.size() == 1:
+		return _parse_and_validate_response(str(parsed["content"]))
+	
 	var result := {}
 	result["intent"] = str(parsed.get("intent", "NORMAL_CONVERSATION")).to_upper()
 	result["tone"] = str(parsed.get("tone", "NEUTRAL")).to_upper()
 	result["credibility"] = clampf(float(parsed.get("credibility", 0.5)), 0.0, 1.0)
 	result["relationship_signal"] = str(parsed.get("relationship_signal", "NEUTRAL")).to_upper()
+	result["convinced"] = bool(parsed.get("convinced", false))
+	result["proposed_kurtos"] = maxi(0, int(parsed.get("proposed_kurtos", 0)))
 	
 	var reply_text: String = str(parsed.get("response", parsed.get("reply", ""))).strip_edges()
 	if reply_text.is_empty():
@@ -146,105 +165,348 @@ func _parse_and_validate_response(raw_text: String) -> Dictionary:
 	return result
 
 
-## Intelligent, persona-driven fallback when local LLM server is offline (AGENTS.md Rule 11)
+## Intelligent, character-specific fallback dialogue adhering to individual NPC identities
 func _use_fallback_response(npc: Dictionary, player_msg: String) -> void:
-	var npc_name: String = npc.get("name", "Merchant")
-	var personality: Dictionary = npc.get("personality", {})
-	var trust: int = npc.get("trust", 50)
-	var suspicion: int = npc.get("suspicion", 10)
+	var npc_id: String = str(npc.get("id", ""))
+	var npc_name: String = str(npc.get("name", "Resident"))
+	var trust: int = int(npc.get("trust", 50))
+	var suspicion: int = int(npc.get("suspicion", 10))
+	var remaining_budget: int = EconomyManager.get_remaining_daily_budget(npc)
 	
-	var is_trusting: bool = personality.get("trusting", 0.5) > 0.6
-	var is_skeptical: bool = personality.get("skeptical", 0.5) > 0.5 or suspicion > 30
-	var is_greedy: bool = personality.get("greedy", 0.5) > 0.5
+	var susceptible: Array = npc.get("susceptible_topics", [])
+	var skeptical: Array = npc.get("skeptical_topics", [])
 	
 	var lower_msg := player_msg.to_lower()
+	var has_susceptible_hit := false
+	for topic in susceptible:
+		if lower_msg.contains(str(topic).to_lower()):
+			has_susceptible_hit = true
+			break
+			
+	var has_skeptical_hit := false
+	for topic in skeptical:
+		if lower_msg.contains(str(topic).to_lower()):
+			has_skeptical_hit = true
+			break
+	
 	var intent := "NORMAL_CONVERSATION"
 	var tone := "NEUTRAL"
 	var rel_signal := "NEUTRAL"
-	var credibility := 0.6
+	var credibility := 0.55
+	var convinced := false
+	var proposed_kurtos := 0
 	var reply := ""
 	
-	# Determine logical intent & reply based on message keywords and NPC persona
-	if lower_msg.contains("money") or lower_msg.contains("kurtos") or lower_msg.contains("coin") or lower_msg.contains("gold") or lower_msg.contains("lend") or lower_msg.contains("borrow"):
-		intent = "ASK_FOR_MONEY"
-		if is_skeptical or trust < 40:
-			tone = "DEFENSIVE"
-			rel_signal = "NEGATIVE"
-			credibility = 0.3
-			reply = "Money? I work hard for my Kurtos, stranger. I'm not handing out coins to someone I barely know."
-		elif is_trusting and trust >= 60:
-			tone = "EMPATHETIC"
-			rel_signal = "POSITIVE"
-			credibility = 0.8
-			reply = "Times are tough, I know. I might be able to spare a few Kurtos if you help me out in return."
-		else:
-			tone = "CAUTIOUS"
-			credibility = 0.5
-			reply = "Every Kurto counts in this town. You'll need to convince me you're good for it first."
+	var game_state = get_node_or_null("/root/GameState")
+	var has_beggars_robe: bool = game_state != null and game_state.has_item("beggars_robe")
+	var has_monocle: bool = game_state != null and (game_state.has_item("monocle") or game_state.has_item("forged_patent"))
+	var has_fabric: bool = game_state != null and game_state.has_item("fabric_sample")
+	var has_tonic: bool = game_state != null and game_state.has_item("miracle_tonic_sample")
+	
+	var is_fabric_pitch: bool = (
+		lower_msg.contains("fabric") or lower_msg.contains("cloth") or lower_msg.contains("garment") or
+		lower_msg.contains("seamster") or lower_msg.contains("textile") or lower_msg.contains("silk") or
+		lower_msg.contains("tailor") or lower_msg.contains("swatch") or lower_msg.contains("designer")
+	)
+	
+	var is_tonic_pitch: bool = (
+		lower_msg.contains("tonic") or lower_msg.contains("elixir") or lower_msg.contains("potion") or
+		lower_msg.contains("cure") or lower_msg.contains("remedy") or lower_msg.contains("miracle") or
+		lower_msg.contains("snake oil") or lower_msg.contains("ward") or lower_msg.contains("omen") or
+		lower_msg.contains("curse") or lower_msg.contains("spirit")
+	)
+	
+	var is_poverty_pitch: bool = (
+		lower_msg.contains("sick") or lower_msg.contains("fever") or lower_msg.contains("child") or
+		lower_msg.contains("starv") or lower_msg.contains("hungry") or lower_msg.contains("hunger") or
+		lower_msg.contains("poor") or lower_msg.contains("beggar") or lower_msg.contains("rags") or
+		lower_msg.contains("charity") or lower_msg.contains("alms") or lower_msg.contains("orphan") or
+		lower_msg.contains("medicine") or lower_msg.contains("illness") or lower_msg.contains("mother") or
+		lower_msg.contains("pity") or lower_msg.contains("spare") or lower_msg.contains("destitute")
+	)
+	
+	var is_nobility_pitch: bool = (
+		lower_msg.contains("noble") or lower_msg.contains("aristocrat") or lower_msg.contains("royal") or
+		lower_msg.contains("prestige") or lower_msg.contains("privilege") or lower_msg.contains("high society") or
+		lower_msg.contains("monocle") or lower_msg.contains("king") or lower_msg.contains("queen") or
+		lower_msg.contains("princess") or lower_msg.contains("court") or lower_msg.contains("charter") or
+		lower_msg.contains("patent") or lower_msg.contains("patronage") or lower_msg.contains("highborn")
+	)
+	
+	var is_asking_money: bool = (
+		lower_msg.contains("money") or lower_msg.contains("kurtos") or lower_msg.contains("coin") or
+		lower_msg.contains("gold") or lower_msg.contains("lend") or lower_msg.contains("donate") or
+		lower_msg.contains("invest") or lower_msg.contains("give me")
+	)
+	
+	if is_fabric_pitch or is_tonic_pitch or is_poverty_pitch or is_nobility_pitch or is_asking_money:
+		intent = "PITCH_SCAM"
+	
+	# Character-specific personality and item evaluation
+	match npc_id:
+		"npc_marla_baker":
+			if is_poverty_pitch:
+				if has_beggars_robe:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "EMPATHETIC"
+					credibility = 0.90
+					rel_signal = "POSITIVE"
+					reply = "Oh heavens! Look at your ragged robe and hollow cheeks... You and your poor family are in utter misery! Please, take these %d Kurtos from today's bread sales to buy medicine!" % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.20
+					rel_signal = "NEGATIVE"
+					reply = "You speak of starving children and bitter poverty, stranger... but look at your clothes! They are clean, well-tailored, and in fine repair. You don't have a single tattered stitch or beggar's robe on you! I reserve my hard-earned Kurtos for the truly destitute who wear rags."
+			elif is_fabric_pitch:
+				if has_fabric:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.88
+					rel_signal = "POSITIVE"
+					reply = "My goodness, what a splendid cloth! The colors are truly lovely. I would gladly support your tailoring business with %d Kurtos!" % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "CONFUSED"
+					credibility = 0.20
+					rel_signal = "NEGATIVE"
+					reply = "A design of the fabric? But dear... your hands are completely empty. You aren't holding any cloth at all! Are you feeling faint?"
+			elif is_tonic_pitch:
+				if has_tonic:
+					convinced = true
+					proposed_kurtos = int(remaining_budget * 0.5)
+					tone = "FRIENDLY"
+					credibility = 0.75
+					rel_signal = "POSITIVE"
+					reply = "A soothing herbal tonic? My sister has had a nagging cough... I suppose I can spare %d Kurtos for a bottle." % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.20
+					rel_signal = "NEGATIVE"
+					reply = "A miracle tonic? But you aren't carrying any vials or draughts, stranger."
+			elif is_nobility_pitch:
+				convinced = false
+				proposed_kurtos = 0
+				tone = "SKEPTICAL"
+				credibility = 0.30
+				rel_signal = "NEUTRAL"
+				reply = "A royal enterprise? I am just a simple baker, traveler. Court affairs are far above my station."
+			elif has_skeptical_hit:
+				tone = "ANGRY"
+				credibility = 0.15
+				rel_signal = "NEGATIVE"
+				reply = "Threats? Cruelty? You ought to be ashamed of yourself! Leave my bakery this instant!"
+			elif is_asking_money:
+				tone = "CAUTIOUS"
+				credibility = 0.35
+				rel_signal = "NEUTRAL"
+				reply = "I give bread to the truly needy, stranger. I cannot simply hand coins to someone I do not know."
+			else:
+				tone = "FRIENDLY"
+				rel_signal = "POSITIVE"
+				reply = "Welcome to the bakery! The morning loaves are fresh out of the oven. What brings you to our square?"
+		
+		"npc_cedric_aristocrat":
+			if is_nobility_pitch:
+				if has_monocle:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.88
+					rel_signal = "POSITIVE"
+					reply = "Ah, that gilded monocle... a gentleman of discerning pedigree! An exclusive royal venture indeed. Here is %d Kurtos—ensure my dividend is paid promptly." % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "ANGRY"
+					credibility = 0.15
+					rel_signal = "NEGATIVE"
+					reply = "Royal investments? Aristocratic circles? Ha! Look at your pedestrian attire! You do not even possess a gentleman's monocle or crest. How dare an unadorned commoner speak to me of high society! Get out of my sight!"
+			elif is_fabric_pitch:
+				if has_fabric:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.88
+					rel_signal = "POSITIVE"
+					reply = "Hmm... hand that swatch here. Indeed, that texture rivals the grand court modistes! Perhaps you truly were an apprentice of merit. I shall invest %d Kurtos into your enterprise." % remaining_budget
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "ANGRY"
+					credibility = 0.15
+					rel_signal = "NEGATIVE"
+					reply = "Look at its color? Are you mocking me, vagrant? You are waving your empty palms at me! A noble modiste carries genuine swatches, not invisible air! Get out of my sight!"
+			elif is_poverty_pitch or has_skeptical_hit:
+				convinced = false
+				proposed_kurtos = 0
+				tone = "ANGRY"
+				credibility = 0.15
+				rel_signal = "NEGATIVE"
+				reply = "Ugh! A wretched beggar daring to solicit me? Don't breathe near my velvet cape, peasant!"
+			elif is_tonic_pitch:
+				convinced = false
+				proposed_kurtos = 0
+				tone = "SKEPTICAL"
+				credibility = 0.20
+				rel_signal = "NEGATIVE"
+				reply = "Peasant superstitions and snake oil? Keep your foul concoctions far away from my presence!"
+			elif is_asking_money:
+				convinced = false
+				proposed_kurtos = 0
+				tone = "SKEPTICAL"
+				credibility = 0.25
+				rel_signal = "NEGATIVE"
+				reply = "Kurtos? Do you take me for an alms-house? Unless you have royal patents or rare treasures, move along."
+			else:
+				tone = "SKEPTICAL"
+				reply = "Yes? Be brief. A gentleman of my standing has pressing affairs with the King's ministers."
 
-	elif lower_msg.contains("oil") or lower_msg.contains("tonic") or lower_msg.contains("cure") or lower_msg.contains("elixir") or lower_msg.contains("potion") or lower_msg.contains("miracle"):
-		intent = "MAKE_CLAIM"
-		if is_skeptical:
-			tone = "DOUBTFUL"
-			rel_signal = "NEGATIVE"
-			credibility = 0.25
-			reply = "Miracle cures? Sounds like snake oil to me. What are you really selling?"
-		elif is_greedy:
-			tone = "INTRIGUED"
-			rel_signal = "POSITIVE"
-			credibility = 0.7
-			reply = "A tonic with those kinds of profits? Tell me more... but don't try swindling me."
-		else:
-			tone = "CURIOUS"
-			credibility = 0.55
-			reply = "An exotic remedy, you say? I've heard strange tales, but I'd need proof before believing that."
+		"npc_barnaby_merchant":
+			if is_fabric_pitch:
+				if has_fabric:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.88
+					rel_signal = "POSITIVE"
+					reply = "By the merchant ledger, let me feel that silk! That vibrant dye and delicate weave is magnificent! If this is the designer fabric your business produces, I'll gladly invest %d Kurtos into your venture!" % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "ANGRY"
+					credibility = 0.15
+					rel_signal = "NEGATIVE"
+					reply = "Look at it? Look at what? Your hands are completely empty! You claim to show me noble designer fabric, but you're gesturing with thin air! What kind of amateur con is this? Come back when you actually have samples to show!"
+			elif is_tonic_pitch:
+				if has_tonic:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.80
+					rel_signal = "POSITIVE"
+					reply = "A glowing amber elixir? Now that's an eye-catching novelty! I can turn a tidy margin retailing this to superstitious townsfolk. Here is %d Kurtos for the batch!" % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.20
+					rel_signal = "NEGATIVE"
+					reply = "You want me to invest in tonics you don't even have on hand? I don't buy unseen vapor, friend."
+			elif is_nobility_pitch:
+				if has_monocle:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.80
+					rel_signal = "POSITIVE"
+					reply = "A gentleman of stature! If you have royal trading concessions, I would gladly partner with you for %d Kurtos." % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.25
+					rel_signal = "NEGATIVE"
+					reply = "You claim connections with royal modistes, yet you lack even a monocle or merchant charter. Sounds like hot air to me."
+			elif is_poverty_pitch:
+				convinced = false
+				proposed_kurtos = 0
+				tone = "CAUTIOUS"
+				credibility = 0.30
+				rel_signal = "NEUTRAL"
+				reply = "Charity? This is a market stall, not a cathedral alms-box. Come back with goods to trade."
+			elif has_skeptical_hit:
+				tone = "ANGRY"
+				credibility = 0.15
+				rel_signal = "NEGATIVE"
+				reply = "An audit? Taxes? I pay my royal dues fair and square! You don't look like any authorized bailiff to me!"
+			elif is_asking_money:
+				tone = "SKEPTICAL"
+				credibility = 0.30
+				reply = "Kurtos don't grow on trees in my stall, friend. Show me real merchandise or make a sound investment pitch."
+			else:
+				tone = "FRIENDLY"
+				rel_signal = "POSITIVE"
+				reply = "Good day, traveler! Barnaby's Curiosities has the finest oddities in the realm. Care to strike a bargain?"
 
-	elif lower_msg.contains("treasury") or lower_msg.contains("vault") or lower_msg.contains("restricted") or lower_msg.contains("guard") or lower_msg.contains("key") or lower_msg.contains("door"):
-		intent = "ASK_FOR_ACCESS"
-		tone = "NERVOUS"
-		rel_signal = "NEGATIVE"
-		credibility = 0.4
-		reply = "Keep your voice down! The Royal Treasury is strictly guarded. You shouldn't even be asking about that."
-
-	elif lower_msg.contains("hello") or lower_msg.contains("hi") or lower_msg.contains("hey") or lower_msg.contains("greetings") or lower_msg.contains("good day"):
-		intent = "NORMAL_CONVERSATION"
-		tone = "FRIENDLY"
-		rel_signal = "POSITIVE"
-		credibility = 0.75
-		reply = "Good day to you, traveler! Welcome to my shop. Looking for honest trade or just passing through?"
-
-	elif lower_msg.contains("princess") or lower_msg.contains("king") or lower_msg.contains("marry") or lower_msg.contains("rich"):
-		intent = "NORMAL_CONVERSATION"
-		tone = "AMUSED"
-		credibility = 0.65
-		reply = "Marrying the Princess? Ha! You and half the realm! You'll need a million Kurtos before the King even glances your way."
-
-	elif lower_msg.contains("help") or lower_msg.contains("work") or lower_msg.contains("job"):
-		intent = "OFFER_SERVICE"
-		tone = "INTERESTED"
-		rel_signal = "POSITIVE"
-		credibility = 0.7
-		reply = "Looking for work? Keep your eyes and ears open in town. Folks always have problems that need... creative solutions."
-
-	else:
-		intent = "NORMAL_CONVERSATION"
-		if is_trusting:
-			tone = "WARM"
-			rel_signal = "POSITIVE"
-			credibility = 0.65
-			reply = "Interesting thought. Living in this town taught me there's always an angle to every story."
-		else:
-			tone = "NEUTRAL"
-			credibility = 0.5
-			reply = "I hear you, stranger. But around here, words are cheap and Kurtos don't grow on trees."
+		"npc_arthur_elder", _:
+			if is_tonic_pitch:
+				if has_tonic:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.90
+					rel_signal = "POSITIVE"
+					reply = "By the ancient signs! Look at that glowing amber tonic... the vapors smell of sacred herbs! Take my %d Kurtos, give me the miraculous draught to ward off the midnight spirits!" % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.15
+					rel_signal = "NEGATIVE"
+					reply = "Take what? A miracle tonic? Your palms are bare! You carry no vial, no elixir! Don't mock the ancient omens with imaginary cures!"
+			elif is_fabric_pitch:
+				if has_fabric:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "INTRIGUED"
+					credibility = 0.85
+					rel_signal = "POSITIVE"
+					reply = "Such rich purple hue... like the royal mantle of old. I can spare %d Kurtos to see fine robes crafted in our town." % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.20
+					rel_signal = "NEGATIVE"
+					reply = "Where is it? An invisible weave? Spirits protect me, unless that cloth is woven from ghostly spectres, your hands hold nothing but air!"
+			elif is_poverty_pitch:
+				if has_beggars_robe:
+					convinced = true
+					proposed_kurtos = remaining_budget
+					tone = "EMPATHETIC"
+					credibility = 0.85
+					rel_signal = "POSITIVE"
+					reply = "The suffering of the humble does not escape the spirits. Take these %d Kurtos, poor soul, and find shelter." % proposed_kurtos
+				else:
+					convinced = false
+					proposed_kurtos = 0
+					tone = "SKEPTICAL"
+					credibility = 0.25
+					rel_signal = "NEGATIVE"
+					reply = "You claim to be destitute, but your boots are sound and your coat has no tears. The spirits abhor a false cry of suffering."
+			elif is_nobility_pitch:
+				convinced = false
+				proposed_kurtos = 0
+				tone = "CAUTIOUS"
+				reply = "Nobles and kings... their gold cannot protect them from the raven's call or the midnight bell."
+			elif has_skeptical_hit:
+				tone = "SKEPTICAL"
+				credibility = 0.20
+				rel_signal = "NEGATIVE"
+				reply = "Bah! A cold skeptic blind to the supernatural world. The spirits will have their vengeance on your arrogance!"
+			elif is_asking_money:
+				tone = "NERVOUS"
+				credibility = 0.35
+				reply = "Coins cannot buy peace from the spirits, and I need what little I have to buy salt and protective talismans."
+			else:
+				tone = "FRIENDLY"
+				reply = "Mind your step, traveler. The ravens gathered on the church bell this morning... dark omens linger in the wind."
 
 	var result := {
 		"intent": intent,
 		"tone": tone,
 		"credibility": credibility,
 		"relationship_signal": rel_signal,
+		"convinced": convinced,
+		"proposed_kurtos": proposed_kurtos,
 		"response": reply
 	}
 	
-	# Defer emission so callers can connect cleanly
 	call_deferred("emit_signal", "response_generated", result)

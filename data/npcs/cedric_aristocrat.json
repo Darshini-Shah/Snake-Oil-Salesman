@@ -1,0 +1,26 @@
+{
+  "id": "npc_cedric_aristocrat",
+  "name": "Lord Cedric",
+  "occupation": "Wealthy Aristocrat",
+  "wealth_class": "wealthy",
+  "gold": 8500,
+  "max_daily_spend": 1200,
+  "spent_today": 0,
+  "trust": 30,
+  "suspicion": 25,
+  "personality": {
+    "trusting": 0.25,
+    "skeptical": 0.70,
+    "empathetic": 0.15,
+    "greedy": 0.60,
+    "status_sensitive": 0.95,
+    "superstitious": 0.20
+  },
+  "values": ["nobility", "royal favor", "prestige", "exclusivity"],
+  "goals": ["secure an appointment in the King's Privy Council", "monopolize royal trade concessions"],
+  "fears": ["public embarrassment", "commoners touching his garments", "losing family prestige"],
+  "background": "An arrogant noble visiting from the capital. He despises rabble and common beggars, but prides himself on aristocratic ventures, luxury rarities, and royal intrigues.",
+  "susceptible_topics": ["royal", "noble", "exclusive", "aristocrat", "monocle", "prestige", "privilege", "patent", "estate", "princess", "high society"],
+  "skeptical_topics": ["beggar", "spare coin", "peasant", "pity", "charity", "rags", "slum", "cheap"],
+  "memories": []
+}

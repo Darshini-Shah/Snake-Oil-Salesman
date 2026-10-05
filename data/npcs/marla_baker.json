@@ -1,0 +1,26 @@
+{
+  "id": "npc_marla_baker",
+  "name": "Marla",
+  "occupation": "Empathetic Baker",
+  "wealth_class": "modest",
+  "gold": 650,
+  "max_daily_spend": 220,
+  "spent_today": 0,
+  "trust": 65,
+  "suspicion": 10,
+  "personality": {
+    "trusting": 0.75,
+    "skeptical": 0.25,
+    "empathetic": 0.90,
+    "greedy": 0.15,
+    "status_sensitive": 0.20,
+    "superstitious": 0.55
+  },
+  "values": ["kindness", "family", "community", "children"],
+  "goals": ["keep her bakery flourishing", "feed the unfortunate children of the town"],
+  "fears": ["crop failure", "illness spreading through town", "loss of family"],
+  "background": "A warm-hearted baker who prepares fresh bread daily. She cannot stand the thought of anyone starving or falling ill, making her a tender soul who gives easily to tales of suffering.",
+  "susceptible_topics": ["sick", "fever", "illness", "child", "children", "hungry", "family", "help", "charity", "medicine", "mother"],
+  "skeptical_topics": ["threat", "extort", "robbery", "cruel", "greed", "poison"],
+  "memories": []
+}
