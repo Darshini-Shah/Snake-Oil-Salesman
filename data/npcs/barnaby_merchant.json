@@ -1,0 +1,26 @@
+{
+  "id": "npc_barnaby_merchant",
+  "name": "Barnaby",
+  "occupation": "Curious Merchant",
+  "wealth_class": "moderate",
+  "gold": 1200,
+  "max_daily_spend": 350,
+  "spent_today": 0,
+  "trust": 45,
+  "suspicion": 15,
+  "personality": {
+    "trusting": 0.50,
+    "skeptical": 0.50,
+    "empathetic": 0.40,
+    "greedy": 0.75,
+    "status_sensitive": 0.45,
+    "superstitious": 0.35
+  },
+  "values": ["profit", "trade secrets", "curiosities"],
+  "goals": ["expand his market booth", "acquire rare exotic merchandise"],
+  "fears": ["guard inspections", "worthless counterfeit goods", "bankruptcy"],
+  "background": "A seasoned merchant in the central town square. He is sharp with coins and drawn to rare wares and investment opportunities, but quick to spot plain thievery.",
+  "susceptible_topics": ["profit", "investment", "rare", "trade", "deal", "exotic", "treasure", "opportunity", "wholesale"],
+  "skeptical_topics": ["guard", "inspection", "tax", "charity", "free", "tithe", "audit"],
+  "memories": []
+}

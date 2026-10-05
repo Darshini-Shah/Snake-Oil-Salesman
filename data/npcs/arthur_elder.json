@@ -1,0 +1,26 @@
+{
+  "id": "npc_arthur_elder",
+  "name": "Old Arthur",
+  "occupation": "Superstitious Elder",
+  "wealth_class": "poor",
+  "gold": 400,
+  "max_daily_spend": 180,
+  "spent_today": 0,
+  "trust": 55,
+  "suspicion": 12,
+  "personality": {
+    "trusting": 0.65,
+    "skeptical": 0.30,
+    "empathetic": 0.50,
+    "greedy": 0.20,
+    "status_sensitive": 0.15,
+    "superstitious": 0.95
+  },
+  "values": ["ancestral lore", "spiritual protection", "survival"],
+  "goals": ["ward off the evil eye", "find an elixir for longevity"],
+  "fears": ["ancient curses", "demonic omens", "midnight spirits", "sudden malady"],
+  "background": "A reclusive elder who spends his hours reading old tomes and watching bird migrations for omens. He trembles at supernatural gossip and readily buys amulets or miraculous tinctures.",
+  "susceptible_topics": ["curse", "omen", "miracle", "tonic", "spirit", "potion", "elixir", "remedy", "stars", "witchcraft", "ghost", "hex", "talisman", "ward", "snake oil"],
+  "skeptical_topics": ["skeptic", "atheist", "logic", "nonsense", "tax", "guard", "soldier"],
+  "memories": []
+}
