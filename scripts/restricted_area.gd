@@ -153,7 +153,7 @@ func _draw() -> void:
 	# Corner accent brackets
 	var bracket_len: float = min(20.0, min(size.x, size.y) * 0.2)
 	var tl := -size * 0.5
-	var tr := Vector2(size.x * 0.5, -size.y * 0.5)
+	var t_r := Vector2(size.x * 0.5, -size.y * 0.5)
 	var bl := Vector2(-size.x * 0.5, size.y * 0.5)
 	var br := size * 0.5
 	var accent_col := Color(border_color.r, border_color.g, border_color.b, 1.0)
@@ -163,8 +163,8 @@ func _draw() -> void:
 	draw_line(tl, tl + Vector2(bracket_len, 0), accent_col, accent_w)
 	draw_line(tl, tl + Vector2(0, bracket_len), accent_col, accent_w)
 	# Top-right corner
-	draw_line(tr, tr - Vector2(bracket_len, 0), accent_col, accent_w)
-	draw_line(tr, tr + Vector2(0, bracket_len), accent_col, accent_w)
+	draw_line(t_r, t_r - Vector2(bracket_len, 0), accent_col, accent_w)
+	draw_line(t_r, t_r + Vector2(0, bracket_len), accent_col, accent_w)
 	# Bottom-left corner
 	draw_line(bl, bl + Vector2(bracket_len, 0), accent_col, accent_w)
 	draw_line(bl, bl - Vector2(0, bracket_len), accent_col, accent_w)

@@ -13,11 +13,7 @@
 
 [node name="BoundaryBox" parent="." unique_id=735332579 instance=ExtResource("1_bounds")]
 
-[node name="Walls" type="Node2D" parent="."] unique_id=1817228384]
-
-[node name="Wall_Building1" parent="Walls" unique_id=1086785960 instance=ExtResource("2_wall")]
-position = Vector2(480, 140)
-size = Vector2(240, 24)
+[node name="Walls" type="Node2D" parent="." unique_id=1150828756]
 
 [node name="Wall_Partition" parent="Walls" unique_id=1523552353 instance=ExtResource("2_wall")]
 position = Vector2(360, 220)
@@ -38,8 +34,6 @@ position = Vector2(200, 340)
 
 [node name="NPC_Barnaby" parent="." unique_id=1119191849 instance=ExtResource("5_npc")]
 position = Vector2(549, 352)
-npc_name = "Barnaby"
-npc_title = "Curious Town Merchant"
 
 [node name="Guard" parent="." unique_id=1439908867 instance=ExtResource("6_guard")]
 position = Vector2(740, 160)
@@ -50,4 +44,4 @@ challenge_message = "HALT! The Treasury Vault is restricted to authorized person
 
 [node name="VirtualJoystick" parent="UI" unique_id=1384923046 instance=ExtResource("7_joy")]
 
-[node name="ChatUI" parent="UI" instance=ExtResource("8_chat")]
+[node name="ChatUI" parent="UI" unique_id=429493961 instance=ExtResource("8_chat")]

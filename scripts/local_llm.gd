@@ -64,8 +64,8 @@ func _on_http_request_completed(result: int, response_code: int, _headers: Packe
 
 
 func _build_prompt(npc: Dictionary, player_msg: String, history: Array) -> String:
-	var name: String = npc.get("name", "Townsperson")
-	var occupation: String = npc.get("occupation", "Resident")
+	var npc_name: String = npc.get("name", "Townsperson")
+	var npc_occupation: String = npc.get("occupation", "Resident")
 	var personality: Dictionary = npc.get("personality", {})
 	var values: Array = npc.get("values", [])
 	var goals: Array = npc.get("goals", [])
@@ -101,7 +101,7 @@ FEARS: %s
 TRUST: %d / 100
 SUSPICION: %d / 100
 
-""" % [name, occupation, p_str, ", ".join(values), ", ".join(goals), ", ".join(fears), trust, suspicion]
+""" % [npc_name, npc_occupation, p_str, ", ".join(values), ", ".join(goals), ", ".join(fears), trust, suspicion]
 
 	if not history.is_empty():
 		prompt += "RECENT CONVERSATION:\n"
@@ -148,8 +148,7 @@ func _parse_and_validate_response(raw_text: String) -> Dictionary:
 
 ## Intelligent, persona-driven fallback when local LLM server is offline (AGENTS.md Rule 11)
 func _use_fallback_response(npc: Dictionary, player_msg: String) -> void:
-	var name: String = npc.get("name", "Merchant")
-	var occupation: String = npc.get("occupation", "Shopkeeper")
+	var npc_name: String = npc.get("name", "Merchant")
 	var personality: Dictionary = npc.get("personality", {})
 	var trust: int = npc.get("trust", 50)
 	var suspicion: int = npc.get("suspicion", 10)
