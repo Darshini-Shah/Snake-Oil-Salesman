@@ -1,0 +1,26 @@
+{
+  "id": "npc_barnaby_merchant",
+  "name": "Barnaby",
+  "occupation": "Curious Town Merchant",
+  "wealth_class": "moderate",
+  "personality": {
+    "trusting": 0.55,
+    "skeptical": 0.45,
+    "empathetic": 0.60,
+    "greedy": 0.65,
+    "status_sensitive": 0.40,
+    "superstitious": 0.50
+  },
+  "values": ["profit", "curiosity", "survival"],
+  "goals": ["expand his trading booth", "find rare goods to sell to the nobles"],
+  "fears": ["guard inspections", "running out of Kurtos"],
+  "background": "A seasoned merchant who buys and sells oddities. He loves a good bargain, but hates being cheated.",
+  "possessions": ["copper_scale", "merchant_ledger"],
+  "max_daily_spend": 350,
+  "schedule": {
+    "morning": "market_stall",
+    "afternoon": "town_square",
+    "evening": "tavern",
+    "night": "home"
+  }
+}

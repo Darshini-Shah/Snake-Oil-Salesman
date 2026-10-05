@@ -1,3 +1,12 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Local LLM Models (GGUF, bin, weights, safetensors)
+*.gguf
+*.bin
+*.safetensors
+*.onnx
+models/
+ai/models/
+*.tmp

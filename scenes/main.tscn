@@ -7,12 +7,13 @@
 [ext_resource type="PackedScene" path="res://assets/characters/npc.tscn" id="5_npc"]
 [ext_resource type="PackedScene" path="res://assets/characters/guard.tscn" id="6_guard"]
 [ext_resource type="PackedScene" path="res://scenes/ui/virtual_joystick.tscn" id="7_joy"]
+[ext_resource type="PackedScene" path="res://scenes/ui/chat_ui.tscn" id="8_chat"]
 
 [node name="Main" type="Node2D" unique_id=1162856650]
 
 [node name="BoundaryBox" parent="." unique_id=735332579 instance=ExtResource("1_bounds")]
 
-[node name="Walls" type="Node2D" parent="." unique_id=1817228384]
+[node name="Walls" type="Node2D" parent="."] unique_id=1817228384]
 
 [node name="Wall_Building1" parent="Walls" unique_id=1086785960 instance=ExtResource("2_wall")]
 position = Vector2(480, 140)
@@ -48,3 +49,5 @@ challenge_message = "HALT! The Treasury Vault is restricted to authorized person
 [node name="UI" type="CanvasLayer" parent="." unique_id=1459645190]
 
 [node name="VirtualJoystick" parent="UI" unique_id=1384923046 instance=ExtResource("7_joy")]
+
+[node name="ChatUI" parent="UI" instance=ExtResource("8_chat")]
