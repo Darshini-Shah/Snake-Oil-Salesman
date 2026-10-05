@@ -1,0 +1,26 @@
+{
+  "id": "npc_marla_baker",
+  "name": "Marla",
+  "occupation": "Baker",
+  "wealth_class": "moderate",
+  "personality": {
+    "trusting": 0.72,
+    "skeptical": 0.31,
+    "empathetic": 0.89,
+    "greedy": 0.25,
+    "status_sensitive": 0.34,
+    "superstitious": 0.61
+  },
+  "values": ["family", "kindness", "honesty"],
+  "goals": ["keep the bakery profitable", "protect her children"],
+  "fears": ["losing the bakery", "food shortages"],
+  "background": "A friendly baker who knows nearly everyone in town through daily business.",
+  "possessions": ["bakery_key", "silver_necklace"],
+  "max_daily_spend": 220,
+  "schedule": {
+    "morning": "bakery",
+    "afternoon": "market",
+    "evening": "home",
+    "night": "home"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "scam_fake_medicine",
+  "name": "Fake Medicine",
+  "description": "Convince a suitable target that an ordinary liquid is a rare medical treatment.",
+  "risk": 0.55,
+  "requirements": {
+    "min_trust": 40,
+    "required_items": ["medicine_bottle"]
+  },
+  "target_tags": ["empathetic", "health_anxious"],
+  "reward": {
+    "type": "money",
+    "base_amount": 250
+  },
+  "failure": {
+    "trust_delta": -10,
+    "suspicion_delta": 15
+  }
+}
