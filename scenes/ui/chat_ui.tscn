@@ -4,68 +4,100 @@
 [ext_resource type="Script" path="res://scripts/local_llm.gd" id="2_llm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
-content_margin_left = 14.0
+content_margin_left = 16.0
 content_margin_top = 8.0
-content_margin_right = 14.0
+content_margin_right = 16.0
 content_margin_bottom = 8.0
-bg_color = Color(0.12, 0.15, 0.22, 0.9)
+bg_color = Color(0.12, 0.1, 0.06, 0.94)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.88, 0.75, 0.35, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.35)
-shadow_size = 4
+border_color = Color(0.92, 0.78, 0.32, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_window"]
-content_margin_left = 16.0
-content_margin_top = 10.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.07, 0.09, 0.13, 0.96)
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.06, 0.08, 0.12, 0.96)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.85, 0.72, 0.35, 0.85)
+border_color = Color(0.85, 0.72, 0.35, 0.9)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-content_margin_bottom = 8.0
-bg_color = Color(0.04, 0.05, 0.08, 0.8)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avatar_frame"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.03, 0.04, 0.06, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.3, 0.35, 0.45, 0.5)
+border_color = Color(0.85, 0.72, 0.35, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+bg_color = Color(0.03, 0.04, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.32, 0.42, 0.5)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.09, 0.11, 0.16, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.5, 0.65, 0.6)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pitch"]
-content_margin_left = 12.0
-content_margin_top = 4.0
-content_margin_right = 12.0
-content_margin_bottom = 4.0
-bg_color = Color(0.65, 0.45, 0.15, 0.9)
+content_margin_left = 14.0
+content_margin_top = 5.0
+content_margin_right = 14.0
+content_margin_bottom = 5.0
+bg_color = Color(0.65, 0.42, 0.12, 0.92)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(1, 0.85, 0.4, 0.7)
+border_color = Color(1, 0.85, 0.4, 0.85)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -76,18 +108,28 @@ content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
 content_margin_bottom = 4.0
-bg_color = Color(0.65, 0.18, 0.18, 0.85)
+bg_color = Color(0.6, 0.18, 0.18, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.45, 0.45, 0.8)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_send"]
-content_margin_left = 14.0
-content_margin_top = 4.0
-content_margin_right = 14.0
-content_margin_bottom = 4.0
-bg_color = Color(0.2, 0.48, 0.78, 0.9)
+content_margin_left = 16.0
+content_margin_top = 5.0
+content_margin_right = 16.0
+content_margin_bottom = 5.0
+bg_color = Color(0.18, 0.42, 0.72, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.8, 1, 0.85)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -116,9 +158,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -110.0
+offset_left = -120.0
 offset_top = -80.0
-offset_right = 110.0
+offset_right = 120.0
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -127,7 +169,7 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
 theme_override_styles/hover = SubResource("StyleBoxFlat_prompt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_prompt")
-text = "💬 Chat with Barnaby"
+text = "💬 [E] Chat with Barnaby"
 
 [node name="ChatWindow" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -138,9 +180,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -460.0
-offset_top = -240.0
-offset_right = 460.0
+offset_left = -480.0
+offset_top = -250.0
+offset_right = 480.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -154,25 +196,29 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="NPCAvatar" type="ColorRect" parent="ChatWindow/VBox/HeaderHBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 18)
+[node name="AvatarFrame" type="PanelContainer" parent="ChatWindow/VBox/HeaderHBox"]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_avatar_frame")
+
+[node name="NPCAvatar" type="ColorRect" parent="ChatWindow/VBox/HeaderHBox/AvatarFrame"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
 color = Color(0.2, 0.7, 0.35, 1)
 
 [node name="TargetLabel" type="Label" parent="ChatWindow/VBox/HeaderHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_colors/font_color = Color(1, 0.88, 0.38, 1)
 theme_override_font_sizes/font_size = 14
-text = "💬 Marla (Empathetic Baker)"
+text = "Marla (Empathetic Baker)"
 
 [node name="NPCStatsLabel" type="Label" parent="ChatWindow/VBox/HeaderHBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.9, 1, 1)
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 13
 text = "Trust: 65% | Suspicion: 10% | Daily Budget: 220 / 220 Kurtos"
 
@@ -216,12 +262,13 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 13
-placeholder_text = "Type your message or pitch a con..."
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+placeholder_text = "Type your pitch or message..."
 clear_button_enabled = true
 
 [node name="PitchBtn" type="Button" parent="ChatWindow/VBox/InputHBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(95, 32)
+custom_minimum_size = Vector2(100, 32)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
 theme_override_font_sizes/font_size = 12
@@ -230,7 +277,7 @@ text = "💡 Pitch Scam"
 
 [node name="SendBtn" type="Button" parent="ChatWindow/VBox/InputHBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(65, 32)
+custom_minimum_size = Vector2(70, 32)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
