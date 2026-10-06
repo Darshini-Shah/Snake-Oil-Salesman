@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/virtual_joystick.gd" id="1_pakk4"]
 
+
 [node name="VirtualJoystick" type="Control" unique_id=1349905577]
 layout_mode = 3
 anchors_preset = 2

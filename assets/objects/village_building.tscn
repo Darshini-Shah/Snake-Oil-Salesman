@@ -2,24 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/village_building.gd" id="1_bld"]
 
+[ext_resource type="Theme" path="res://ui/themes/medieval_theme.tres" id="medieval"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_footprint"]
 size = Vector2(140, 60)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sign"]
-content_margin_left = 6.0
-content_margin_top = 2.0
-content_margin_right = 6.0
-content_margin_bottom = 2.0
-bg_color = Color(0.12, 0.08, 0.05, 0.85)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7, 0.5, 0.25, 0.9)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [node name="VillageBuilding" type="StaticBody2D"]
 script = ExtResource("1_bld")
@@ -35,6 +21,9 @@ shape = SubResource("RectangleShape2D_footprint")
 disabled = true
 
 [node name="NameLabel" type="Label" parent="."]
+theme_type_variation = &"WorldLabel"
+theme = ExtResource("medieval")
+texture_filter = 1
 z_index = 5
 anchors_preset = 7
 anchor_left = 0.5
@@ -47,7 +36,6 @@ offset_right = 60.0
 offset_bottom = -98.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_sign")
 theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
 theme_override_font_sizes/font_size = 11
 horizontal_alignment = 1

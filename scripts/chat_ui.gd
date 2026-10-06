@@ -25,6 +25,7 @@ var active_npc: Node2D = null
 var is_chatting: bool = false
 var conversation_history: Array = []
 var _last_sent_text: String = ""
+var mobile_input: bool = false
 
 
 func _ready() -> void:
@@ -36,6 +37,7 @@ func _ready() -> void:
 	close_btn.pressed.connect(_on_close_pressed)
 	pitch_btn.pressed.connect(_on_pitch_pressed)
 	message_input.text_submitted.connect(_on_message_submitted)
+	message_input.focus_exited.connect(_hide_mobile_keyboard)
 	
 	if local_llm:
 		local_llm.connect("response_generated", Callable(self, "_on_llm_response_generated"))
@@ -61,9 +63,27 @@ func _bind_npc(npc: Node2D) -> void:
 			npc.connect("social_state_changed", Callable(self, "_on_npc_social_state_changed"))
 
 
+func _input(event: InputEvent) -> void:
+	if not mobile_input or not message_input.has_focus():
+		return
+	var pressed: bool = (event is InputEventScreenTouch and event.pressed) or (
+		event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT)
+	if pressed and not message_input.get_global_rect().has_point(event.position):
+		# Leave the event available to the button/scroll control being tapped.
+		message_input.release_focus()
+
+
+func _hide_mobile_keyboard() -> void:
+	if mobile_input and DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD):
+		DisplayServer.virtual_keyboard_hide()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and is_chatting:
-		end_conversation()
+		if mobile_input and message_input.has_focus():
+			message_input.release_focus()
+		else:
+			end_conversation()
 	elif event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_E and active_npc != null and not is_chatting:
 			start_conversation(active_npc)
@@ -101,9 +121,9 @@ func _update_prompt_button() -> void:
 	
 	if is_refusing:
 		var timer_sec: int = int(ceil(float(active_npc.get("refusal_timer")))) if "refusal_timer" in active_npc else 0
-		chat_prompt_btn.text = "🚫 %s refuses to talk (%ds)" % [name_str, timer_sec]
+		chat_prompt_btn.text = "%s refuses to talk (%ds)" % [name_str, timer_sec]
 	else:
-		chat_prompt_btn.text = "💬 Chat with %s" % name_str
+		chat_prompt_btn.text = "Chat with %s" % name_str
 	chat_prompt_btn.visible = true
 
 
@@ -138,7 +158,7 @@ func start_conversation(npc: Node2D) -> void:
 	
 	var name_str: String = str(npc.get("npc_name")) if "npc_name" in npc else "Resident"
 	var occ_str: String = str(npc.get("npc_title")) if "npc_title" in npc else "Townsperson"
-	target_label.text = "💬 %s (%s)" % [name_str, occ_str]
+	target_label.text = "%s (%s)" % [name_str, occ_str]
 	
 	if npc_avatar and "npc_color" in npc:
 		npc_avatar.color = npc.get("npc_color")
@@ -167,7 +187,8 @@ func start_conversation(npc: Node2D) -> void:
 	message_input.text = ""
 	message_input.placeholder_text = "Type your message or pitch a con to %s..." % name_str
 	chat_window.visible = true
-	message_input.grab_focus()
+	if not mobile_input:
+		message_input.grab_focus()
 	
 	if npc.has_method("show_speech"):
 		npc.show_speech(greeting, name_str)
@@ -254,14 +275,16 @@ func _on_send_pressed() -> void:
 		return
 	
 	_last_sent_text = text
+	if mobile_input:
+		message_input.release_focus()
 	conversation_history.append("PLAYER: \"%s\"" % text)
 	message_input.text = ""
 	
 	var name_str: String = str(active_npc.get("npc_name")) if "npc_name" in active_npc else "Resident"
 	
 	# Append player message into the visible chatbox log
-	dialogue_text.text += "\n\n[color=#70c0ff][b]You:[/b][/color] \"%s\"" % text
-	dialogue_text.text += "\n[color=#888888][i]%s is considering your words...[/i][/color]" % name_str
+	dialogue_text.text += "\n\n[color=#d8ba83][b]You:[/b][/color] \"%s\"" % text
+	dialogue_text.text += "\n[color=#b8aa93][i]%s is considering your words...[/i][/color]" % name_str
 	_scroll_dialogue_to_bottom()
 	
 	if active_npc.has_method("show_thinking"):
@@ -295,16 +318,16 @@ func _on_llm_response_generated(result: Dictionary) -> void:
 	var name_str: String = str(active_npc.get("npc_name")) if "npc_name" in active_npc else "Resident"
 	
 	# Strip temporary "is considering your words..." text
-	var thinking_tag := "\n[color=#888888][i]%s is considering your words...[/i][/color]" % name_str
+	var thinking_tag := "\n[color=#b8aa93][i]%s is considering your words...[/i][/color]" % name_str
 	dialogue_text.text = dialogue_text.text.replace(thinking_tag, "")
 	
 	# Display reply in the chatbox log
 	dialogue_text.text += "\n\n[color=#f5d76e][b]%s:[/b][/color] \"%s\"" % [name_str, reply]
 	
 	if transferred > 0:
-		dialogue_text.text += "\n[color=#55ff77]💰 Deal Concluded: Received +%d Kurtos![/color]" % transferred
+		dialogue_text.text += "\n[color=#b6d18b]Deal Concluded: Received +%d Kurtos![/color]" % transferred
 	elif outcome == ScamManager.ScamOutcome.FAILED_EXPOSED:
-		dialogue_text.text += "\n[color=#ff5555]⚠️ Bluff Caught: Suspicion escalated![/color]"
+		dialogue_text.text += "\n[color=#f0a080]Bluff Caught: Suspicion escalated![/color]"
 	
 	_scroll_dialogue_to_bottom()
 	
@@ -315,7 +338,8 @@ func _on_llm_response_generated(result: Dictionary) -> void:
 	
 	if is_chatting:
 		_update_header_stats()
-		message_input.grab_focus()
+		if not mobile_input:
+			message_input.grab_focus()
 
 
 func _resolve_interaction(llm_result: Dictionary) -> Dictionary:

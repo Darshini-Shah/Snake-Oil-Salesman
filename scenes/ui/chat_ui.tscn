@@ -3,139 +3,11 @@
 [ext_resource type="Script" path="res://scripts/chat_ui.gd" id="1_chat"]
 [ext_resource type="Script" path="res://scripts/local_llm.gd" id="2_llm"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.12, 0.1, 0.06, 0.94)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.92, 0.78, 0.32, 0.95)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.45)
-shadow_size = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_window"]
-content_margin_left = 18.0
-content_margin_top = 12.0
-content_margin_right = 18.0
-content_margin_bottom = 14.0
-bg_color = Color(0.06, 0.08, 0.12, 0.96)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.85, 0.72, 0.35, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.55)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avatar_frame"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.03, 0.04, 0.06, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.85, 0.72, 0.35, 0.8)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
-content_margin_left = 14.0
-content_margin_top = 10.0
-content_margin_right = 14.0
-content_margin_bottom = 10.0
-bg_color = Color(0.03, 0.04, 0.07, 0.85)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.28, 0.32, 0.42, 0.5)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
-content_margin_left = 12.0
-content_margin_top = 6.0
-content_margin_right = 12.0
-content_margin_bottom = 6.0
-bg_color = Color(0.09, 0.11, 0.16, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.5, 0.65, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pitch"]
-content_margin_left = 14.0
-content_margin_top = 5.0
-content_margin_right = 14.0
-content_margin_bottom = 5.0
-bg_color = Color(0.65, 0.42, 0.12, 0.92)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 0.85, 0.4, 0.85)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.6, 0.18, 0.18, 0.88)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.95, 0.45, 0.45, 0.8)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_send"]
-content_margin_left = 16.0
-content_margin_top = 5.0
-content_margin_right = 16.0
-content_margin_bottom = 5.0
-bg_color = Color(0.18, 0.42, 0.72, 0.92)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.6, 0.8, 1, 0.85)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="Theme" path="res://ui/themes/medieval_theme.tres" id="medieval"]
 
 [node name="ChatUI" type="Control"]
+texture_filter = 1
+theme = ExtResource("medieval")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,90 +36,89 @@ offset_right = 120.0
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_prompt")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_prompt")
-text = "💬 [E] Chat with Barnaby"
+text = "[E] Chat with Barnaby"
 
 [node name="ChatWindow" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchor_top = 0.46
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -250.0
-offset_right = 480.0
-offset_bottom = -16.0
+offset_left = 12.0
+offset_top = 0.0
+offset_right = -12.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_window")
 
 [node name="VBox" type="VBoxContainer" parent="ChatWindow"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
-[node name="HeaderHBox" type="HBoxContainer" parent="ChatWindow/VBox"]
+[node name="BodyScroll" type="ScrollContainer" parent="ChatWindow/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Body" type="VBoxContainer" parent="ChatWindow/VBox/BodyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeaderHBox" type="HBoxContainer" parent="ChatWindow/VBox/BodyScroll/Body"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="AvatarFrame" type="PanelContainer" parent="ChatWindow/VBox/HeaderHBox"]
+[node name="AvatarFrame" type="PanelContainer" parent="ChatWindow/VBox/BodyScroll/Body/HeaderHBox"]
+theme_type_variation = &"Inset"
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_avatar_frame")
 
-[node name="NPCAvatar" type="ColorRect" parent="ChatWindow/VBox/HeaderHBox/AvatarFrame"]
+[node name="NPCAvatar" type="ColorRect" parent="ChatWindow/VBox/BodyScroll/Body/HeaderHBox/AvatarFrame"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 color = Color(0.2, 0.7, 0.35, 1)
 
-[node name="TargetLabel" type="Label" parent="ChatWindow/VBox/HeaderHBox"]
+[node name="TargetLabel" type="Label" parent="ChatWindow/VBox/BodyScroll/Body/HeaderHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.88, 0.38, 1)
-theme_override_font_sizes/font_size = 14
 text = "Marla (Empathetic Baker)"
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 18
 
-[node name="NPCStatsLabel" type="Label" parent="ChatWindow/VBox/HeaderHBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
-theme_override_font_sizes/font_size = 13
-text = "Trust: 65% | Suspicion: 10% | Daily Budget: 220 / 220 Kurtos"
-
-[node name="CloseBtn" type="Button" parent="ChatWindow/VBox/HeaderHBox"]
+[node name="CloseBtn" type="Button" parent="ChatWindow/VBox/BodyScroll/Body/HeaderHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 26)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleBoxFlat_close")
-text = "✕"
+text = "Close"
+tooltip_text = "End conversation (Escape)"
 
-[node name="DialoguePanel" type="PanelContainer" parent="ChatWindow/VBox"]
+[node name="NPCStatsLabel" type="Label" parent="ChatWindow/VBox/BodyScroll/Body"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Trust: 65% | Suspicion: 10% | Daily Budget: 220 / 220 Kurtos"
+
+[node name="DialoguePanel" type="PanelContainer" parent="ChatWindow/VBox/BodyScroll/Body"]
+custom_minimum_size = Vector2(0, 88)
+theme_type_variation = &"Inset"
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue")
 
-[node name="DialogueScroll" type="ScrollContainer" parent="ChatWindow/VBox/DialoguePanel"]
+[node name="DialogueScroll" type="ScrollContainer" parent="ChatWindow/VBox/BodyScroll/Body/DialoguePanel"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="DialogueText" type="RichTextLabel" parent="ChatWindow/VBox/DialoguePanel/DialogueScroll"]
+[node name="DialogueText" type="RichTextLabel" parent="ChatWindow/VBox/BodyScroll/Body/DialoguePanel/DialogueScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_colors/default_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
 text = "[color=#f5d76e][b]Marla:[/b][/color] Hello traveler! What can I do for you today?"
 fit_content = true
@@ -261,25 +132,19 @@ theme_override_constants/separation = 8
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleBoxFlat_input")
 placeholder_text = "Type your pitch or message..."
+expand_to_text_length = false
 clear_button_enabled = true
 
 [node name="PitchBtn" type="Button" parent="ChatWindow/VBox/InputHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 32)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_pitch")
-text = "💡 Pitch Scam"
+text = "Suggest pitch"
+tooltip_text = "Prepare a suggested pitch; Send submits it."
 
 [node name="SendBtn" type="Button" parent="ChatWindow/VBox/InputHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 32)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleBoxFlat_send")
 text = "Send"

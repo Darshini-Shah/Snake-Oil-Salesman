@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/virtual_joystick.tscn" id="20_joy"]
 [ext_resource type="PackedScene" path="res://scenes/ui/chat_ui.tscn" id="21_chat"]
 
+[ext_resource type="Script" path="res://scripts/mobile_ui_layout.gd" id="22_layout"]
+
 [node name="Main" type="Node2D"]
 
 [node name="BoundaryBox" parent="." instance=ExtResource("1_bounds")]
@@ -237,3 +239,6 @@ challenge_message = "HALT! The Treasury Vault is restricted to authorized person
 [node name="VirtualJoystick" parent="UI" instance=ExtResource("20_joy")]
 
 [node name="ChatUI" parent="UI" instance=ExtResource("21_chat")]
+
+[node name="MobileUILayout" type="Node" parent="UI"]
+script = ExtResource("22_layout")

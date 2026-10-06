@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/guard.gd" id="1_guard"]
 
+[ext_resource type="Theme" path="res://ui/themes/medieval_theme.tres" id="medieval"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guard"]
 size = Vector2(32, 32)
 
@@ -28,6 +30,9 @@ shape = SubResource("RectangleShape2D_guard")
 shape = SubResource("CircleShape2D_detect")
 
 [node name="AlertIndicator" type="Label" parent="."]
+theme_type_variation = &"WorldLabel"
+theme = ExtResource("medieval")
+texture_filter = 1
 visible = false
 anchors_preset = 7
 anchor_left = 0.5

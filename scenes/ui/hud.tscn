@@ -2,150 +2,19 @@
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
-content_margin_left = 16.0
-content_margin_top = 6.0
-content_margin_right = 16.0
-content_margin_bottom = 6.0
-bg_color = Color(0.08, 0.1, 0.14, 0.94)
-border_width_bottom = 2
-border_color = Color(0.85, 0.72, 0.35, 0.85)
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.4)
-shadow_size = 6
+[ext_resource type="Theme" path="res://ui/themes/medieval_theme.tres" id="medieval"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip_gold"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.14, 0.12, 0.08, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.85, 0.7, 0.25, 0.75)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="Texture2D" path="res://assets/ui/medieval_fantasy/UI Icons 3/icon4.png" id="icon_Kurtos"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip_slate"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.11, 0.13, 0.18, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.55, 0.75, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="Texture2D" path="res://assets/ui/medieval_fantasy/UI Icons 3/icon59.png" id="icon_Day"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip_rep"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.09, 0.14, 0.18, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.3, 0.75, 0.9, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="Texture2D" path="res://assets/ui/medieval_fantasy/UI Icons 3/icon63.png" id="icon_Trust"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip_inv"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.12, 0.15, 0.14, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.75, 0.5, 0.6)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
-content_margin_left = 12.0
-content_margin_top = 4.0
-content_margin_right = 12.0
-content_margin_bottom = 4.0
-bg_color = Color(0.22, 0.42, 0.68, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7, 0.85, 1, 0.8)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-content_margin_left = 12.0
-content_margin_top = 4.0
-content_margin_right = 12.0
-content_margin_bottom = 4.0
-bg_color = Color(0.28, 0.52, 0.82, 0.95)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 0.9, 0.5, 0.9)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
-content_margin_left = 12.0
-content_margin_top = 4.0
-content_margin_right = 12.0
-content_margin_bottom = 4.0
-bg_color = Color(0.16, 0.32, 0.52, 0.95)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.5, 0.7, 0.9, 0.8)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toast"]
-content_margin_left = 18.0
-content_margin_top = 8.0
-content_margin_right = 18.0
-content_margin_bottom = 8.0
-bg_color = Color(0.08, 0.14, 0.1, 0.96)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.25, 0.85, 0.45, 0.9)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.45)
-shadow_size = 6
+[ext_resource type="Texture2D" path="res://assets/ui/medieval_fantasy/UI Icons 3/icon33.png" id="icon_Inventory"]
 
 [node name="HUD" type="Control"]
+texture_filter = 1
+theme = ExtResource("medieval")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -160,91 +29,111 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 8.0
-offset_top = 4.0
+offset_top = 8.0
 offset_right = -8.0
 offset_bottom = 48.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
 
-[node name="HBox" type="HBoxContainer" parent="TopPanel"]
+[node name="Ledger" type="VBoxContainer" parent="TopPanel"]
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="KurtosChip" type="PanelContainer" parent="TopPanel/HBox"]
+[node name="HBox" type="HFlowContainer" parent="TopPanel/Ledger"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_chip_gold")
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 4
 
-[node name="KurtosLabel" type="Label" parent="TopPanel/HBox/KurtosChip"]
+[node name="KurtosChip" type="HBoxContainer" parent="TopPanel/Ledger/HBox"]
+layout_mode = 2
+
+[node name="KurtosIcon" type="TextureRect" parent="TopPanel/Ledger/HBox/KurtosChip"]
+layout_mode = 2
+custom_minimum_size = Vector2(32, 32)
+size_flags_vertical = 4
+texture = ExtResource("icon_Kurtos")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="KurtosLabel" type="Label" parent="TopPanel/Ledger/HBox/KurtosChip"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.88, 0.35, 1)
-theme_override_font_sizes/font_size = 13
-text = "💰 50 / 1,000,000 Kurtos"
+text = "50 / 1,000,000 Kurtos"
 
-[node name="DayChip" type="PanelContainer" parent="TopPanel/HBox"]
+[node name="DayChip" type="HBoxContainer" parent="TopPanel/Ledger/HBox"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_chip_slate")
 
-[node name="DayLabel" type="Label" parent="TopPanel/HBox/DayChip"]
+[node name="DayIcon" type="TextureRect" parent="TopPanel/Ledger/HBox/DayChip"]
+layout_mode = 2
+custom_minimum_size = Vector2(32, 32)
+size_flags_vertical = 4
+texture = ExtResource("icon_Day")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="DayLabel" type="Label" parent="TopPanel/Ledger/HBox/DayChip"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.94, 0.96, 1)
-theme_override_font_sizes/font_size = 13
-text = "📅 Day 1 / 30"
+text = "Day 1 / 30"
 
-[node name="TrustChip" type="PanelContainer" parent="TopPanel/HBox"]
+[node name="TrustChip" type="HBoxContainer" parent="TopPanel/Ledger/HBox"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_chip_rep")
 
-[node name="TrustLabel" type="Label" parent="TopPanel/HBox/TrustChip"]
+[node name="TrustIcon" type="TextureRect" parent="TopPanel/Ledger/HBox/TrustChip"]
+layout_mode = 2
+custom_minimum_size = Vector2(32, 32)
+size_flags_vertical = 4
+texture = ExtResource("icon_Trust")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="TrustLabel" type="Label" parent="TopPanel/Ledger/HBox/TrustChip"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
-theme_override_font_sizes/font_size = 13
-text = "🤝 Reputation: 25%"
+text = "Reputation: 25%"
 
-[node name="InventoryChip" type="PanelContainer" parent="TopPanel/HBox"]
+[node name="AdvanceDayBtn" type="Button" parent="TopPanel/Ledger/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Advance Day"
+
+[node name="InventoryChip" type="HBoxContainer" parent="TopPanel/Ledger"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_chip_inv")
 
-[node name="InventoryLabel" type="Label" parent="TopPanel/HBox/InventoryChip"]
+[node name="InventoryIcon" type="TextureRect" parent="TopPanel/Ledger/InventoryChip"]
+layout_mode = 2
+custom_minimum_size = Vector2(32, 32)
+size_flags_vertical = 4
+texture = ExtResource("icon_Inventory")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="InventoryLabel" type="Label" parent="TopPanel/Ledger/InventoryChip"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.95, 0.85, 1)
-theme_override_font_sizes/font_size = 12
-text = "🎒 Empty"
+text = "Inventory: Empty"
+size_flags_horizontal = 3
 text_overrun_behavior = 3
-
-[node name="AdvanceDayBtn" type="Button" parent="TopPanel/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-text = "Advance Day ⏭"
 
 [node name="ToastPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -220.0
-offset_top = 56.0
-offset_right = 220.0
-offset_bottom = 98.0
+anchor_left = 0.0
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 156.0
+offset_right = -12.0
+offset_bottom = 198.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_toast")
 
 [node name="ToastLabel" type="Label" parent="ToastPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
 text = "Notification"
 horizontal_alignment = 1
 autowrap_mode = 2
