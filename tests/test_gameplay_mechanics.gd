@@ -20,6 +20,7 @@ func _init() -> void:
 	test_day_rollover_resets()
 	test_malformed_llm_response_parsing()
 	test_phantom_item_detection_and_physical_evidence()
+	test_building_colliders_match_assets()
 	
 	print("\n-------------------------------------------------------")
 	print("🏁 TEST RESULTS: %d PASSED, %d FAILED" % [passed_count, failed_count])
@@ -340,3 +341,46 @@ func test_phantom_item_detection_and_physical_evidence() -> void:
 	var res_backed := ScamManager.evaluate_pitch(barnaby_data, fabric_pitch, llm_response_backed, inv_with_fabric, 25)
 	assert_true(res_backed.score > res_phantom.score, "Backing up pitch with genuine physical inventory sample gives massive score boost")
 	assert_eq(res_backed.outcome, ScamManager.ScamOutcome.SUCCESS, "Pitch with physical merchandise in inventory succeeds")
+
+
+func test_building_colliders_match_assets() -> void:
+	print("\n▶ Testing Building Colliders Match Visual Assets...")
+	
+	var scene: PackedScene = load("res://scenes/main.tscn")
+	assert_true(scene != null, "scenes/main.tscn loads successfully")
+	var instance := scene.instantiate()
+	root.add_child(instance)
+	
+	var buildings_node := instance.get_node_or_null("Buildings")
+	assert_true(buildings_node != null, "Buildings container exists in scene")
+	
+	for bld_name in ["BakeryBuilding", "MerchantShop", "ChurchBuilding"]:
+		var bld := buildings_node.get_node_or_null(bld_name) as VillageBuilding
+		assert_true(bld != null, "%s exists in scene" % bld_name)
+		if bld == null:
+			continue
+		
+		var col_poly := bld.get_node_or_null("CollisionPolygon2D") as CollisionPolygon2D
+		assert_true(col_poly != null, "%s has CollisionPolygon2D" % bld_name)
+		if col_poly != null:
+			assert_true(not col_poly.disabled, "%s CollisionPolygon2D is enabled" % bld_name)
+			assert_true(col_poly.polygon.size() >= 20, "%s polygon has matching detailed vertex count (%d pts)" % [bld_name, col_poly.polygon.size()])
+		
+		var col_shape := bld.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		if col_shape != null:
+			assert_true(col_shape.disabled, "%s legacy rectangular shape is disabled" % bld_name)
+	
+	# Test auto-generation from texture
+	var dynamic_bld := VillageBuilding.new()
+	dynamic_bld.building_texture = load("res://assets/village_top_down/TILESET VILLAGE TOP DOWN/HOUSE 1 - DAY.png")
+	dynamic_bld.match_asset_collider = true
+	var dynamic_poly := CollisionPolygon2D.new()
+	dynamic_bld.add_child(dynamic_poly)
+	root.add_child(dynamic_bld)
+	dynamic_bld._update_collision()
+	assert_true(dynamic_poly.polygon.size() >= 20, "Dynamic VillageBuilding automatically extracts matching polygon from texture")
+	assert_true(not dynamic_poly.disabled, "Dynamic VillageBuilding collision polygon is enabled")
+	
+	dynamic_bld.queue_free()
+	instance.queue_free()
+
