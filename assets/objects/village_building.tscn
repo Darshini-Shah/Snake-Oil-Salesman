@@ -27,9 +27,12 @@ script = ExtResource("1_bld")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 35)
 shape = SubResource("RectangleShape2D_footprint")
+disabled = true
 
 [node name="NameLabel" type="Label" parent="."]
 z_index = 5

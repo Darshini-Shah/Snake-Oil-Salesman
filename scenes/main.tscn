@@ -56,7 +56,7 @@ stretch_mode = 1
 offset_left = 230.0
 offset_top = 390.0
 offset_right = 330.0
-offset_bottom = 560.0
+offset_bottom = 620.0
 texture = ExtResource("3_ground")
 stretch_mode = 1
 
@@ -130,22 +130,19 @@ tile_count = 6
 position = Vector2(180, 130)
 building_texture = ExtResource("4_house1")
 building_name = "Marla's Bakery"
-footprint_size = Vector2(130, 50)
-footprint_offset = Vector2(0, 35)
+custom_polygon = PackedVector2Array(-10, -96, -12, -88, -20, -80, -24, -86, -54, -84, -50, -50, -76, -24, -76, -12, -80, -8, -80, 10, -76, 12, -80, 16, -80, 32, -70, 34, -70, 48, -66, 48, -70, 56, -70, 86, -62, 94, -28, 94, -16, 110, 14, 110, 26, 94, 60, 94, 68, 86, 68, 56, 64, 48, 68, 48, 68, 34, 78, 32, 78, 16, 74, 12, 78, 10, 78, -8, 74, -12, 74, -24, 10, -88, 10, -94)
 
 [node name="MerchantShop" parent="Buildings" instance=ExtResource("11_bld")]
 position = Vector2(550, 240)
 building_texture = ExtResource("5_house2")
 building_name = "Barnaby's Curiosities"
-footprint_size = Vector2(210, 50)
-footprint_offset = Vector2(0, 35)
+custom_polygon = PackedVector2Array(-128, -32, -128, -20, -124, -18, -128, -8, -128, 10, -124, 12, -128, 16, -128, 32, -118, 34, -118, 48, -114, 48, -118, 56, -118, 86, -110, 94, -76, 94, -64, 110, -34, 110, -22, 94, 16, 94, 24, 86, 22, 74, 26, 64, 118, 64, 122, 60, 124, -40, 16, -40, 14, -48, -38, -100, -40, -108, -58, -108, -60, -100)
 
 [node name="ChurchBuilding" parent="Buildings" instance=ExtResource("11_bld")]
 position = Vector2(280, 460)
 building_texture = ExtResource("6_church")
 building_name = "Town Chapel"
-footprint_size = Vector2(210, 50)
-footprint_offset = Vector2(0, 35)
+custom_polygon = PackedVector2Array(-128, -36, -124, 76, -118, 80, -70, 80, -64, 94, -36, 96, -26, 110, 24, 110, 34, 96, 62, 94, 68, 80, 114, 80, 122, 70, 124, -40, 64, -40, 62, -48, 10, -100, 8, -108, -10, -108, -12, -100, -72, -40, -126, -40)
 
 [node name="RestrictedArea" parent="." instance=ExtResource("14_restr")]
 position = Vector2(983, 440)
@@ -154,7 +151,7 @@ size = Vector2(260, 160)
 warning_message = "TREASURY VAULT: High security zone. Trespassing is forbidden!"
 
 [node name="Chest_BeggarsRobe" parent="." instance=ExtResource("18_chest")]
-position = Vector2(80, 215)
+position = Vector2(80, 260)
 item_id = "beggars_robe"
 item_name = "Beggar's Robe"
 item_description = "A ragged robe that stirs deep empathy in compassionate townspeople."
@@ -168,24 +165,24 @@ item_description = "A brass monocle that grants an aura of refined pedigree and 
 chest_color = Color(0.9, 0.75, 0.2, 1)
 
 [node name="Chest_Fabric" parent="." instance=ExtResource("18_chest")]
-position = Vector2(400, 345)
+position = Vector2(440, 375)
 item_id = "fabric_sample"
 item_name = "Vibrant Silk Swatch"
 item_description = "A lustrous scrap of royal purple silk with gold embroidery. Convinces merchants of fine tailoring credentials."
 chest_color = Color(0.75, 0.25, 0.85, 1)
 
 [node name="Chest_Tonic" parent="." instance=ExtResource("18_chest")]
-position = Vector2(170, 545)
+position = Vector2(200, 595)
 item_id = "miracle_tonic_sample"
 item_name = "Miracle Tonic Sample"
 item_description = "A glowing glass phial of colored aromatic tincture. Convinces superstitious folk of miraculous cures."
 chest_color = Color(0.15, 0.75, 0.75, 1)
 
 [node name="Player" parent="." instance=ExtResource("15_player")]
-position = Vector2(360, 345)
+position = Vector2(360, 370)
 
 [node name="NPC_Barnaby" parent="." instance=ExtResource("16_npc")]
-position = Vector2(550, 345)
+position = Vector2(550, 375)
 npc_name = "Barnaby"
 npc_title = "Curious Merchant"
 npc_data_file = "res://data/npcs/barnaby_merchant.json"
@@ -196,7 +193,7 @@ gold = 1200
 max_daily_spend = 350
 
 [node name="NPC_Marla" parent="." instance=ExtResource("16_npc")]
-position = Vector2(180, 215)
+position = Vector2(180, 265)
 npc_name = "Marla"
 npc_title = "Empathetic Baker"
 npc_data_file = "res://data/npcs/marla_baker.json"
@@ -218,7 +215,7 @@ gold = 8500
 max_daily_spend = 1200
 
 [node name="NPC_Arthur" parent="." instance=ExtResource("16_npc")]
-position = Vector2(280, 545)
+position = Vector2(280, 595)
 npc_name = "Old Arthur"
 npc_title = "Superstitious Elder"
 npc_data_file = "res://data/npcs/arthur_elder.json"
