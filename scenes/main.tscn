@@ -1,69 +1,191 @@
 [gd_scene format=3 uid="uid://dcu0b1bl3fns0"]
 
 [ext_resource type="PackedScene" path="res://assets/objects/boundary_box.tscn" id="1_bounds"]
-[ext_resource type="PackedScene" path="res://assets/objects/wall.tscn" id="2_wall"]
-[ext_resource type="PackedScene" path="res://assets/objects/restricted_area.tscn" id="3_restr"]
-[ext_resource type="PackedScene" path="res://assets/characters/player.tscn" id="4_player"]
-[ext_resource type="PackedScene" path="res://assets/characters/npc.tscn" id="5_npc"]
-[ext_resource type="PackedScene" path="res://assets/characters/guard.tscn" id="6_guard"]
-[ext_resource type="PackedScene" path="res://assets/objects/item_chest.tscn" id="7_chest"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="8_hud"]
-[ext_resource type="PackedScene" path="res://scenes/ui/virtual_joystick.tscn" id="9_joy"]
-[ext_resource type="PackedScene" path="res://scenes/ui/chat_ui.tscn" id="10_chat"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/GRASS TILE - DAY.png" id="2_grass"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/GROUND TILE - DAY.png" id="3_ground"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/HOUSE 1 - DAY.png" id="4_house1"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/HOUSE 2 - DAY.png" id="5_house2"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/CHURCH - DAY.png" id="6_church"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/TREE 1 - DAY.png" id="7_tree1"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/TREE 2 - DAY.png" id="8_tree2"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/TREE 3 - DAY.png" id="9_tree3"]
+[ext_resource type="Texture2D" path="res://assets/village_top_down/TILESET VILLAGE TOP DOWN/FENCE 1 - DAY.png" id="10_fence1"]
+[ext_resource type="PackedScene" path="res://assets/objects/village_building.tscn" id="11_bld"]
+[ext_resource type="PackedScene" path="res://assets/objects/village_tree.tscn" id="12_tree"]
+[ext_resource type="PackedScene" path="res://assets/objects/village_fence.tscn" id="13_fence"]
+[ext_resource type="PackedScene" path="res://assets/objects/restricted_area.tscn" id="14_restr"]
+[ext_resource type="PackedScene" path="res://assets/characters/player.tscn" id="15_player"]
+[ext_resource type="PackedScene" path="res://assets/characters/npc.tscn" id="16_npc"]
+[ext_resource type="PackedScene" path="res://assets/characters/guard.tscn" id="17_guard"]
+[ext_resource type="PackedScene" path="res://assets/objects/item_chest.tscn" id="18_chest"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="19_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/virtual_joystick.tscn" id="20_joy"]
+[ext_resource type="PackedScene" path="res://scenes/ui/chat_ui.tscn" id="21_chat"]
 
 [node name="Main" type="Node2D"]
 
 [node name="BoundaryBox" parent="." instance=ExtResource("1_bounds")]
 
-[node name="Walls" type="Node2D" parent="."]
+[node name="Ground" type="Node2D" parent="."]
 
-[node name="Wall_Partition" parent="Walls" instance=ExtResource("2_wall")]
-position = Vector2(360, 220)
-size = Vector2(24, 140)
+[node name="GrassBackground" type="TextureRect" parent="Ground"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1180.0
+offset_bottom = 680.0
+texture = ExtResource("2_grass")
+stretch_mode = 1
 
-[node name="Wall_Courtyard" parent="Walls" instance=ExtResource("2_wall")]
-position = Vector2(500, 480)
-size = Vector2(320, 24)
+[node name="PlazaCenter" type="TextureRect" parent="Ground"]
+offset_left = 220.0
+offset_top = 280.0
+offset_right = 800.0
+offset_bottom = 410.0
+texture = ExtResource("3_ground")
+stretch_mode = 1
 
-[node name="RestrictedArea" parent="." instance=ExtResource("3_restr")]
-position = Vector2(983, 403)
+[node name="BakeryPath" type="TextureRect" parent="Ground"]
+offset_left = 130.0
+offset_top = 190.0
+offset_right = 230.0
+offset_bottom = 300.0
+texture = ExtResource("3_ground")
+stretch_mode = 1
+
+[node name="ChurchPath" type="TextureRect" parent="Ground"]
+offset_left = 230.0
+offset_top = 390.0
+offset_right = 330.0
+offset_bottom = 560.0
+texture = ExtResource("3_ground")
+stretch_mode = 1
+
+[node name="CedricPath" type="TextureRect" parent="Ground"]
+offset_left = 720.0
+offset_top = 170.0
+offset_right = 920.0
+offset_bottom = 270.0
+texture = ExtResource("3_ground")
+stretch_mode = 1
+
+[node name="VaultPath" type="TextureRect" parent="Ground"]
+offset_left = 770.0
+offset_top = 390.0
+offset_right = 980.0
+offset_bottom = 490.0
+texture = ExtResource("3_ground")
+stretch_mode = 1
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Tree_NW1" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(50, 70)
+tree_texture = ExtResource("7_tree1")
+
+[node name="Tree_NW2" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(340, 70)
+tree_texture = ExtResource("8_tree2")
+
+[node name="Tree_N1" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(740, 70)
+tree_texture = ExtResource("9_tree3")
+
+[node name="Tree_NE1" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(1060, 70)
+tree_texture = ExtResource("7_tree1")
+
+[node name="Tree_W1" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(40, 360)
+tree_texture = ExtResource("8_tree2")
+
+[node name="Tree_SW1" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(50, 600)
+tree_texture = ExtResource("9_tree3")
+
+[node name="Tree_S1" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(500, 600)
+tree_texture = ExtResource("7_tree1")
+
+[node name="Tree_S2" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(760, 600)
+tree_texture = ExtResource("8_tree2")
+
+[node name="Tree_Cedric" parent="Environment" instance=ExtResource("12_tree")]
+position = Vector2(930, 160)
+tree_texture = ExtResource("8_tree2")
+
+[node name="Fence_Cedric_Top" parent="Environment" instance=ExtResource("13_fence")]
+position = Vector2(880, 110)
+fence_texture = ExtResource("10_fence1")
+tile_count = 6
+
+[node name="Fence_Cedric_Bottom" parent="Environment" instance=ExtResource("13_fence")]
+position = Vector2(880, 270)
+fence_texture = ExtResource("10_fence1")
+tile_count = 6
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="BakeryBuilding" parent="Buildings" instance=ExtResource("11_bld")]
+position = Vector2(180, 130)
+building_texture = ExtResource("4_house1")
+building_name = "Marla's Bakery"
+footprint_size = Vector2(130, 50)
+footprint_offset = Vector2(0, 35)
+
+[node name="MerchantShop" parent="Buildings" instance=ExtResource("11_bld")]
+position = Vector2(550, 240)
+building_texture = ExtResource("5_house2")
+building_name = "Barnaby's Curiosities"
+footprint_size = Vector2(210, 50)
+footprint_offset = Vector2(0, 35)
+
+[node name="ChurchBuilding" parent="Buildings" instance=ExtResource("11_bld")]
+position = Vector2(280, 460)
+building_texture = ExtResource("6_church")
+building_name = "Town Chapel"
+footprint_size = Vector2(210, 50)
+footprint_offset = Vector2(0, 35)
+
+[node name="RestrictedArea" parent="." instance=ExtResource("14_restr")]
+position = Vector2(983, 440)
 area_name = "Treasury Vault"
-size = Vector2(280, 180)
+size = Vector2(260, 160)
 warning_message = "TREASURY VAULT: High security zone. Trespassing is forbidden!"
 
-[node name="Chest_BeggarsRobe" parent="." instance=ExtResource("7_chest")]
-position = Vector2(100, 260)
+[node name="Chest_BeggarsRobe" parent="." instance=ExtResource("18_chest")]
+position = Vector2(80, 215)
 item_id = "beggars_robe"
 item_name = "Beggar's Robe"
 item_description = "A ragged robe that stirs deep empathy in compassionate townspeople."
 chest_color = Color(0.6, 0.4, 0.2, 1)
 
-[node name="Chest_Monocle" parent="." instance=ExtResource("7_chest")]
-position = Vector2(740, 280)
+[node name="Chest_Monocle" parent="." instance=ExtResource("18_chest")]
+position = Vector2(730, 230)
 item_id = "monocle"
 item_name = "Gentleman's Monocle"
 item_description = "A brass monocle that grants an aura of refined pedigree and wealth."
 chest_color = Color(0.9, 0.75, 0.2, 1)
 
-[node name="Chest_Fabric" parent="." instance=ExtResource("7_chest")]
-position = Vector2(420, 260)
+[node name="Chest_Fabric" parent="." instance=ExtResource("18_chest")]
+position = Vector2(400, 345)
 item_id = "fabric_sample"
 item_name = "Vibrant Silk Swatch"
 item_description = "A lustrous scrap of royal purple silk with gold embroidery. Convinces merchants of fine tailoring credentials."
 chest_color = Color(0.75, 0.25, 0.85, 1)
 
-[node name="Chest_Tonic" parent="." instance=ExtResource("7_chest")]
-position = Vector2(140, 480)
+[node name="Chest_Tonic" parent="." instance=ExtResource("18_chest")]
+position = Vector2(170, 545)
 item_id = "miracle_tonic_sample"
 item_name = "Miracle Tonic Sample"
 item_description = "A glowing glass phial of colored aromatic tincture. Convinces superstitious folk of miraculous cures."
 chest_color = Color(0.15, 0.75, 0.75, 1)
 
-[node name="Player" parent="." instance=ExtResource("4_player")]
-position = Vector2(200, 340)
+[node name="Player" parent="." instance=ExtResource("15_player")]
+position = Vector2(360, 345)
 
-[node name="NPC_Barnaby" parent="." instance=ExtResource("5_npc")]
-position = Vector2(549, 352)
+[node name="NPC_Barnaby" parent="." instance=ExtResource("16_npc")]
+position = Vector2(550, 345)
 npc_name = "Barnaby"
 npc_title = "Curious Merchant"
 npc_data_file = "res://data/npcs/barnaby_merchant.json"
@@ -73,8 +195,8 @@ suspicion = 15
 gold = 1200
 max_daily_spend = 350
 
-[node name="NPC_Marla" parent="." instance=ExtResource("5_npc")]
-position = Vector2(180, 160)
+[node name="NPC_Marla" parent="." instance=ExtResource("16_npc")]
+position = Vector2(180, 215)
 npc_name = "Marla"
 npc_title = "Empathetic Baker"
 npc_data_file = "res://data/npcs/marla_baker.json"
@@ -84,8 +206,8 @@ suspicion = 10
 gold = 650
 max_daily_spend = 220
 
-[node name="NPC_Cedric" parent="." instance=ExtResource("5_npc")]
-position = Vector2(860, 200)
+[node name="NPC_Cedric" parent="." instance=ExtResource("16_npc")]
+position = Vector2(850, 190)
 npc_name = "Lord Cedric"
 npc_title = "Wealthy Aristocrat"
 npc_data_file = "res://data/npcs/cedric_aristocrat.json"
@@ -95,8 +217,8 @@ suspicion = 25
 gold = 8500
 max_daily_spend = 1200
 
-[node name="NPC_Arthur" parent="." instance=ExtResource("5_npc")]
-position = Vector2(250, 520)
+[node name="NPC_Arthur" parent="." instance=ExtResource("16_npc")]
+position = Vector2(280, 545)
 npc_name = "Old Arthur"
 npc_title = "Superstitious Elder"
 npc_data_file = "res://data/npcs/arthur_elder.json"
@@ -106,15 +228,15 @@ suspicion = 12
 gold = 400
 max_daily_spend = 180
 
-[node name="Guard" parent="." instance=ExtResource("6_guard")]
-position = Vector2(740, 160)
+[node name="Guard" parent="." instance=ExtResource("17_guard")]
+position = Vector2(780, 440)
 guard_name = "Treasury Guard"
 challenge_message = "HALT! The Treasury Vault is restricted to authorized personnel!"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="UI" instance=ExtResource("8_hud")]
+[node name="HUD" parent="UI" instance=ExtResource("19_hud")]
 
-[node name="VirtualJoystick" parent="UI" instance=ExtResource("9_joy")]
+[node name="VirtualJoystick" parent="UI" instance=ExtResource("20_joy")]
 
-[node name="ChatUI" parent="UI" instance=ExtResource("10_chat")]
+[node name="ChatUI" parent="UI" instance=ExtResource("21_chat")]
