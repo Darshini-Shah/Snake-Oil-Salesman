@@ -1,88 +1,18 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://ciefl4sdin4yf"]
 
-[ext_resource type="Texture2D" path="res://assets/ui/medieval_fantasy/UI Icons 2/icon49.png" id="wood"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/medieval_fantasy/UI Icons 2/icon49.png" id="inset"]
-
-[sub_resource type="StyleBoxTexture" id="panel"]
-texture = ExtResource("inset")
-texture_margin_left = 12.0
-content_margin_left = 16.0
-texture_margin_top = 12.0
-content_margin_top = 16.0
-texture_margin_right = 12.0
-content_margin_right = 16.0
-texture_margin_bottom = 12.0
-content_margin_bottom = 16.0
-
-[sub_resource type="StyleBoxTexture" id="compact"]
-texture = ExtResource("inset")
-texture_margin_left = 12.0
-content_margin_left = 8.0
-texture_margin_top = 12.0
-content_margin_top = 8.0
-texture_margin_right = 12.0
-content_margin_right = 8.0
-texture_margin_bottom = 12.0
-content_margin_bottom = 8.0
-
-[sub_resource type="StyleBoxTexture" id="normal"]
-texture = ExtResource("wood")
-texture_margin_left = 12.0
-content_margin_left = 12.0
-texture_margin_top = 12.0
-content_margin_top = 12.0
-texture_margin_right = 12.0
-content_margin_right = 12.0
-texture_margin_bottom = 12.0
-content_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="hover"]
-texture = ExtResource("wood")
-texture_margin_left = 12.0
-content_margin_left = 12.0
-texture_margin_top = 12.0
-content_margin_top = 12.0
-texture_margin_right = 12.0
-content_margin_right = 12.0
-texture_margin_bottom = 12.0
-content_margin_bottom = 12.0
-modulate_color = Color(1.18, 1.12, 1.03, 1)
-
-[sub_resource type="StyleBoxTexture" id="pressed"]
-texture = ExtResource("wood")
-texture_margin_left = 12.0
-content_margin_left = 12.0
-texture_margin_top = 12.0
-content_margin_top = 12.0
-texture_margin_right = 12.0
-content_margin_right = 12.0
-texture_margin_bottom = 12.0
-content_margin_bottom = 12.0
-modulate_color = Color(0.75, 0.7, 0.62, 1)
+[ext_resource type="Texture2D" uid="uid://c1jr5o0etv2jl" path="res://assets/ui/medieval_fantasy/UI Icons 2/icon49.png" id="inset"]
 
 [sub_resource type="StyleBoxTexture" id="disabled"]
-texture = ExtResource("wood")
-texture_margin_left = 12.0
 content_margin_left = 12.0
-texture_margin_top = 12.0
 content_margin_top = 12.0
-texture_margin_right = 12.0
 content_margin_right = 12.0
-texture_margin_bottom = 12.0
 content_margin_bottom = 12.0
-modulate_color = Color(0.6, 0.58, 0.54, 1)
-
-[sub_resource type="StyleBoxTexture" id="input"]
 texture = ExtResource("inset")
 texture_margin_left = 12.0
-content_margin_left = 12.0
 texture_margin_top = 12.0
-content_margin_top = 12.0
 texture_margin_right = 12.0
-content_margin_right = 12.0
 texture_margin_bottom = 12.0
-content_margin_bottom = 12.0
+modulate_color = Color(0.6, 0.58, 0.54, 1)
 
 [sub_resource type="StyleBoxFlat" id="focus"]
 bg_color = Color(0, 0, 0, 0)
@@ -92,47 +22,115 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 0.83, 0.46, 1)
 
+[sub_resource type="StyleBoxTexture" id="hover"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+modulate_color = Color(1.18, 1.12, 1.03, 1)
+
+[sub_resource type="StyleBoxTexture" id="normal"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="pressed"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+modulate_color = Color(0.75, 0.7, 0.62, 1)
+
+[sub_resource type="StyleBoxTexture" id="compact"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="input"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="panel"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+texture = ExtResource("inset")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
 [resource]
 default_font_size = 16
-Panel/styles/panel = SubResource("panel")
-PanelContainer/styles/panel = SubResource("panel")
-Inset/base_type = &"PanelContainer"
-Inset/styles/panel = SubResource("compact")
-WorldLabel/base_type = &"Label"
-WorldLabel/styles/normal = SubResource("compact")
-WorldLabel/font_sizes/font_size = 12
-WorldLabel/colors/font_color = Color(1, 0.9, 0.68, 1)
-Label/colors/font_color = Color(0.96, 0.89, 0.74, 1)
-Label/colors/font_shadow_color = Color(0.09, 0.06, 0.04, 1)
-Label/constants/shadow_offset_y = 1
-RichTextLabel/colors/default_color = Color(0.96, 0.89, 0.74, 1)
-RichTextLabel/font_sizes/normal_font_size = 16
-RichTextLabel/font_sizes/bold_font_size = 16
-RichTextLabel/font_sizes/italics_font_size = 16
 Button/colors/font_color = Color(1, 0.94, 0.78, 1)
+Button/colors/font_disabled_color = Color(0.68, 0.63, 0.53, 1)
 Button/colors/font_hover_color = Color(1, 0.97, 0.85, 1)
 Button/colors/font_pressed_color = Color(1, 0.88, 0.6, 1)
-Button/colors/font_disabled_color = Color(0.68, 0.63, 0.53, 1)
 Button/constants/h_separation = 8
-Button/styles/normal = SubResource("normal")
-Button/styles/hover = SubResource("hover")
-Button/styles/pressed = SubResource("pressed")
 Button/styles/disabled = SubResource("disabled")
 Button/styles/focus = SubResource("focus")
-LineEdit/styles/normal = SubResource("input")
-LineEdit/styles/read_only = SubResource("disabled")
-LineEdit/styles/focus = SubResource("focus")
-LineEdit/colors/font_color = Color(1, 0.94, 0.8, 1)
-LineEdit/colors/font_placeholder_color = Color(0.74, 0.68, 0.57, 1)
-LineEdit/colors/caret_color = Color(1, 0.83, 0.46, 1)
-LineEdit/colors/selection_color = Color(0.43, 0.3, 0.15, 1)
-TooltipPanel/styles/panel = SubResource("panel")
-TooltipLabel/colors/font_color = Color(1, 0.94, 0.8, 1)
-VScrollBar/styles/scroll = SubResource("compact")
-VScrollBar/styles/grabber = SubResource("normal")
-VScrollBar/styles/grabber_highlight = SubResource("hover")
-VScrollBar/styles/grabber_pressed = SubResource("pressed")
-HScrollBar/styles/scroll = SubResource("compact")
+Button/styles/hover = SubResource("hover")
+Button/styles/normal = SubResource("normal")
+Button/styles/pressed = SubResource("pressed")
 HScrollBar/styles/grabber = SubResource("normal")
 HScrollBar/styles/grabber_highlight = SubResource("hover")
 HScrollBar/styles/grabber_pressed = SubResource("pressed")
+HScrollBar/styles/scroll = SubResource("compact")
+Inset/base_type = &"PanelContainer"
+Inset/styles/panel = SubResource("compact")
+Label/colors/font_color = Color(0.96, 0.89, 0.74, 1)
+Label/colors/font_shadow_color = Color(0.09, 0.06, 0.04, 1)
+Label/constants/shadow_offset_y = 1
+LineEdit/colors/caret_color = Color(1, 0.83, 0.46, 1)
+LineEdit/colors/font_color = Color(1, 0.94, 0.8, 1)
+LineEdit/colors/font_placeholder_color = Color(0.74, 0.68, 0.57, 1)
+LineEdit/colors/selection_color = Color(0.43, 0.3, 0.15, 1)
+LineEdit/styles/focus = SubResource("focus")
+LineEdit/styles/normal = SubResource("input")
+LineEdit/styles/read_only = SubResource("disabled")
+Panel/styles/panel = SubResource("panel")
+PanelContainer/styles/panel = SubResource("panel")
+RichTextLabel/colors/default_color = Color(0.96, 0.89, 0.74, 1)
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/font_sizes/italics_font_size = 16
+RichTextLabel/font_sizes/normal_font_size = 16
+TooltipLabel/colors/font_color = Color(1, 0.94, 0.8, 1)
+TooltipPanel/styles/panel = SubResource("panel")
+VScrollBar/styles/grabber = SubResource("normal")
+VScrollBar/styles/grabber_highlight = SubResource("hover")
+VScrollBar/styles/grabber_pressed = SubResource("pressed")
+VScrollBar/styles/scroll = SubResource("compact")
+WorldLabel/base_type = &"Label"
+WorldLabel/colors/font_color = Color(1, 0.9, 0.68, 1)
+WorldLabel/font_sizes/font_size = 12
+WorldLabel/styles/normal = SubResource("compact")
