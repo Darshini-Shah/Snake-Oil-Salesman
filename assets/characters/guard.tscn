@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/guard.gd" id="1_guard"]
 
 [ext_resource type="Theme" path="res://ui/themes/medieval_theme.tres" id="medieval"]
-[ext_resource type="Texture2D" path="res://assets/characters/guard_sprite.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/guard_knight.png" id="2_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_guard"]
 size = Vector2(32, 32)
@@ -17,6 +17,9 @@ script = ExtResource("1_guard")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tex")
+hframes = 3
+vframes = 4
+frame = 1
 
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

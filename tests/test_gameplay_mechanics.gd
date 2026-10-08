@@ -21,6 +21,10 @@ func _init() -> void:
 	test_malformed_llm_response_parsing()
 	test_phantom_item_detection_and_physical_evidence()
 	test_building_colliders_match_assets()
+	test_categorized_interaction_and_deal_triggers()
+	test_evaluation_threshold_rules()
+	test_npc_conversation_history_isolation()
+	test_character_sprites_and_animations()
 	
 	print("\n-------------------------------------------------------")
 	print("🏁 TEST RESULTS: %d PASSED, %d FAILED" % [passed_count, failed_count])
@@ -383,4 +387,319 @@ func test_building_colliders_match_assets() -> void:
 	
 	dynamic_bld.queue_free()
 	instance.queue_free()
+
+
+func test_categorized_interaction_and_deal_triggers() -> void:
+	print("▶ Testing Categorized Interactions & Robust Deal Triggers...")
+	
+	var inv_with_tonic: Array[Dictionary] = [{"id": "miracle_tonic_sample", "name": "Miracle Tonic Sample"}]
+	var empty_inv: Array[Dictionary] = []
+	
+	var arthur_profile := {
+		"id": "npc_arthur_elder",
+		"name": "Old Arthur",
+		"trust": 50,
+		"suspicion": 10,
+		"gold": 500,
+		"max_daily_spend": 180,
+		"spent_today": 0,
+		"personality": {"superstitious": 0.8, "skeptical": 0.3},
+		"susceptible_topics": ["curse", "omen", "darkness", "midnight"],
+		"skeptical_topics": ["tax", "coin"]
+	}
+	
+	# 1. Test Categorization
+	var cat_show := ScamManager.categorize_message("look at this miraculous potion", inv_with_tonic)
+	assert_eq(cat_show["category"], ScamManager.InteractionCategory.SHOW_ITEM, "Showing item categorizes as SHOW_ITEM")
+	assert_eq(cat_show["asked_amount"], 0, "Showing item has 0 asked amount")
+	assert_true(cat_show["has_referenced_item"], "Recognizes player holds tonic sample")
+	
+	var cat_chat := ScamManager.categorize_message("Hello Arthur, how are you today?", empty_inv)
+	assert_eq(cat_chat["category"], ScamManager.InteractionCategory.CASUAL_CHAT, "Greetings categorize as CASUAL_CHAT")
+	
+	var cat_probe := ScamManager.categorize_message("What troubles you about midnight omens?", empty_inv)
+	assert_eq(cat_probe["category"], ScamManager.InteractionCategory.PROBE_BACKGROUND, "Asking about omens categorizes as PROBE_BACKGROUND")
+	
+	var cat_pitch := ScamManager.categorize_message("I will sell you this potion for 40 Kurtos", inv_with_tonic)
+	assert_eq(cat_pitch["category"], ScamManager.InteractionCategory.PITCH_SALE, "Price and sell verbs categorize as PITCH_SALE")
+	assert_eq(cat_pitch["asked_amount"], 40, "Extracts 40 Kurtos as asked price")
+	
+	var cat_demand := ScamManager.categorize_message("Give me 100 Kurtos right now!", empty_inv)
+	assert_eq(cat_demand["category"], ScamManager.InteractionCategory.BLATANT_DEMAND, "Brazen demand without goods categorizes as BLATANT_DEMAND")
+	
+	var cat_insult := ScamManager.categorize_message("You stupid old fool, get lost!", empty_inv)
+	assert_eq(cat_insult["category"], ScamManager.InteractionCategory.INSULT_OR_THREAT, "Hostility categorizes as INSULT_OR_THREAT")
+	
+	# 2. Test Showing Item: Transfers ZERO Kurtos, builds trust
+	var llm_show := {"intent": "NORMAL_CONVERSATION", "credibility": 0.8, "convinced": false, "proposed_kurtos": 0, "response": "By the heavens, let me gaze upon that vial!"}
+	var res_show := ScamManager.resolve_interaction(cat_show, arthur_profile, "look at this miraculous potion", llm_show, inv_with_tonic, 25)
+	assert_eq(res_show["transfer_amount"], 0, "Showing potion transfers strictly 0 Kurtos")
+	assert_true(res_show["trust_delta"] > 0, "Showing genuine potion to superstitious elder increases trust")
+	assert_eq(res_show["suspicion_delta"], 0, "Showing genuine item incurs 0 suspicion")
+	
+	# 3. Test Showing Item with Empty Hands (Phantom Bluff): Transfers 0, escalates suspicion
+	var cat_phantom_show := ScamManager.categorize_message("look at this miraculous potion", empty_inv)
+	var res_phantom_show := ScamManager.resolve_interaction(cat_phantom_show, arthur_profile, "look at this miraculous potion", llm_show, empty_inv, 25)
+	assert_eq(res_phantom_show["transfer_amount"], 0, "Phantom show transfers 0 Kurtos")
+	assert_true(res_phantom_show["suspicion_delta"] >= 15, "Claiming to show item with empty hands spikes suspicion")
+	assert_true(res_phantom_show["trust_delta"] < 0, "Phantom show decreases trust")
+	
+	# 4. Test Pitch Sale: Transfers BOUNDED price (40 Kurtos, NOT 180!)
+	var llm_pitch_accept := {"intent": "PITCH_SCAM", "npc_action": "AGREE_DEAL", "credibility": 0.85, "convinced": true, "proposed_kurtos": 40, "response": "I agree to buy your potion for 40 Kurtos."}
+	var res_pitch := ScamManager.resolve_interaction(cat_pitch, arthur_profile, "I will sell you this potion for 40 Kurtos", llm_pitch_accept, inv_with_tonic, 25)
+	assert_eq(res_pitch["outcome"], ScamManager.ScamOutcome.SUCCESS, "Legitimate sale pitch succeeds")
+	assert_eq(res_pitch["transfer_amount"], 40, "Deal transfers exactly the agreed 40 Kurtos (NOT the entire 180 budget!)")
+	assert_true(res_pitch["trust_delta"] > 0, "Successful deal boosts trust")
+	
+	# 5. Test Dialogue Refusal Veto: NPC dialogue says 'can't spare' -> Deal is vetoed!
+	var llm_pitch_refusal := {"intent": "NORMAL_CONVERSATION", "npc_action": "AGREE_DEAL", "credibility": 0.85, "convinced": true, "proposed_kurtos": 180, "response": "I will give you the potion for free if it looks good, but I can't spare any more."}
+	var res_vetoed := ScamManager.resolve_interaction(cat_pitch, arthur_profile, "I will sell you this potion for 40 Kurtos", llm_pitch_refusal, inv_with_tonic, 25)
+	assert_eq(res_vetoed["transfer_amount"], 0, "Dialogue refusal ('can't spare') vetoes currency transfer to 0 Kurtos")
+	assert_eq(res_vetoed["outcome"], ScamManager.ScamOutcome.FAILED_MILD, "Refusal in dialogue results in FAILED_MILD outcome")
+	
+	# 6. Test Blatant Demand: Zero transfer and suspicion penalty
+	var res_demand := ScamManager.resolve_interaction(cat_demand, arthur_profile, "Give me 100 Kurtos right now!", llm_show, empty_inv, 25)
+	assert_eq(res_demand["transfer_amount"], 0, "Blatant demand transfers 0 Kurtos")
+	assert_true(res_demand["suspicion_delta"] >= 15, "Blatant demand increases suspicion")
+	assert_true(res_demand["trust_delta"] < 0, "Blatant demand penalizes trust")
+	
+	# 7. Test Insult: Zero transfer and heavy penalty
+	var res_insult := ScamManager.resolve_interaction(cat_insult, arthur_profile, "You stupid old fool, get lost!", llm_show, empty_inv, 25)
+	assert_eq(res_insult["transfer_amount"], 0, "Insult transfers 0 Kurtos")
+	assert_true(res_insult["suspicion_delta"] >= 25, "Insult incurs massive suspicion")
+	assert_true(res_insult["trust_delta"] <= -10, "Insult heavily penalizes trust")
+
+
+func test_evaluation_threshold_rules() -> void:
+	print("▶ Testing 2-Step Evaluator Threshold Rules (Score vs Trust vs Suspicion)...")
+	
+	var mock_npc := {
+		"id": "npc_barnaby_merchant",
+		"name": "Barnaby",
+		"trust": 50,
+		"suspicion": 15,
+		"gold": 500,
+		"max_daily_spend": 200,
+		"spent_today": 0
+	}
+	var inv_with_tonic: Array[Dictionary] = [{"id": "miracle_tonic_sample", "name": "Miracle Tonic Sample"}]
+	var empty_inv: Array[Dictionary] = []
+	
+	# Rule 1a: score > trust (e.g. 75 > 50) with deal attempt & valid item -> DO_DEAL
+	var res_deal := ScamManager.apply_evaluation_thresholds(75, true, 40, mock_npc, inv_with_tonic, "miracle_tonic_sample")
+	assert_eq(res_deal["decision"], "DO_DEAL", "Score > trust with deal and item triggers DO_DEAL")
+	assert_eq(res_deal["transfer_amount"], 40, "Transfers requested 40 Kurtos")
+	assert_eq(res_deal["outcome"], ScamManager.ScamOutcome.SUCCESS, "Outcome is SUCCESS")
+	assert_true(res_deal["trust_delta"] > 0, "DO_DEAL increases trust")
+	
+	# Rule 1b: score > trust (e.g. 75 > 50) with deal attempt but missing item -> REFUSE_TALK (bluff caught)
+	var res_bluff := ScamManager.apply_evaluation_thresholds(75, true, 40, mock_npc, empty_inv, "miracle_tonic_sample")
+	assert_eq(res_bluff["decision"], "REFUSE_TALK", "Bluff with missing item caught and triggers REFUSE_TALK")
+	assert_eq(res_bluff["transfer_amount"], 0, "No currency transferred on bluff")
+	assert_true(res_bluff["suspicion_delta"] >= 25, "Bluff escalates suspicion heavily")
+	
+	# Rule 1c: score > trust (e.g. 75 > 50) with casual chat (is_deal_attempt = false) -> CONVERSE_POSITIVE
+	var res_chat := ScamManager.apply_evaluation_thresholds(75, false, 0, mock_npc, empty_inv, "")
+	assert_eq(res_chat["decision"], "CONVERSE_POSITIVE", "Score > trust on chat triggers CONVERSE_POSITIVE")
+	assert_eq(res_chat["transfer_amount"], 0, "Chat transfers 0 Kurtos")
+	assert_eq(res_chat["outcome"], ScamManager.ScamOutcome.SOCIAL_CHAT, "Outcome is SOCIAL_CHAT")
+	assert_true(res_chat["trust_delta"] > 0, "Friendly chat increases trust")
+	
+	# Rule 2: suspicion <= score <= trust (e.g. 15 <= 35 <= 50) -> SKEPTICAL_REJECT (lower reputation, increase suspicion)
+	var res_skeptical := ScamManager.apply_evaluation_thresholds(35, true, 40, mock_npc, inv_with_tonic, "miracle_tonic_sample")
+	assert_eq(res_skeptical["decision"], "SKEPTICAL_REJECT", "suspicion <= score <= trust triggers SKEPTICAL_REJECT")
+	assert_eq(res_skeptical["transfer_amount"], 0, "Skeptical reject transfers 0 Kurtos")
+	assert_true(res_skeptical["trust_delta"] < 0, "Skeptical reject lowers trust")
+	assert_true(res_skeptical["suspicion_delta"] > 0, "Skeptical reject increases suspicion")
+	assert_true(res_skeptical["reputation_delta"] < 0, "Skeptical reject lowers reputation")
+	
+	# Rule 3: score < suspicion (e.g. 10 < 15) -> REFUSE_TALK (refusal lockout)
+	var res_refuse := ScamManager.apply_evaluation_thresholds(10, false, 0, mock_npc, empty_inv, "")
+	assert_eq(res_refuse["decision"], "REFUSE_TALK", "score < suspicion triggers REFUSE_TALK")
+	assert_eq(res_refuse["transfer_amount"], 0, "Refuse to talk transfers 0 Kurtos")
+	assert_true(res_refuse["will_refuse"], "Refusal sets will_refuse to true")
+	assert_true(res_refuse["suspicion_delta"] >= 25, "Refusal incurs heavy suspicion penalty")
+	assert_true(res_refuse["trust_delta"] <= -10, "Refusal incurs heavy trust penalty")
+
+
+func test_npc_conversation_history_isolation() -> void:
+	print("\n▶ Testing Strict Per-NPC Conversation History Isolation...")
+	
+	var chat_scene := load("res://scenes/ui/chat_ui.tscn")
+	var chat_ui = chat_scene.instantiate()
+	root.add_child(chat_ui)
+	
+	var barnaby := TownNPC.new()
+	barnaby.name = "NPC_Barnaby"
+	barnaby.npc_name = "Barnaby"
+	barnaby.npc_profile = {"id": "npc_barnaby_merchant", "name": "Barnaby"}
+	root.add_child(barnaby)
+	
+	var arthur := TownNPC.new()
+	arthur.name = "NPC_Arthur"
+	arthur.npc_name = "Old Arthur"
+	arthur.npc_profile = {"id": "npc_arthur_elder", "name": "Old Arthur"}
+	root.add_child(arthur)
+	
+	# 1. Start chat with Barnaby and exchange turns about wine/brewing
+	chat_ui.start_conversation(barnaby)
+	var b_hist: Array = chat_ui.get_active_npc_history()
+	b_hist.append("PLAYER: \"Do you have fine wine for sale?\"")
+	b_hist.append("Barnaby: \"I have the finest vintage in the square!\"")
+	
+	assert_eq(b_hist.size(), 2, "Barnaby history contains 2 turns")
+	assert_true(b_hist[0].contains("wine"), "Barnaby history discusses wine")
+	
+	# 2. Close chat with Barnaby
+	chat_ui.end_conversation()
+	assert_eq(chat_ui.active_npc, null, "Active NPC cleared on end_conversation")
+	
+	# 3. Start chat with Old Arthur
+	chat_ui.start_conversation(arthur)
+	var a_hist: Array = chat_ui.get_active_npc_history()
+	
+	# Verify that Old Arthur's history has ZERO messages from Barnaby!
+	assert_eq(a_hist.size(), 0, "Arthur history is initially empty - NO LEAK from Barnaby!")
+	for line in a_hist:
+		assert_true(not str(line).contains("wine"), "Arthur history contains NO wine mentions")
+		assert_true(not str(line).contains("Barnaby"), "Arthur history contains NO Barnaby lines")
+	
+	# 4. Add turn with Old Arthur about curses/omens
+	a_hist.append("PLAYER: \"What omens haunt the village?\"")
+	a_hist.append("Old Arthur: \"Dark shadows gather at midnight...\"")
+	
+	assert_eq(a_hist.size(), 2, "Arthur history now has 2 turns")
+	assert_true(a_hist[0].contains("omens"), "Arthur history discusses omens")
+	
+	# 5. Switch back to Barnaby - verify Barnaby's history is intact and contains NO omens from Arthur!
+	chat_ui.end_conversation()
+	chat_ui.start_conversation(barnaby)
+	var b_hist_revisit: Array = chat_ui.get_active_npc_history()
+	assert_eq(b_hist_revisit.size(), 2, "Barnaby still has 2 turns")
+	assert_true(b_hist_revisit[0].contains("wine"), "Barnaby still has wine discussion")
+	for line in b_hist_revisit:
+		assert_true(not str(line).contains("omens"), "Barnaby history contains NO Arthur omens!")
+	
+	chat_ui.end_conversation()
+	barnaby.queue_free()
+	arthur.queue_free()
+	chat_ui.queue_free()
+
+
+func test_character_sprites_and_animations() -> void:
+	print("\n▶ Testing RPG Character Sprites & 4-Directional Animations...")
+	
+	# 1. Player scene and 4-directional walk animations
+	var player_scene := load("res://assets/characters/player.tscn")
+	var player = player_scene.instantiate()
+	root.add_child(player)
+	
+	var player_sprite: Sprite2D = player.get_node("Sprite2D")
+	assert_true(player_sprite != null, "Player has Sprite2D")
+	assert_eq(player_sprite.hframes, 3, "Player sprite has 3 hframes")
+	assert_eq(player_sprite.vframes, 4, "Player sprite has 4 vframes")
+	assert_true(player_sprite.texture != null, "Player sprite has texture assigned")
+	assert_true(player_sprite.texture.resource_path.contains("player_salesman"), "Player uses player_salesman.png texture")
+	
+	# Test directional walk frame updates
+	# Right
+	player.velocity = Vector2(100, 0)
+	player._update_animation(0.016, true)
+	assert_eq(player.current_facing, "right", "Moving (100, 0) sets facing right")
+	assert_true(player_sprite.frame >= 6 and player_sprite.frame <= 8, "Moving right uses row 2 (frames 6-8)")
+	
+	# Left
+	player.velocity = Vector2(-100, 0)
+	player._update_animation(0.016, true)
+	assert_eq(player.current_facing, "left", "Moving (-100, 0) sets facing left")
+	assert_true(player_sprite.frame >= 3 and player_sprite.frame <= 5, "Moving left uses row 1 (frames 3-5)")
+	
+	# Up
+	player.velocity = Vector2(0, -100)
+	player._update_animation(0.016, true)
+	assert_eq(player.current_facing, "up", "Moving (0, -100) sets facing up")
+	assert_true(player_sprite.frame >= 9 and player_sprite.frame <= 11, "Moving up uses row 3 (frames 9-11)")
+	
+	# Down
+	player.velocity = Vector2(0, 100)
+	player._update_animation(0.016, true)
+	assert_eq(player.current_facing, "down", "Moving (0, 100) sets facing down")
+	assert_true(player_sprite.frame >= 0 and player_sprite.frame <= 2, "Moving down uses row 0 (frames 0-2)")
+	
+	# Stopped returns to directional idle
+	player.velocity = Vector2.ZERO
+	player._update_animation(0.016, false)
+	assert_eq(player_sprite.frame, 1, "Stopped after moving down returns to frame 1 (idle down)")
+	
+	player.queue_free()
+	
+	# 2. Main scene character textures
+	var main_scene := load("res://scenes/main.tscn")
+	var main = main_scene.instantiate()
+	root.add_child(main)
+	
+	var barnaby = main.get_node("NPC_Barnaby")
+	assert_true(barnaby != null, "NPC_Barnaby exists in main scene")
+	assert_true(barnaby.character_texture != null, "Barnaby has distinct character_texture assigned")
+	assert_true(barnaby.character_texture.resource_path.contains("npc_barnaby"), "Barnaby texture is npc_barnaby.png")
+	
+	var marla = main.get_node("NPC_Marla")
+	assert_true(marla != null, "NPC_Marla exists in main scene")
+	assert_true(marla.character_texture != null, "Marla has distinct character_texture assigned")
+	assert_true(marla.character_texture.resource_path.contains("npc_marla"), "Marla texture is npc_marla.png")
+	
+	var cedric = main.get_node("NPC_Cedric")
+	assert_true(cedric != null, "NPC_Cedric exists in main scene")
+	assert_true(cedric.character_texture != null, "Cedric has distinct character_texture assigned")
+	assert_true(cedric.character_texture.resource_path.contains("npc_cedric"), "Cedric texture is npc_cedric.png")
+	
+	var arthur = main.get_node("NPC_Arthur")
+	assert_true(arthur != null, "NPC_Arthur exists in main scene")
+	assert_true(arthur.character_texture != null, "Arthur has distinct character_texture assigned")
+	assert_true(arthur.character_texture.resource_path.contains("npc_arthur"), "Arthur texture is npc_arthur.png")
+	
+	# 3. Dynamic NPC continuous facing towards player while nearby
+	barnaby.global_position = Vector2(200, 200)
+	var test_player := CharacterBody2D.new()
+	test_player.name = "Player"
+	test_player.add_to_group("player")
+	test_player.global_position = Vector2(200, 300) # Below Barnaby
+	main.add_child(test_player)
+	
+	barnaby._on_interaction_area_body_entered(test_player)
+	barnaby._process(0.016)
+	var barnaby_sprite: Sprite2D = barnaby.get_node("Sprite2D")
+	assert_eq(barnaby_sprite.frame, 1, "Barnaby faces down (frame 1) when player enters below")
+	
+	# Player moves to the right of Barnaby while sticking near
+	test_player.global_position = Vector2(300, 200)
+	barnaby._process(0.016)
+	assert_eq(barnaby_sprite.frame, 7, "Barnaby constantly tracks player: faces right (frame 7) when player moves right")
+	
+	# Player moves above Barnaby
+	test_player.global_position = Vector2(200, 100)
+	barnaby._process(0.016)
+	assert_eq(barnaby_sprite.frame, 10, "Barnaby constantly tracks player: faces up (frame 10) when player moves above")
+	
+	# Player moves to the left of Barnaby
+	test_player.global_position = Vector2(100, 200)
+	barnaby._process(0.016)
+	assert_eq(barnaby_sprite.frame, 4, "Barnaby constantly tracks player: faces left (frame 4) when player moves left")
+	
+	# Player exits area
+	barnaby._on_interaction_area_body_exited(test_player)
+	assert_eq(barnaby_sprite.frame, 1, "Barnaby resets to frame 1 (idle down) when player exits")
+	test_player.queue_free()
+	
+	# 4. Guard knight sprite
+	var guard = main.get_node("Guard")
+	assert_true(guard != null, "Guard exists in main scene")
+	var guard_sprite: Sprite2D = guard.get_node("Sprite2D")
+	assert_true(guard_sprite != null, "Guard has Sprite2D")
+	assert_eq(guard_sprite.hframes, 3, "Guard sprite has 3 hframes")
+	assert_eq(guard_sprite.vframes, 4, "Guard sprite has 4 vframes")
+	assert_true(guard_sprite.texture.resource_path.contains("guard_knight"), "Guard uses guard_knight.png")
+	
+	main.queue_free()
+
 

@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/move.gd" id="1_move"]
-[ext_resource type="Texture2D" path="res://assets/characters/player_sprite.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/player_salesman.png" id="2_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(32, 32)
@@ -12,6 +12,9 @@ script = ExtResource("1_move")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tex")
+hframes = 3
+vframes = 4
+frame = 1
 
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

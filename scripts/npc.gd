@@ -8,6 +8,7 @@ signal player_entered_interaction(npc: TownNPC)
 signal player_exited_interaction(npc: TownNPC)
 signal social_state_changed(npc: TownNPC)
 
+@export var character_texture: Texture2D
 @export var npc_name: String = "Barnaby"
 @export var npc_title: String = "Curious Town Merchant"
 @export var npc_data_file: String = "res://data/npcs/barnaby_merchant.json"
@@ -28,8 +29,11 @@ var refusal_timer: float = 0.0
 
 var npc_profile: Dictionary = {}
 var is_player_in_range: bool = false
+var _target_player: Node2D = null
+var current_facing: String = "down"
 
 var memories: Array = []
+var conversation_history: Array = []
 var susceptible_topics: Array = []
 var skeptical_topics: Array = []
 
@@ -43,6 +47,13 @@ var _status_indicator: Label
 
 func _ready() -> void:
 	add_to_group("npcs")
+	
+	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	if sprite:
+		if character_texture:
+			sprite.texture = character_texture
+		if sprite.hframes >= 3 and sprite.vframes >= 4:
+			sprite.frame = 1 # Front-facing idle
 	
 	_color_rect = get_node_or_null("ColorRect") as ColorRect
 	if _color_rect:
@@ -62,6 +73,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_player_in_range:
+		if not is_instance_valid(_target_player):
+			var players := get_tree().get_nodes_in_group("player")
+			if players.size() > 0:
+				_target_player = players[0] as Node2D
+		if is_instance_valid(_target_player):
+			face_towards(_target_player.global_position)
+
 	if is_refusing_to_talk:
 		refusal_timer -= delta
 		if refusal_timer <= 0.0:
@@ -116,12 +135,29 @@ func _sync_profile() -> void:
 	npc_profile["susceptible_topics"] = susceptible_topics
 	npc_profile["skeptical_topics"] = skeptical_topics
 	npc_profile["memories"] = memories
+	npc_profile["conversation_history"] = conversation_history
 	npc_profile["is_refusing_to_talk"] = is_refusing_to_talk
 
 
 func get_full_profile() -> Dictionary:
 	_sync_profile()
 	return npc_profile
+
+
+func get_conversation_history() -> Array:
+	return conversation_history
+
+
+func add_conversation_turn(speaker: String, text: String) -> void:
+	conversation_history.append("%s: \"%s\"" % [speaker, text])
+	if conversation_history.size() > 10:
+		conversation_history.pop_front()
+	_sync_profile()
+
+
+func clear_conversation_history() -> void:
+	conversation_history.clear()
+	_sync_profile()
 
 
 func trigger_refusal(duration_seconds: float = 35.0) -> void:
@@ -162,6 +198,7 @@ func on_day_rollover(_new_day: int) -> void:
 	suspicion = clampi(suspicion - 20, 0, 100)
 	is_refusing_to_talk = false
 	refusal_timer = 0.0
+	clear_conversation_history()
 	if _prompt_label:
 		_prompt_label.text = "[In Range]"
 		_prompt_label.remove_theme_color_override("font_color")
@@ -187,9 +224,36 @@ func hide_speech() -> void:
 		_speech_bubble.visible = false
 
 
+func set_facing(dir: String) -> void:
+	current_facing = dir
+	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	if sprite and sprite.hframes >= 3 and sprite.vframes >= 4:
+		var row := 0
+		match dir:
+			"down": row = 0
+			"left": row = 1
+			"right": row = 2
+			"up": row = 3
+		var target_frame := row * 3 + 1
+		if sprite.frame != target_frame:
+			sprite.frame = target_frame
+
+
+func face_towards(target_pos: Vector2) -> void:
+	var diff := target_pos - global_position
+	if diff.length_squared() < 0.1:
+		return
+	if abs(diff.x) > abs(diff.y):
+		set_facing("right" if diff.x > 0.0 else "left")
+	else:
+		set_facing("down" if diff.y > 0.0 else "up")
+
+
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") or body.name == "Player":
 		is_player_in_range = true
+		_target_player = body
+		face_towards(body.global_position)
 		if _prompt_label:
 			if is_refusing_to_talk:
 				_prompt_label.text = "🚫 [%s refuses to talk: %ds]" % [npc_name, int(ceil(refusal_timer))]
@@ -204,6 +268,8 @@ func _on_interaction_area_body_entered(body: Node2D) -> void:
 func _on_interaction_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player") or body.name == "Player":
 		is_player_in_range = false
+		_target_player = null
+		set_facing("down")
 		if _prompt_label:
 			_prompt_label.visible = false
 		hide_speech()
