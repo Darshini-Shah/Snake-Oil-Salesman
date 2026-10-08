@@ -22,6 +22,10 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/virtual_joystick.tscn" id="20_joy"]
 [ext_resource type="PackedScene" path="res://scenes/ui/chat_ui.tscn" id="21_chat"]
 [ext_resource type="Script" uid="uid://j7im5gbgdb5y" path="res://scripts/mobile_ui_layout.gd" id="22_layout"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_barnaby.png" id="23_barnaby"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_marla.png" id="24_marla"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_cedric.png" id="25_cedric"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_arthur.png" id="26_arthur"]
 
 [node name="Main" type="Node2D" unique_id=318791002]
 
@@ -182,12 +186,14 @@ position = Vector2(360, 370)
 
 [node name="NPC_Barnaby" parent="." unique_id=294095457 instance=ExtResource("16_npc")]
 position = Vector2(550, 375)
+character_texture = ExtResource("23_barnaby")
 npc_title = "Curious Merchant"
 trust = 45
 suspicion = 15
 
 [node name="NPC_Marla" parent="." unique_id=1900800130 instance=ExtResource("16_npc")]
 position = Vector2(180, 265)
+character_texture = ExtResource("24_marla")
 npc_name = "Marla"
 npc_title = "Empathetic Baker"
 npc_data_file = "res://data/npcs/marla_baker.json"
@@ -198,6 +204,7 @@ max_daily_spend = 220
 
 [node name="NPC_Cedric" parent="." unique_id=89156985 instance=ExtResource("16_npc")]
 position = Vector2(850, 190)
+character_texture = ExtResource("25_cedric")
 npc_name = "Lord Cedric"
 npc_title = "Wealthy Aristocrat"
 npc_data_file = "res://data/npcs/cedric_aristocrat.json"
@@ -209,6 +216,7 @@ max_daily_spend = 1200
 
 [node name="NPC_Arthur" parent="." unique_id=1340991110 instance=ExtResource("16_npc")]
 position = Vector2(280, 595)
+character_texture = ExtResource("26_arthur")
 npc_name = "Old Arthur"
 npc_title = "Superstitious Elder"
 npc_data_file = "res://data/npcs/arthur_elder.json"

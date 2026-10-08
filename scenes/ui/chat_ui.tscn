@@ -89,6 +89,14 @@ text = "Marla (Empathetic Baker)"
 autowrap_mode = 2
 theme_override_font_sizes/font_size = 18
 
+[node name="LLMStatusBtn" type="Button" parent="ChatWindow/VBox/BodyScroll/Body/HeaderHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+text = "🟢 AI: Online"
+tooltip_text = "Live LLM connection status. Click to recheck."
+
 [node name="CloseBtn" type="Button" parent="ChatWindow/VBox/BodyScroll/Body/HeaderHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 26)
