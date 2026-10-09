@@ -11,15 +11,17 @@ signal layout_requested
 @onready var trust_label: Label = %TrustLabel
 @onready var inventory_label: Label = %InventoryLabel
 @onready var advance_day_btn: Button = %AdvanceDayBtn
+@onready var inventory_btn: Button = %InventoryBtn
 @onready var toast_panel: PanelContainer = %ToastPanel
 @onready var toast_label: Label = %ToastLabel
 
 var _toast_timer: float = 0.0
-
+var _inventory_popup: Control = null
 
 func _ready() -> void:
 	toast_panel.visible = false
 	advance_day_btn.pressed.connect(_on_advance_day_pressed)
+	inventory_btn.pressed.connect(_on_inventory_btn_pressed)
 	
 	var game_state = get_node_or_null("/root/GameState")
 	if game_state:
@@ -60,6 +62,33 @@ func _on_advance_day_pressed() -> void:
 	if game_state and game_state.has_method("advance_day"):
 		game_state.advance_day()
 		show_toast("Day %d has begun! All NPC daily budgets have been reset." % game_state.current_day, true, 3.0)
+
+func _on_inventory_btn_pressed() -> void:
+	if _inventory_popup and is_instance_valid(_inventory_popup):
+		_inventory_popup.queue_free()
+		_inventory_popup = null
+		var gs = get_node_or_null("/root/GameState")
+		if gs: gs.can_player_move = true
+	else:
+		var inv_scene = load("res://scenes/ui/inventory_ui.tscn")
+		if inv_scene:
+			_inventory_popup = inv_scene.instantiate()
+			add_child(_inventory_popup)
+			var gs = get_node_or_null("/root/GameState")
+			if gs: gs.can_player_move = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_I or event.keycode == KEY_ESCAPE:
+			var focus = get_viewport().gui_get_focus_owner()
+			if focus is LineEdit or focus is TextEdit: return
+			
+			if _inventory_popup and is_instance_valid(_inventory_popup):
+				_on_inventory_btn_pressed()
+				get_viewport().set_input_as_handled()
+			elif event.keycode == KEY_I:
+				_on_inventory_btn_pressed()
+				get_viewport().set_input_as_handled()
 
 
 func _on_kurtos_changed(new_amount: int, delta: int) -> void:

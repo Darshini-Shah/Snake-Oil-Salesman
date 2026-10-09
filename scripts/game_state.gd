@@ -21,6 +21,22 @@ var inventory: Array[Dictionary] = []
 var is_game_over: bool = false
 var has_won: bool = false
 
+const ITEM_ATLAS = {
+	"beggars_robe": Rect2(160, 96, 32, 32),
+	"monocle": Rect2(288, 64, 32, 32),
+	"fabric_sample": Rect2(288, 32, 32, 32),
+	"miracle_tonic_sample": Rect2(256, 64, 32, 32)
+}
+
+func get_item_icon(item_id: String) -> AtlasTexture:
+	var tex = AtlasTexture.new()
+	tex.atlas = load("res://assets/items/fantasy_inventory/FantasyInventorySpritesheet.png")
+	if ITEM_ATLAS.has(item_id):
+		tex.region = ITEM_ATLAS[item_id]
+	else:
+		tex.region = Rect2(0, 0, 32, 32)
+	return tex
+
 
 func _ready() -> void:
 	pass
