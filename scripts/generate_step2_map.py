@@ -113,8 +113,8 @@ d_wat.ellipse([149, 36, 161, 49], fill=255)
 # F. Orchard Pond
 d_wat.ellipse([54, 98, 62, 106], fill=255)
 
-# G. Kurtos Plaza Central Fountain
-d_wat.ellipse([121, 75, 127, 81], fill=255)
+# G. Kurtos Plaza Central Fountain (Fountain sits cleanly on stone plaza, no raw water cutouts)
+# d_wat ellipse removed so the fountain rests naturally on paved cobblestones
 
 # H. Cliff Waterfalls
 water = np.array(water_img) > 128
@@ -126,68 +126,66 @@ for y in range(148, 154):
 water[outer_ocean] = False
 
 # --- 3. ROADS & PLAZA ---
-roads = np.zeros((H, W), dtype=bool)
+roads_img = Image.new('L', (W, H), 0)
+d_roads = ImageDraw.Draw(roads_img)
 plaza = np.zeros((H, W), dtype=bool)
 
-def add_rect(mask, x0, y0, x1, y1):
-    x_min, x_max = max(0, min(x0, x1)), min(W - 1, max(x0, x1))
-    y_min, y_max = max(0, min(y0, y1)), min(H - 1, max(y0, y1))
-    mask[y_min:y_max+1, x_min:x_max+1] = True
+# Kurtos Town Plaza:
+# Elegant paved stone courtyard in town center (x: 118..135, y: 62..78 = 18x17 tiles = 288x272px)
+plaza[62:79, 118:136] = True
 
-def add_line(mask, x0, y0, x1, y1, width=3):
-    length = int(np.hypot(x1 - x0, y1 - y0) * 2) + 1
-    hw = width // 2
-    for t in np.linspace(0, 1, length):
-        cx = int(round(x0 + t * (x1 - x0)))
-        cy = int(round(y0 + t * (y1 - y0)))
-        for dy in range(-hw, hw + 1):
-            for dx in range(-hw, hw + 1):
-                nx, ny = cx + dx, cy + dy
-                if 0 <= nx < W and 0 <= ny < H:
-                    mask[ny, nx] = True
+# Grand South Boulevard (from arrival bridge up into south plaza entrance)
+# 3 tiles wide (48px)
+d_roads.line([(126, 148), (126, 78)], fill=255, width=3)
 
-# Grand South Boulevard (from arrival pier up into plaza)
-add_line(roads, 128, 148, 128, 88, width=5)
+# Northern Summit Road (from north plaza entrance up to Scholar Academy)
+# 3 tiles wide (48px)
+d_roads.line([(126, 62), (126, 26)], fill=255, width=3)
+# Academy Forecourt:
+d_roads.rectangle([120, 22, 132, 26], fill=255)
 
-# South Crossroads: branches east and west
-add_line(roads, 128, 136, 118, 132, width=4)
-add_line(roads, 118, 132, 108, 121, width=4) # Connects to Footbridge 1 East end
-add_line(roads, 128, 136, 140, 132, width=4) # Connects towards SE mine trail
+# Plaza Perimeter Roads (cozy 2-tile paths hugging the courtyard):
+d_roads.line([(116, 61), (116, 79)], fill=255, width=2) # West plaza road (General Store & Watchmaker doorstep)
+d_roads.line([(137, 61), (137, 79)], fill=255, width=2) # East plaza road (Clinic & Mayor doorstep)
+d_roads.line([(116, 61), (137, 61)], fill=255, width=2) # North plaza road
+d_roads.line([(116, 79), (137, 79)], fill=255, width=2) # South plaza road
 
-# Kurtos Town Plaza
-add_rect(plaza, 110, 68, 138, 88) # Paved stone plaza square
-add_rect(roads, 108, 66, 140, 70)  # North plaza avenue
-add_rect(roads, 108, 86, 140, 90)  # South plaza avenue
+# South Crossroads (branches east and west from Boulevard at y=134)
+# 2 tiles wide (32px)
+d_roads.line([(126, 134), (108, 121)], fill=255, width=2) # connects to Footbridge 1 East end
+d_roads.line([(126, 134), (145, 134)], fill=255, width=2) # connects towards SE mine trail
 
-# Northern Summit Road (Plaza to Cherry Blossom Academy)
-add_line(roads, 128, 68, 128, 26, width=5)
-add_rect(roads, 122, 22, 134, 28) # Academy forecourt
-
-# Western Village Roads
+# Western Village Roads (2 tiles wide = 32px):
 # From Footbridge 1 West end (x=96, y=121) into village
-add_line(roads, 96, 121, 58, 121, width=4)
-add_line(roads, 58, 121, 58, 80, width=4) # Main village avenue
-add_line(roads, 58, 80, 47, 80, width=4)  # Connects to Footbridge 2 South approach
-add_line(roads, 58, 121, 58, 136, width=4) # South to beach
-add_line(roads, 58, 136, 30, 136, width=4) # Beach road
-add_line(roads, 76, 121, 76, 76, width=4)  # Mid-village avenue
-add_line(roads, 76, 76, 110, 76, width=4)  # Connects village to plaza
+d_roads.line([(96, 121), (70, 121)], fill=255, width=2)
+# Main village avenue (x=70, from y=125 up to y=62)
+d_roads.line([(70, 62), (70, 125)], fill=255, width=2)
+# Village to Plaza connections (north and mid)
+d_roads.line([(70, 62), (116, 62)], fill=255, width=2)
+d_roads.line([(70, 75), (116, 75)], fill=255, width=2)
+# Connects to Footbridge 2 south approach
+d_roads.line([(70, 75), (47, 75)], fill=255, width=2)
+d_roads.line([(47, 75), (47, 80)], fill=255, width=2)
+# South street to coastal cottages and beach
+d_roads.line([(70, 125), (70, 138)], fill=255, width=2)
+d_roads.line([(70, 138), (34, 138)], fill=255, width=2)
 
-# Roads North of Canal & Lighthouse
-add_line(roads, 47, 70, 36, 68, width=4)  # Footbridge 2 North approach west to pier
-add_line(roads, 36, 68, 24, 68, width=4)  # To lighthouse
-add_line(roads, 47, 70, 76, 70, width=4)  # North village road
-add_line(roads, 76, 70, 110, 70, width=4) # To plaza
+# Roads North of Canal & Lighthouse (2 tiles wide):
+d_roads.line([(47, 71), (24, 71)], fill=255, width=2) # Footbridge 2 north approach west to lighthouse
+d_roads.line([(47, 71), (70, 71)], fill=255, width=2) # north village road
+d_roads.line([(70, 71), (116, 71)], fill=255, width=2) # to plaza
 
-# Eastern Highway, Farmlands & Mine Trail
-# Runs north of the Upper Wetland Pond cleanly into farmlands
-add_line(roads, 138, 76, 185, 76, width=4) # Plaza east to farmlands
-add_line(roads, 185, 76, 215, 76, width=4) # North farm road
-add_line(roads, 215, 76, 215, 115, width=4) # Farm avenue
-add_line(roads, 215, 115, 215, 135, width=4) # Mine cave trail
-add_rect(roads, 210, 130, 224, 136) # Mine entrance platform
-add_line(roads, 215, 86, 236, 86, width=4) # East pier path
-add_line(roads, 185, 76, 196, 45, width=4) # Up to Royal Citadel
+# Eastern Highway, Farmlands & Mine Trail (2 tiles wide):
+d_roads.line([(137, 75), (185, 75)], fill=255, width=2) # Plaza east to farmlands
+d_roads.line([(185, 75), (215, 75)], fill=255, width=2) # north farm road
+d_roads.line([(215, 75), (215, 115)], fill=255, width=2) # farm avenue
+d_roads.line([(215, 115), (215, 132)], fill=255, width=2) # trail down to mine
+d_roads.rectangle([212, 129, 218, 133], fill=255)        # mine entrance depot platform
+d_roads.line([(215, 86), (236, 86)], fill=255, width=2) # east pier path
+d_roads.line([(185, 75), (205, 34)], fill=255, width=2) # road up to Royal Citadel
+d_roads.line([(205, 34), (205, 26)], fill=255, width=3) # castle gateway
+
+roads = np.array(roads_img) > 128
 
 # --- 4. BRIDGES & PIERS ---
 bridge_cells = set()

@@ -60,9 +60,9 @@ func _on_process_frame() -> void:
 	print("  ✅ PASS: Walking into Bakery is BLOCKED by %s" % col_up.get_collider().name)
 
 	# 4. Test Unobstructed Movement Along Road beside Building
-	# Road is at x: 1088 - 60 = 1028 (Village north avenue)
+	# Road is at x: 1120 (West Village Avenue, adjacent to Bakery at x=1060)
 	# Player walks freely NORTH along the avenue past the bakery
-	player.position = Vector2(1028, 1080)
+	player.position = Vector2(1120, bakery.position.y + 60)
 	var col_road = player.move_and_collide(Vector2(0, -120), true)
 	assert(col_road == null, "Player walks NORTH along road beside Bakery with ZERO obstruction")
 	print("  ✅ PASS: Player walks freely along avenue beside Bakery with ZERO obstruction")
