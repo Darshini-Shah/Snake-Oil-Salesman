@@ -157,23 +157,23 @@ d_roads.line([(126, 134), (145, 134)], fill=255, width=2) # connects towards SE 
 
 # Western Village Roads (2 tiles wide = 32px):
 # From Footbridge 1 West end (x=96, y=121) into village
-d_roads.line([(96, 121), (70, 121)], fill=255, width=2)
-# Main village avenue (x=70, from y=125 up to y=62)
-d_roads.line([(70, 62), (70, 125)], fill=255, width=2)
+d_roads.line([(96, 121), (77, 121)], fill=255, width=2)
+# Main village avenue (x=77, from y=125 up to y=62)
+d_roads.line([(77, 62), (77, 125)], fill=255, width=2)
 # Village to Plaza connections (north and mid)
-d_roads.line([(70, 62), (116, 62)], fill=255, width=2)
-d_roads.line([(70, 75), (116, 75)], fill=255, width=2)
+d_roads.line([(77, 62), (116, 62)], fill=255, width=2)
+d_roads.line([(77, 75), (116, 75)], fill=255, width=2)
 # Connects to Footbridge 2 south approach
-d_roads.line([(70, 75), (47, 75)], fill=255, width=2)
+d_roads.line([(77, 75), (47, 75)], fill=255, width=2)
 d_roads.line([(47, 75), (47, 80)], fill=255, width=2)
 # South street to coastal cottages and beach
-d_roads.line([(70, 125), (70, 138)], fill=255, width=2)
-d_roads.line([(70, 138), (34, 138)], fill=255, width=2)
+d_roads.line([(77, 125), (77, 138)], fill=255, width=2)
+d_roads.line([(77, 138), (34, 138)], fill=255, width=2)
 
 # Roads North of Canal & Lighthouse (2 tiles wide):
 d_roads.line([(47, 71), (24, 71)], fill=255, width=2) # Footbridge 2 north approach west to lighthouse
-d_roads.line([(47, 71), (70, 71)], fill=255, width=2) # north village road
-d_roads.line([(70, 71), (116, 71)], fill=255, width=2) # to plaza
+d_roads.line([(47, 71), (77, 71)], fill=255, width=2) # north village road
+d_roads.line([(77, 71), (116, 71)], fill=255, width=2) # to plaza
 
 # Eastern Highway, Farmlands & Mine Trail (2 tiles wide):
 d_roads.line([(137, 75), (185, 75)], fill=255, width=2) # Plaza east to farmlands

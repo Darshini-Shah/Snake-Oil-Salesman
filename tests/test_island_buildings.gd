@@ -52,18 +52,18 @@ func _on_process_frame() -> void:
 		print("  ✅ PASS: Landmark '%s' verified with valid sprite & collider" % bld_name)
 
 	# 3. Test Building Collision Detection
-	# Place player in front of Bakery (1088, 1024 + 50) and walk UP toward building
+	# Place player in front of Bakery doorstep and walk UP toward building
 	var bakery = buildings_node.get_node("BakeryBuilding") as Node2D
-	player.position = bakery.position + Vector2(0, 60)
+	player.position = bakery.position + Vector2(0, 85)
 	var col_up = player.move_and_collide(Vector2(0, -60), true)
 	assert(col_up != null, "Walking into Bakery is blocked by collision")
 	print("  ✅ PASS: Walking into Bakery is BLOCKED by %s" % col_up.get_collider().name)
 
 	# 4. Test Unobstructed Movement Along Road beside Building
-	# Road is at x: 1120 (West Village Avenue, adjacent to Bakery at x=1060)
+	# Road is at x: 1232 (West Village Avenue, adjacent to Bakery at x=1120)
 	# Player walks freely NORTH along the avenue past the bakery
-	player.position = Vector2(1120, bakery.position.y + 60)
-	var col_road = player.move_and_collide(Vector2(0, -120), true)
+	player.position = Vector2(1232, bakery.position.y + 85)
+	var col_road = player.move_and_collide(Vector2(0, -170), true)
 	assert(col_road == null, "Player walks NORTH along road beside Bakery with ZERO obstruction")
 	print("  ✅ PASS: Player walks freely along avenue beside Bakery with ZERO obstruction")
 

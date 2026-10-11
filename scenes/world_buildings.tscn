@@ -11,366 +11,406 @@
 [ext_resource type="Texture2D" path="res://assets/landmarks/mine_entrance.png" id="9_r20a1"]
 [ext_resource type="Texture2D" path="res://assets/landmarks/town_hall.png" id="10_34qpk"]
 [ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/General Store.png" id="11_0i6yg"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Doctors House.png" id="12_28fhi"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Library.png" id="13_ixf3s"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Watchmakers House.png" id="12_28fhi"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Doctors House.png" id="13_ixf3s"]
 [ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Mayors Residence.png" id="14_es31f"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Hunters Cabin.png" id="15_v1qm4"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Lumberjack House.png" id="16_ow162"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Watchmakers House.png" id="17_511ho"]
-[ext_resource type="Texture2D" path="res://assets/landmarks/church.png" id="18_xnx1v"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Fishermans Hut.png" id="19_f30yp"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Potters House.png" id="20_gr7py"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Small Wooden Cottage.png" id="21_4rrho"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Stone Village House.png" id="22_rgoc8"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Bakery.png" id="23_34odd"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Blacksmith House.png" id="24_jq0h7"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Tailors House.png" id="25_djd5l"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Tavern.png" id="26_cp4i4"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Brewers House.png" id="27_q77ac"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Florists House.png" id="28_o6h8b"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Herbalist House.png" id="29_dk88d"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Carpenters House.png" id="30_85r2t"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Toy Makers House.png" id="31_ltkma"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Musicians House.png" id="32_57jj5"]
-[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Post House.png" id="33_3sj0w"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Library.png" id="15_v1qm4"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Musicians House.png" id="16_ow162"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Post House.png" id="17_511ho"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Hunters Cabin.png" id="18_xnx1v"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Lumberjack House.png" id="19_f30yp"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/church.png" id="20_gr7py"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Brewers House.png" id="21_4rrho"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Fishermans Hut.png" id="22_rgoc8"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Potters House.png" id="23_34odd"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Small Wooden Cottage.png" id="24_jq0h7"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Stone Village House.png" id="25_djd5l"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Bakery.png" id="26_cp4i4"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Blacksmith House.png" id="27_q77ac"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Tailors House.png" id="28_o6h8b"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Tavern.png" id="29_dk88d"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Florists House.png" id="30_85r2t"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Herbalist House.png" id="31_ltkma"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Carpenters House.png" id="32_57jj5"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Toy Makers House.png" id="33_3sj0w"]
 [ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Farmers House.png" id="34_esgqt"]
 [ext_resource type="Texture2D" path="res://assets/landmarks/barn.png" id="35_fxhm6"]
 [ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Beekeepers Hut.png" id="36_gesbl"]
 [ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Mill House.png" id="37_r610f"]
 [ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Storage House.png" id="38_xmbbq"]
 
-[node name="Buildings" type="Node2D" unique_id=1377358963]
+[node name="Buildings" type="Node2D" unique_id=1986243696]
 y_sort_enabled = true
 
-[node name="RoyalCastle" type="StaticBody2D" parent="." unique_id=922815490 instance=ExtResource("1_d71y6")]
+[node name="RoyalCastle" type="StaticBody2D" parent="." unique_id=1397966686 instance=ExtResource("1_d71y6")]
 position = Vector2(3280, 480)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("3_cv2st")
 building_name = "Royal Citadel & Fortress"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(200, 60)
-footprint_offset = Vector2(0, 30)
+footprint_size = Vector2(300, 70)
+footprint_offset = Vector2(0, 45)
+sprite_scale = Vector2(1.6, 1.6)
 
-[node name="ScholarAcademy" type="StaticBody2D" parent="." unique_id=1609345132 instance=ExtResource("1_d71y6")]
-position = Vector2(2016, 240)
+[node name="ScholarAcademy" type="StaticBody2D" parent="." unique_id=883871479 instance=ExtResource("1_d71y6")]
+position = Vector2(2024, 260)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("4_ks4qa")
 building_name = "Northern Scholar Academy"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(140, 50)
-footprint_offset = Vector2(0, 25)
+footprint_size = Vector2(200, 60)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.5, 1.5)
 
-[node name="SmugglerCave" type="StaticBody2D" parent="." unique_id=1093402256 instance=ExtResource("1_d71y6")]
+[node name="SmugglerCave" type="StaticBody2D" parent="." unique_id=1942951498 instance=ExtResource("1_d71y6")]
 position = Vector2(580, 520)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("5_00kwj")
 building_name = "Smuggler's Grotto"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(70, 40)
+footprint_size = Vector2(90, 40)
+footprint_offset = Vector2(0, 25)
+sprite_scale = Vector2(1.5, 1.5)
 
-[node name="Lighthouse" type="StaticBody2D" parent="." unique_id=124901386 instance=ExtResource("1_d71y6")]
+[node name="Lighthouse" type="StaticBody2D" parent="." unique_id=396677051 instance=ExtResource("1_d71y6")]
 position = Vector2(240, 1120)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("6_xyob5")
 building_name = "Gull Rock Lighthouse"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 48)
-footprint_offset = Vector2(0, 24)
+footprint_size = Vector2(90, 60)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.5, 1.5)
 
-[node name="PlazaFountain" type="StaticBody2D" parent="." unique_id=2045520463 instance=ExtResource("1_d71y6")]
-position = Vector2(2016, 1120)
+[node name="PlazaFountain" type="StaticBody2D" parent="." unique_id=281625827 instance=ExtResource("1_d71y6")]
+position = Vector2(2024, 1120)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("7_k6aen")
 building_name = "Kurtos Plaza Fountain"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(48, 48)
+footprint_size = Vector2(60, 60)
 footprint_offset = Vector2(0, 0)
+sprite_scale = Vector2(1.4, 1.4)
 
-[node name="Windmill" type="StaticBody2D" parent="." unique_id=1971373184 instance=ExtResource("1_d71y6")]
+[node name="Windmill" type="StaticBody2D" parent="." unique_id=1668136875 instance=ExtResource("1_d71y6")]
 position = Vector2(3440, 1120)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("8_6dkvl")
 building_name = "Golden Windmill"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 48)
-footprint_offset = Vector2(0, 24)
+footprint_size = Vector2(90, 50)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.7, 1.7)
 
-[node name="MineEntrance" type="StaticBody2D" parent="." unique_id=1181816465 instance=ExtResource("1_d71y6")]
+[node name="MineEntrance" type="StaticBody2D" parent="." unique_id=1257865416 instance=ExtResource("1_d71y6")]
 position = Vector2(3440, 2080)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("9_r20a1")
 building_name = "Deep Stone Mine"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(110, 40)
+footprint_size = Vector2(150, 40)
+footprint_offset = Vector2(0, 25)
+sprite_scale = Vector2(1.5, 1.5)
 
-[node name="TownHall" type="StaticBody2D" parent="." unique_id=1080336322 instance=ExtResource("1_d71y6")]
-position = Vector2(2016, 960)
+[node name="TownHall" type="StaticBody2D" parent="." unique_id=851351717 instance=ExtResource("1_d71y6")]
+position = Vector2(2024, 920)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("10_34qpk")
 building_name = "Kurtos Town Hall"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(120, 50)
-footprint_offset = Vector2(0, 25)
+footprint_size = Vector2(180, 50)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.5, 1.5)
 
-[node name="MerchantShop" type="StaticBody2D" parent="." unique_id=659954658 instance=ExtResource("1_d71y6")]
-position = Vector2(1800, 1040)
+[node name="MerchantShop" type="StaticBody2D" parent="." unique_id=686387354 instance=ExtResource("1_d71y6")]
+position = Vector2(1720, 1040)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("11_0i6yg")
 building_name = "Plaza Merchant Shop"
 match_asset_collider = true
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="DoctorsClinic" type="StaticBody2D" parent="." unique_id=40168309 instance=ExtResource("1_d71y6")]
-position = Vector2(2232, 1040)
+[node name="WatchmakersHouse" type="StaticBody2D" parent="." unique_id=2050166933 instance=ExtResource("1_d71y6")]
+position = Vector2(1720, 1200)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("12_28fhi")
-building_name = "Doctor's Clinic"
+building_name = "Watchmaker's Workshop"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="Library" type="StaticBody2D" parent="." unique_id=605665200 instance=ExtResource("1_d71y6")]
-position = Vector2(2232, 1260)
+[node name="DoctorsClinic" type="StaticBody2D" parent="." unique_id=1153034706 instance=ExtResource("1_d71y6")]
+position = Vector2(2300, 1040)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("13_ixf3s")
-building_name = "Kurtos Archive & Library"
+building_name = "Doctor's Clinic"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="MayorsResidence" type="StaticBody2D" parent="." unique_id=907772673 instance=ExtResource("1_d71y6")]
-position = Vector2(2232, 1150)
+[node name="MayorsResidence" type="StaticBody2D" parent="." unique_id=864810057 instance=ExtResource("1_d71y6")]
+position = Vector2(2300, 1200)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("14_es31f")
 building_name = "Mayor's Manor"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="HuntersCabin" type="StaticBody2D" parent="." unique_id=363215171 instance=ExtResource("1_d71y6")]
-position = Vector2(1120, 560)
+[node name="Library" type="StaticBody2D" parent="." unique_id=1883084860 instance=ExtResource("1_d71y6")]
+position = Vector2(2300, 1360)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("15_v1qm4")
-building_name = "Hunter's Cabin"
+building_name = "Kurtos Archive & Library"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="LumberjackHouse" type="StaticBody2D" parent="." unique_id=364869201 instance=ExtResource("1_d71y6")]
-position = Vector2(1440, 560)
+[node name="MusiciansHouse" type="StaticBody2D" parent="." unique_id=234409064 instance=ExtResource("1_d71y6")]
+position = Vector2(1880, 1380)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("16_ow162")
-building_name = "Lumberjack's Lodge"
+building_name = "Bard's Cottage"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="WatchmakersHouse" type="StaticBody2D" parent="." unique_id=1996077281 instance=ExtResource("1_d71y6")]
-position = Vector2(1800, 1150)
+[node name="PostHouse" type="StaticBody2D" parent="." unique_id=66260149 instance=ExtResource("1_d71y6")]
+position = Vector2(2160, 1380)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("17_511ho")
-building_name = "Watchmaker's Workshop"
+building_name = "Kurtos Waystation"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="ChurchBuilding" type="StaticBody2D" parent="." unique_id=247473157 instance=ExtResource("1_d71y6")]
-position = Vector2(1440, 1000)
+[node name="HuntersCabin" type="StaticBody2D" parent="." unique_id=1458061525 instance=ExtResource("1_d71y6")]
+position = Vector2(1120, 560)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("18_xnx1v")
+building_name = "Hunter's Cabin"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
+
+[node name="LumberjackHouse" type="StaticBody2D" parent="." unique_id=1479877566 instance=ExtResource("1_d71y6")]
+position = Vector2(1440, 560)
+script = ExtResource("2_2io8m")
+building_texture = ExtResource("19_f30yp")
+building_name = "Lumberjack's Lodge"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
+
+[node name="ChurchBuilding" type="StaticBody2D" parent="." unique_id=1251556800 instance=ExtResource("1_d71y6")]
+position = Vector2(1540, 980)
+script = ExtResource("2_2io8m")
+building_texture = ExtResource("20_gr7py")
 building_name = "Parish Chapel"
 match_asset_collider = true
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(96, 50)
-footprint_offset = Vector2(0, 25)
+footprint_size = Vector2(140, 50)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.5, 1.5)
 
-[node name="FishermansHut" type="StaticBody2D" parent="." unique_id=744631265 instance=ExtResource("1_d71y6")]
-position = Vector2(680, 1050)
-script = ExtResource("2_2io8m")
-building_texture = ExtResource("19_f30yp")
-building_name = "Fisherman's Shack"
-custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
-
-[node name="PottersHouse" type="StaticBody2D" parent="." unique_id=60452872 instance=ExtResource("1_d71y6")]
-position = Vector2(640, 1680)
-script = ExtResource("2_2io8m")
-building_texture = ExtResource("20_gr7py")
-building_name = "Potter's Kiln House"
-custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
-
-[node name="SmallWoodenCottage" type="StaticBody2D" parent="." unique_id=1747429429 instance=ExtResource("1_d71y6")]
-position = Vector2(640, 1920)
+[node name="BrewersHouse" type="StaticBody2D" parent="." unique_id=336746071 instance=ExtResource("1_d71y6")]
+position = Vector2(1540, 1260)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("21_4rrho")
-building_name = "Coastal Cottage"
+building_name = "Brewer's Lodge"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="BeachCottage" type="StaticBody2D" parent="." unique_id=164908583 instance=ExtResource("1_d71y6")]
-position = Vector2(640, 2140)
+[node name="FishermansHut" type="StaticBody2D" parent="." unique_id=2052402560 instance=ExtResource("1_d71y6")]
+position = Vector2(620, 1050)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("22_rgoc8")
-building_name = "Beachcomb House"
+building_name = "Fisherman's Shack"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="BakeryBuilding" type="StaticBody2D" parent="." unique_id=1825985147 instance=ExtResource("1_d71y6")]
-position = Vector2(1060, 1024)
+[node name="PottersHouse" type="StaticBody2D" parent="." unique_id=432661094 instance=ExtResource("1_d71y6")]
+position = Vector2(600, 1680)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("23_34odd")
+building_name = "Potter's Kiln House"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
+
+[node name="SmallWoodenCottage" type="StaticBody2D" parent="." unique_id=1618455612 instance=ExtResource("1_d71y6")]
+position = Vector2(600, 1920)
+script = ExtResource("2_2io8m")
+building_texture = ExtResource("24_jq0h7")
+building_name = "Coastal Cottage"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
+
+[node name="BeachCottage" type="StaticBody2D" parent="." unique_id=1006861449 instance=ExtResource("1_d71y6")]
+position = Vector2(600, 2160)
+script = ExtResource("2_2io8m")
+building_texture = ExtResource("25_djd5l")
+building_name = "Beachcomb House"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
+
+[node name="BakeryBuilding" type="StaticBody2D" parent="." unique_id=355495930 instance=ExtResource("1_d71y6")]
+position = Vector2(1120, 980)
+script = ExtResource("2_2io8m")
+building_texture = ExtResource("26_cp4i4")
 building_name = "Village Bakery"
 match_asset_collider = true
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="BlacksmithHouse" type="StaticBody2D" parent="." unique_id=518607700 instance=ExtResource("1_d71y6")]
-position = Vector2(1060, 1280)
-script = ExtResource("2_2io8m")
-building_texture = ExtResource("24_jq0h7")
-building_name = "Blacksmith Forge"
-custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
-
-[node name="TailorsHouse" type="StaticBody2D" parent="." unique_id=588910459 instance=ExtResource("1_d71y6")]
-position = Vector2(1060, 1540)
-script = ExtResource("2_2io8m")
-building_texture = ExtResource("25_djd5l")
-building_name = "Tailor's Atelier"
-custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
-
-[node name="Tavern" type="StaticBody2D" parent="." unique_id=1316830214 instance=ExtResource("1_d71y6")]
-position = Vector2(1060, 1800)
-script = ExtResource("2_2io8m")
-building_texture = ExtResource("26_cp4i4")
-building_name = "The Drunken Gull Tavern"
-custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
-
-[node name="BrewersHouse" type="StaticBody2D" parent="." unique_id=1167759559 instance=ExtResource("1_d71y6")]
-position = Vector2(1440, 1280)
+[node name="BlacksmithHouse" type="StaticBody2D" parent="." unique_id=1704921520 instance=ExtResource("1_d71y6")]
+position = Vector2(1120, 1240)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("27_q77ac")
-building_name = "Brewer's Lodge"
+building_name = "Blacksmith Forge"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="FloristsHouse" type="StaticBody2D" parent="." unique_id=838026673 instance=ExtResource("1_d71y6")]
-position = Vector2(1180, 1024)
+[node name="TailorsHouse" type="StaticBody2D" parent="." unique_id=454963344 instance=ExtResource("1_d71y6")]
+position = Vector2(1120, 1500)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("28_o6h8b")
-building_name = "Florist's Garden House"
+building_name = "Tailor's Atelier"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="HerbalistHouse" type="StaticBody2D" parent="." unique_id=1025918559 instance=ExtResource("1_d71y6")]
-position = Vector2(1180, 1280)
+[node name="Tavern" type="StaticBody2D" parent="." unique_id=1826634254 instance=ExtResource("1_d71y6")]
+position = Vector2(1120, 1780)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("29_dk88d")
-building_name = "Herbalist's Cottage"
+building_name = "The Drunken Gull Tavern"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="CarpentersHouse" type="StaticBody2D" parent="." unique_id=237257013 instance=ExtResource("1_d71y6")]
-position = Vector2(1180, 1540)
+[node name="FloristsHouse" type="StaticBody2D" parent="." unique_id=36610585 instance=ExtResource("1_d71y6")]
+position = Vector2(1340, 980)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("30_85r2t")
-building_name = "Carpenter's Workshop"
+building_name = "Florist's Garden House"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="ToyMakersHouse" type="StaticBody2D" parent="." unique_id=28094204 instance=ExtResource("1_d71y6")]
-position = Vector2(1180, 1800)
+[node name="HerbalistHouse" type="StaticBody2D" parent="." unique_id=1807509378 instance=ExtResource("1_d71y6")]
+position = Vector2(1340, 1240)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("31_ltkma")
-building_name = "Toymaker's Cottage"
+building_name = "Herbalist's Cottage"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="MusiciansHouse" type="StaticBody2D" parent="." unique_id=1217262993 instance=ExtResource("1_d71y6")]
-position = Vector2(1920, 1340)
+[node name="CarpentersHouse" type="StaticBody2D" parent="." unique_id=1878261881 instance=ExtResource("1_d71y6")]
+position = Vector2(1340, 1500)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("32_57jj5")
-building_name = "Bard's Cottage"
+building_name = "Carpenter's Workshop"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="PostHouse" type="StaticBody2D" parent="." unique_id=1472904784 instance=ExtResource("1_d71y6")]
-position = Vector2(2112, 1340)
+[node name="ToyMakersHouse" type="StaticBody2D" parent="." unique_id=1795752086 instance=ExtResource("1_d71y6")]
+position = Vector2(1310, 1780)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("33_3sj0w")
-building_name = "Kurtos Waystation"
+building_name = "Toymaker's Cottage"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="FarmersHouse" type="StaticBody2D" parent="." unique_id=1697419840 instance=ExtResource("1_d71y6")]
+[node name="FarmersHouse" type="StaticBody2D" parent="." unique_id=277101182 instance=ExtResource("1_d71y6")]
 position = Vector2(3120, 1152)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("34_esgqt")
 building_name = "Valley Farmhouse"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="StorageBarn" type="StaticBody2D" parent="." unique_id=1595140672 instance=ExtResource("1_d71y6")]
+[node name="StorageBarn" type="StaticBody2D" parent="." unique_id=356434799 instance=ExtResource("1_d71y6")]
 position = Vector2(3120, 1400)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("35_fxhm6")
 building_name = "Harvest Barn"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(80, 40)
+footprint_size = Vector2(120, 50)
+footprint_offset = Vector2(0, 30)
+sprite_scale = Vector2(1.6, 1.6)
 
-[node name="BeekeepersHut" type="StaticBody2D" parent="." unique_id=855279618 instance=ExtResource("1_d71y6")]
+[node name="BeekeepersHut" type="StaticBody2D" parent="." unique_id=1843441488 instance=ExtResource("1_d71y6")]
 position = Vector2(3550, 1400)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("36_gesbl")
 building_name = "Beekeeper's Apiary"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="MillHouse" type="StaticBody2D" parent="." unique_id=60770895 instance=ExtResource("1_d71y6")]
-position = Vector2(3120, 1680)
+[node name="MillHouse" type="StaticBody2D" parent="." unique_id=147214544 instance=ExtResource("1_d71y6")]
+position = Vector2(3240, 1640)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("37_r610f")
 building_name = "Granary Mill House"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="CoastCabin" type="StaticBody2D" parent="." unique_id=1128735633 instance=ExtResource("1_d71y6")]
+[node name="CoastCabin" type="StaticBody2D" parent="." unique_id=1434509102 instance=ExtResource("1_d71y6")]
 position = Vector2(3550, 1680)
 script = ExtResource("2_2io8m")
-building_texture = ExtResource("21_4rrho")
+building_texture = ExtResource("24_jq0h7")
 building_name = "Eastern Shore Cabin"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
 
-[node name="MinersShed" type="StaticBody2D" parent="." unique_id=766592399 instance=ExtResource("1_d71y6")]
+[node name="MinersShed" type="StaticBody2D" parent="." unique_id=28474031 instance=ExtResource("1_d71y6")]
 position = Vector2(3260, 2080)
 script = ExtResource("2_2io8m")
 building_texture = ExtResource("38_xmbbq")
 building_name = "Mine Equipment Depot"
 custom_polygon = PackedVector2Array()
-footprint_size = Vector2(64, 36)
-footprint_offset = Vector2(0, 18)
+footprint_size = Vector2(110, 44)
+footprint_offset = Vector2(0, 35)
+sprite_scale = Vector2(1.85, 1.85)
