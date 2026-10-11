@@ -1,0 +1,597 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/npc.tscn" id="1_3bvqd"]
+[ext_resource type="Script" path="res://scripts/npc.gd" id="2_8kdcv"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/mayor_vance.png" id="3_gjedc"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_barnaby.png" id="4_dcb0d"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/doctor_hawthorne.png" id="5_1gbbq"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/watchmaker_tock.png" id="6_550j2"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/librarian_elena.png" id="7_7qtmu"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_cedric.png" id="8_qj8ln"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/jester_pip.png" id="9_nu3wg"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/bard_lyra.png" id="10_d7wcr"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/citizen_clara.png" id="11_65yjt"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/citizen_hugo.png" id="12_31882"]
+[ext_resource type="PackedScene" path="res://assets/characters/guard.tscn" id="13_ocacn"]
+[ext_resource type="Script" path="res://scripts/guard.gd" id="14_l4244"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/king_reginald.png" id="15_q7qlp"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/queen_katherine.png" id="16_kahw2"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/scholar_thaddeus.png" id="17_my8ik"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/apprentice_leo.png" id="18_o4f7j"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/sage_albus.png" id="19_u3xcj"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/smuggler_jack.png" id="20_uaafu"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/shadow_rogue.png" id="21_r03pu"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/lighthouse_keeper.png" id="22_ssuvu"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_marla.png" id="23_bmk4b"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/blacksmith_boros.png" id="24_pot2v"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/tailor_vivienne.png" id="25_5qb3b"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/tavernkeeper_maggie.png" id="26_xaqdc"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/florist_lily.png" id="27_imy80"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/herbalist_maeve.png" id="28_kofvv"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/carpenter_wayne.png" id="29_26b3f"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/toymaker_oswald.png" id="30_y4hld"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/priest_joseph.png" id="31_6r07v"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/npc_arthur.png" id="32_xgydt"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/fisherman_finn.png" id="33_vjj7m"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/potter_gordon.png" id="34_e8ngp"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/lumberjack_karl.png" id="35_5h4rq"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/hunter_orion.png" id="36_68g6n"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/elder_marta.png" id="37_knhdt"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/child_timmy.png" id="38_61hxm"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/child_rosie.png" id="39_5tdtm"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/farmer_giles.png" id="40_h0c1i"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/farmhand_pete.png" id="41_odp78"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/beekeeper_beatrice.png" id="42_w52ma"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/windmill_miller.png" id="43_t4xl0"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/foreman_ironbeard.png" id="44_gwntk"]
+[ext_resource type="Texture2D" path="res://assets/characters/people/miner_cole.png" id="45_jqrlk"]
+[ext_resource type="Texture2D" path="res://assets/characters/rpg_pack/player_traveler.png" id="46_3js5o"]
+
+[node name="Characters" type="Node2D" unique_id=59801415]
+y_sort_enabled = true
+
+[node name="NPC_MayorVance" type="CharacterBody2D" parent="." unique_id=1204113006 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2056, 920)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("3_gjedc")
+npc_name = "Mayor Vance"
+npc_title = "Mayor of Kurtos"
+trust = 40
+suspicion = 30
+gold = 5000
+
+[node name="NPC_Barnaby" type="CharacterBody2D" parent="." unique_id=1882001361 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1850, 1140)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("4_dcb0d")
+trust = 45
+suspicion = 15
+
+[node name="NPC_DoctorHawthorne" type="CharacterBody2D" parent="." unique_id=2097432665 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2270, 1140)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("5_1gbbq")
+npc_name = "Dr. Hawthorne"
+npc_title = "Town Physician"
+trust = 60
+suspicion = 20
+gold = 2200
+
+[node name="NPC_WatchmakerTock" type="CharacterBody2D" parent="." unique_id=1934319254 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1850, 1370)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("6_550j2")
+npc_name = "Master Tock"
+npc_title = "Master Horologist"
+suspicion = 25
+gold = 1800
+
+[node name="NPC_LibrarianElena" type="CharacterBody2D" parent="." unique_id=295934789 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2520, 1370)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("7_7qtmu")
+npc_name = "Elena"
+npc_title = "Chief Archivist"
+trust = 55
+suspicion = 15
+gold = 1100
+
+[node name="NPC_Cedric" type="CharacterBody2D" parent="." unique_id=936093986 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2270, 1370)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("8_qj8ln")
+npc_name = "Lord Cedric"
+npc_title = "Wealthy Aristocrat"
+npc_data_file = "res://data/npcs/cedric_aristocrat.json"
+trust = 30
+suspicion = 25
+gold = 8500
+
+[node name="NPC_JesterPip" type="CharacterBody2D" parent="." unique_id=869352662 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1990, 1128)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("9_nu3wg")
+npc_name = "Pip"
+npc_title = "Court Jester"
+trust = 70
+gold = 350
+
+[node name="NPC_BardLyra" type="CharacterBody2D" parent="." unique_id=1212477826 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2120, 1128)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("10_d7wcr")
+npc_name = "Lyra"
+npc_title = "Wandering Minstrel"
+trust = 65
+suspicion = 15
+gold = 450
+
+[node name="NPC_CitizenClara" type="CharacterBody2D" parent="." unique_id=1291952541 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1940, 1220)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("11_65yjt")
+npc_name = "Clara"
+npc_title = "Plaza Shopper"
+trust = 60
+suspicion = 15
+gold = 600
+
+[node name="NPC_CitizenHugo" type="CharacterBody2D" parent="." unique_id=1633694386 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2170, 1220)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("12_31882")
+npc_name = "Hugo"
+npc_title = "Townsperson"
+suspicion = 20
+gold = 750
+
+[node name="Guard_TownNorth" type="CharacterBody2D" parent="." unique_id=1281292614 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(2056, 980)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Plaza Guard"
+
+[node name="Guard_TownSouth" type="CharacterBody2D" parent="." unique_id=1327730568 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(2056, 1280)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Plaza Guard"
+
+[node name="NPC_WaystationMaster" type="CharacterBody2D" parent="." unique_id=321123692 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2270, 1630)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("12_31882")
+npc_name = "Clerk Robert"
+npc_title = "Post Waystation Courier"
+trust = 55
+suspicion = 15
+gold = 900
+
+[node name="NPC_MusicianRowan" type="CharacterBody2D" parent="." unique_id=1079479640 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1850, 1630)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("10_d7wcr")
+npc_name = "Rowan"
+npc_title = "Fiddle Player"
+trust = 65
+gold = 500
+
+[node name="NPC_KingReginald" type="CharacterBody2D" parent="." unique_id=937985593 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3280, 580)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("15_q7qlp")
+npc_name = "King Reginald"
+npc_title = "Sovereign of Kurtos"
+trust = 25
+suspicion = 45
+gold = 50000
+
+[node name="NPC_QueenKatherine" type="CharacterBody2D" parent="." unique_id=1111553976 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3320, 580)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("16_kahw2")
+npc_name = "Queen Katherine"
+npc_title = "Queen of Kurtos"
+trust = 35
+suspicion = 35
+gold = 40000
+
+[node name="Guard_RoyalKnightWest" type="CharacterBody2D" parent="." unique_id=1183606679 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(3200, 580)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Sir Jeffrey"
+
+[node name="Guard_RoyalKnightEast" type="CharacterBody2D" parent="." unique_id=2044959962 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(3400, 580)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Sir Donald"
+
+[node name="Guard_CourtyardKnight" type="CharacterBody2D" parent="." unique_id=803077027 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(3300, 670)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Citadel Sentry"
+
+[node name="NPC_HeadmasterThaddeus" type="CharacterBody2D" parent="." unique_id=239916241 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2056, 360)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("17_my8ik")
+npc_name = "Thaddeus"
+npc_title = "Academy Headmaster"
+trust = 35
+suspicion = 40
+gold = 3500
+
+[node name="NPC_ApprenticeLeo" type="CharacterBody2D" parent="." unique_id=1514254462 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2000, 360)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("18_o4f7j")
+npc_name = "Leo"
+npc_title = "Scholar Apprentice"
+trust = 75
+gold = 300
+
+[node name="NPC_SageAlbus" type="CharacterBody2D" parent="." unique_id=307523695 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2110, 360)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("19_u3xcj")
+npc_name = "Sage Albus"
+npc_title = "Ancient Astrologer"
+trust = 45
+suspicion = 30
+gold = 2800
+
+[node name="NPC_SmugglerJack" type="CharacterBody2D" parent="." unique_id=950509391 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(580, 610)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("20_uaafu")
+npc_name = "'Slick' Jack"
+npc_title = "Contraband Dealer"
+trust = 30
+suspicion = 50
+gold = 4500
+
+[node name="NPC_ShadowRogue" type="CharacterBody2D" parent="." unique_id=1836454971 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(640, 600)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("21_r03pu")
+npc_name = "Vesper"
+npc_title = "Shadow Informant"
+trust = 35
+suspicion = 45
+gold = 2200
+
+[node name="NPC_LighthouseKeeper" type="CharacterBody2D" parent="." unique_id=352681472 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(240, 1220)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("22_ssuvu")
+npc_name = "Captain Finn"
+npc_title = "Gull Rock Lighthouse Keeper"
+trust = 60
+suspicion = 20
+gold = 1400
+
+[node name="NPC_Marla" type="CharacterBody2D" parent="." unique_id=1736548832 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1030, 1050)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("23_bmk4b")
+npc_name = "Marla"
+npc_title = "Empathetic Baker"
+npc_data_file = "res://data/npcs/marla_baker.json"
+trust = 65
+gold = 650
+
+[node name="NPC_BlacksmithBoros" type="CharacterBody2D" parent="." unique_id=1281073412 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1115, 1400)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("24_pot2v")
+npc_name = "Boros"
+npc_title = "Village Blacksmith"
+trust = 45
+suspicion = 30
+gold = 2100
+
+[node name="NPC_TailorVivienne" type="CharacterBody2D" parent="." unique_id=965002227 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1100, 1680)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("25_5qb3b")
+npc_name = "Vivienne"
+npc_title = "Master Clothier"
+trust = 55
+suspicion = 20
+gold = 1600
+
+[node name="NPC_TavernkeeperMaggie" type="CharacterBody2D" parent="." unique_id=1313076534 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1100, 1960)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("26_xaqdc")
+npc_name = "Maggie"
+npc_title = "Drunken Gull Hostess"
+trust = 60
+suspicion = 15
+gold = 2800
+
+[node name="NPC_FloristLily" type="CharacterBody2D" parent="." unique_id=1393555042 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1400, 1050)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("27_imy80")
+npc_name = "Lily"
+npc_title = "Botanist & Florist"
+trust = 70
+gold = 950
+
+[node name="NPC_HerbalistMaeve" type="CharacterBody2D" parent="." unique_id=1361408292 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1400, 1400)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("28_kofvv")
+npc_name = "Maeve"
+npc_title = "Apothecary & Herbalist"
+suspicion = 30
+gold = 1400
+
+[node name="NPC_CarpenterWayne" type="CharacterBody2D" parent="." unique_id=1074060385 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1400, 1680)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("29_26b3f")
+npc_name = "Wayne"
+npc_title = "Master Woodworker"
+trust = 55
+suspicion = 20
+gold = 1750
+
+[node name="NPC_ToymakerOswald" type="CharacterBody2D" parent="." unique_id=1703126130 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1400, 1960)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("30_y4hld")
+npc_name = "Oswald"
+npc_title = "Master Toymaker"
+trust = 70
+gold = 800
+
+[node name="NPC_PriestJoseph" type="CharacterBody2D" parent="." unique_id=295947238 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1620, 890)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("31_6r07v")
+npc_name = "Father Joseph"
+npc_title = "Parish Chapel Priest"
+trust = 80
+suspicion = 5
+
+[node name="NPC_Arthur" type="CharacterBody2D" parent="." unique_id=579398140 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1620, 1420)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("32_xgydt")
+npc_name = "Old Arthur"
+npc_title = "Superstitious Elder"
+npc_data_file = "res://data/npcs/arthur_elder.json"
+trust = 55
+suspicion = 12
+gold = 400
+
+[node name="NPC_FishermanFinn" type="CharacterBody2D" parent="." unique_id=1797888886 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(656, 1050)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("33_vjj7m")
+npc_name = "Old Finn"
+npc_title = "Canal Angler"
+trust = 65
+suspicion = 15
+gold = 550
+
+[node name="NPC_PotterGordon" type="CharacterBody2D" parent="." unique_id=1234468705 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(580, 1770)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("34_e8ngp")
+npc_name = "Gordon"
+npc_title = "Master Potter"
+trust = 60
+suspicion = 20
+gold = 900
+
+[node name="NPC_LumberjackKarl" type="CharacterBody2D" parent="." unique_id=1357723534 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1400, 510)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("35_5h4rq")
+npc_name = "Karl"
+npc_title = "Lumberjack Foreman"
+suspicion = 25
+gold = 1500
+
+[node name="NPC_HunterOrion" type="CharacterBody2D" parent="." unique_id=483291818 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1080, 510)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("36_68g6n")
+npc_name = "Orion"
+npc_title = "Master Tracker"
+trust = 40
+suspicion = 35
+gold = 1300
+
+[node name="NPC_ElderMarta" type="CharacterBody2D" parent="." unique_id=987696844 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(580, 2030)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("37_knhdt")
+npc_name = "Marta"
+npc_title = "Coast Matriarch"
+trust = 70
+suspicion = 15
+gold = 600
+
+[node name="NPC_ChildTimmy" type="CharacterBody2D" parent="." unique_id=1741480608 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1260, 1200)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("38_61hxm")
+npc_name = "Timmy"
+npc_title = "Village Youth"
+trust = 85
+suspicion = 5
+gold = 50
+
+[node name="NPC_ChildRosie" type="CharacterBody2D" parent="." unique_id=1788291113 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(1300, 1200)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("39_5tdtm")
+npc_name = "Rosie"
+npc_title = "Village Youth"
+trust = 85
+suspicion = 5
+gold = 40
+
+[node name="NPC_FarmerGiles" type="CharacterBody2D" parent="." unique_id=1115456106 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3080, 1210)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("40_h0c1i")
+npc_name = "Farmer Giles"
+npc_title = "Valley Patriarch"
+trust = 55
+suspicion = 20
+gold = 1400
+
+[node name="NPC_FarmhandPete" type="CharacterBody2D" parent="." unique_id=751377812 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2940, 1240)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("41_odp78")
+npc_name = "Pete"
+npc_title = "Harvest Farmhand"
+trust = 70
+gold = 350
+
+[node name="NPC_BeekeeperBeatrice" type="CharacterBody2D" parent="." unique_id=1384642847 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3550, 1510)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("42_w52ma")
+npc_name = "Beatrice"
+npc_title = "Master Apiarist"
+trust = 65
+suspicion = 15
+gold = 1100
+
+[node name="NPC_MillerDonald" type="CharacterBody2D" parent="." unique_id=1036238739 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3450, 1210)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("43_t4xl0")
+npc_name = "Donald"
+npc_title = "Windmill Miller"
+suspicion = 20
+gold = 1600
+
+[node name="NPC_GranaryJacob" type="CharacterBody2D" parent="." unique_id=1709706655 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3250, 1790)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("24_pot2v")
+npc_name = "Jacob"
+npc_title = "Granary Miller"
+trust = 55
+suspicion = 20
+gold = 1300
+
+[node name="NPC_CoastEli" type="CharacterBody2D" parent="." unique_id=1498801034 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3550, 1830)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("33_vjj7m")
+npc_name = "Eli"
+npc_title = "Eastern Shore Cabin Resident"
+trust = 60
+suspicion = 20
+gold = 700
+
+[node name="NPC_ForemanIronbeard" type="CharacterBody2D" parent="." unique_id=2021760880 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3440, 2190)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("44_gwntk")
+npc_name = "Foreman Ironbeard"
+npc_title = "Mine Overseer"
+trust = 40
+suspicion = 35
+gold = 3200
+
+[node name="NPC_MinerCole" type="CharacterBody2D" parent="." unique_id=1108717567 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(3180, 2190)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("45_jqrlk")
+npc_name = "Cole"
+npc_title = "Deep Ore Miner"
+suspicion = 25
+gold = 900
+
+[node name="Guard_BridgeCaptain" type="CharacterBody2D" parent="." unique_id=323639883 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(1980, 2390)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Captain Stewart"
+
+[node name="Guard_BridgeSentry" type="CharacterBody2D" parent="." unique_id=400893365 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(2116, 2390)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Sentry Lucas"
+
+[node name="NPC_TravelerFelix" type="CharacterBody2D" parent="." unique_id=1934682038 groups=["npcs"] instance=ExtResource("1_3bvqd")]
+position = Vector2(2090, 2240)
+motion_mode = 1
+script = ExtResource("2_8kdcv")
+character_texture = ExtResource("46_3js5o")
+npc_name = "Felix"
+npc_title = "Visiting Traveler"
+trust = 65
+suspicion = 15
+gold = 1800
+
+[node name="Guard_Footbridge1" type="CharacterBody2D" parent="." unique_id=853458509 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(1780, 1890)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Bridge Guard"
+
+[node name="Guard_Footbridge2" type="CharacterBody2D" parent="." unique_id=1055301520 groups=["enemies", "guards"] instance=ExtResource("13_ocacn")]
+position = Vector2(700, 1070)
+motion_mode = 1
+script = ExtResource("14_l4244")
+guard_name = "Canal Guard"

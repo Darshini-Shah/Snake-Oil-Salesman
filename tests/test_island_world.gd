@@ -58,7 +58,13 @@ func _init() -> void:
 	assert(player.position == Vector2(2048, 2560), "Player spawns at Southern Bridge (2048, 2560)")
 	print("  ✅ PASS: Player spawns at Southern Bridge (2048, 2560) facing island")
 	
-	# 5. Test UI & Joystick
+	# 5. Test Characters Container
+	var characters = main.get_node_or_null("Characters")
+	assert(characters != null, "Characters node exists in main scene")
+	assert(characters.get_child_count() >= 50, "Characters container has >= 50 populated island characters")
+	print("  ✅ PASS: Characters container active with %d island inhabitants" % characters.get_child_count())
+
+	# 6. Test UI & Joystick
 	var ui = main.get_node_or_null("UI")
 	assert(ui != null, "UI CanvasLayer exists")
 	assert(ui.has_node("HUD"), "HUD exists")

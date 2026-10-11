@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/mobile_ui_layout.gd" id="7_layout"]
 [ext_resource type="PackedScene" path="res://scenes/world_buildings.tscn" id="8_buildings"]
 [ext_resource type="PackedScene" path="res://scenes/world_environment.tscn" id="9_environment"]
+[ext_resource type="PackedScene" path="res://scenes/world_characters.tscn" id="10_characters"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -20,6 +21,8 @@ y_sort_enabled = true
 [node name="Environment" parent="." instance=ExtResource("9_environment")]
 
 [node name="Buildings" parent="." instance=ExtResource("8_buildings")]
+
+[node name="Characters" parent="." instance=ExtResource("10_characters")]
 
 [node name="Player" parent="." unique_id=1675338021 instance=ExtResource("2_player")]
 position = Vector2(2048, 2560)
