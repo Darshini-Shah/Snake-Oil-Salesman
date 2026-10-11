@@ -1,0 +1,1603 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/objects/village_building.tscn" id="1_2io8m"]
+[ext_resource type="Script" path="res://scripts/village_building.gd" id="2_cv2st"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/royal_castle.png" id="3_ks4qa"]
+[ext_resource type="Theme" path="res://ui/themes/medieval_theme.tres" id="4_00kwj"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/academy.png" id="5_xyob5"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/mountain_cave.png" id="6_k6aen"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/lighthouse.png" id="7_6dkvl"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/fountain.png" id="8_r20a1"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/windmill.png" id="9_34qpk"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/mine_entrance.png" id="10_0i6yg"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/town_hall.png" id="11_28fhi"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/General Store.png" id="12_ixf3s"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Doctors House.png" id="13_es31f"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Library.png" id="14_v1qm4"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Mayors Residence.png" id="15_ow162"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Hunters Cabin.png" id="16_511ho"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Lumberjack House.png" id="17_xnx1v"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Watchmakers House.png" id="18_f30yp"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/church.png" id="19_gr7py"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Fishermans Hut.png" id="20_4rrho"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Potters House.png" id="21_rgoc8"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Small Wooden Cottage.png" id="22_34odd"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Stone Village House.png" id="23_jq0h7"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Bakery.png" id="24_djd5l"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Blacksmith House.png" id="25_cp4i4"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Tailors House.png" id="26_q77ac"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Tavern.png" id="27_o6h8b"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Brewers House.png" id="28_dk88d"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Florists House.png" id="29_85r2t"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Herbalist House.png" id="30_ltkma"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Carpenters House.png" id="31_57jj5"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Toy Makers House.png" id="32_3sj0w"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Musicians House.png" id="33_esgqt"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Post House.png" id="34_fxhm6"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Farmers House.png" id="35_gesbl"]
+[ext_resource type="Texture2D" path="res://assets/landmarks/barn.png" id="36_r610f"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Beekeepers Hut.png" id="37_xmbbq"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Mill House.png" id="38_ay5xy"]
+[ext_resource type="Texture2D" path="res://assets/Tiny Top-Down Village/Storage House.png" id="39_ypvt8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_footprint"]
+size = Vector2(64, 36)
+
+[node name="Buildings" type="Node2D" unique_id=1900217968]
+y_sort_enabled = true
+
+[node name="RoyalCastle" type="StaticBody2D" parent="." unique_id=2057578890 instance=ExtResource("1_2io8m")]
+position = Vector2(3350, 560)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("3_ks4qa")
+building_name = "Royal Citadel & Fortress"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(200, 60)
+footprint_offset = Vector2(0, 30)
+
+[node name="Sprite2D" type="Sprite2D" parent="RoyalCastle" unique_id=1750197784]
+texture = ExtResource("3_ks4qa")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoyalCastle" unique_id=849005534]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoyalCastle" unique_id=987059124]
+position = Vector2(0, 30)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="RoyalCastle" unique_id=906626309]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Royal Citadel & Fortress"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScholarAcademy" type="StaticBody2D" parent="." unique_id=1996621893 instance=ExtResource("1_2io8m")]
+position = Vector2(2048, 240)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("5_xyob5")
+building_name = "Northern Scholar Academy"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(140, 50)
+footprint_offset = Vector2(0, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScholarAcademy" unique_id=897212613]
+texture = ExtResource("5_xyob5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ScholarAcademy" unique_id=104381671]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScholarAcademy" unique_id=317721341]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="ScholarAcademy" unique_id=1312150590]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Northern Scholar Academy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SmugglerCave" type="StaticBody2D" parent="." unique_id=2136901702 instance=ExtResource("1_2io8m")]
+position = Vector2(580, 520)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("6_k6aen")
+building_name = "Smuggler's Grotto"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(70, 40)
+
+[node name="Sprite2D" type="Sprite2D" parent="SmugglerCave" unique_id=551489887]
+texture = ExtResource("6_k6aen")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SmugglerCave" unique_id=868447631]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SmugglerCave" unique_id=670725367]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="SmugglerCave" unique_id=403280612]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Smuggler's Grotto"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lighthouse" type="StaticBody2D" parent="." unique_id=245297612 instance=ExtResource("1_2io8m")]
+position = Vector2(240, 1050)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("7_6dkvl")
+building_name = "Gull Rock Lighthouse"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 48)
+footprint_offset = Vector2(0, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="Lighthouse" unique_id=140715001]
+texture = ExtResource("7_6dkvl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lighthouse" unique_id=524484395]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lighthouse" unique_id=547178591]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="Lighthouse" unique_id=1419459439]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Gull Rock Lighthouse"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlazaFountain" type="StaticBody2D" parent="." unique_id=348177796 instance=ExtResource("1_2io8m")]
+position = Vector2(1984, 1248)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("8_r20a1")
+building_name = "Kurtos Plaza Fountain"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(48, 48)
+footprint_offset = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="PlazaFountain" unique_id=1383332192]
+texture = ExtResource("8_r20a1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlazaFountain" unique_id=1535287737]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlazaFountain" unique_id=1382903017]
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="PlazaFountain" unique_id=1726921541]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Kurtos Plaza Fountain"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Windmill" type="StaticBody2D" parent="." unique_id=945605506 instance=ExtResource("1_2io8m")]
+position = Vector2(3480, 1150)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("9_34qpk")
+building_name = "Golden Windmill"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 48)
+footprint_offset = Vector2(0, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="Windmill" unique_id=2051357275]
+texture = ExtResource("9_34qpk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Windmill" unique_id=2119529043]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Windmill" unique_id=619016844]
+position = Vector2(0, 24)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="Windmill" unique_id=1295009121]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Golden Windmill"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MineEntrance" type="StaticBody2D" parent="." unique_id=486588931 instance=ExtResource("1_2io8m")]
+position = Vector2(3552, 2064)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("10_0i6yg")
+building_name = "Deep Stone Mine"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(110, 40)
+
+[node name="Sprite2D" type="Sprite2D" parent="MineEntrance" unique_id=2114929076]
+texture = ExtResource("10_0i6yg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MineEntrance" unique_id=44501625]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MineEntrance" unique_id=1689498251]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="MineEntrance" unique_id=1132491535]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Deep Stone Mine"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TownHall" type="StaticBody2D" parent="." unique_id=1546762911 instance=ExtResource("1_2io8m")]
+position = Vector2(1880, 980)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("11_28fhi")
+building_name = "Kurtos Town Hall"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(120, 50)
+footprint_offset = Vector2(0, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="TownHall" unique_id=1703160425]
+texture = ExtResource("11_28fhi")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TownHall" unique_id=1240249815]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TownHall" unique_id=851906317]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="TownHall" unique_id=629738687]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Kurtos Town Hall"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MerchantShop" type="StaticBody2D" parent="." unique_id=1780505303 instance=ExtResource("1_2io8m")]
+position = Vector2(1700, 980)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("12_ixf3s")
+building_name = "Plaza Merchant Shop"
+match_asset_collider = true
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="MerchantShop" unique_id=668743546]
+texture = ExtResource("12_ixf3s")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MerchantShop" unique_id=1018850535]
+polygon = PackedVector2Array(-32, -9, -31, -9, -31, 2, -36, 2, -36, 12, -38, 12, -38, 27, -33, 26, -33, 35, -25, 35, -25, 30, -24, 35, -16, 35, -16, 32, -10, 31, -9, 31, -10, 27, -10, 24, -7, 24, -7, 28, 7, 28, 7, 24, 16, 24, 16, 30, 24, 32, 24, 33, 29, 33, 31, 31, 31, 27, 32, 28, 37, 28, 38, 25, 39, 25, 39, 15, 39, 9, 36, 7, 36, 6, 32, 8, 31, 8, 32, -10, 32, -30, -32, -30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MerchantShop" unique_id=73649806]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+disabled = true
+
+[node name="NameLabel" type="Label" parent="MerchantShop" unique_id=1805574213]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Plaza Merchant Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DoctorsClinic" type="StaticBody2D" parent="." unique_id=444498926 instance=ExtResource("1_2io8m")]
+position = Vector2(2220, 980)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("13_es31f")
+building_name = "Doctor's Clinic"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="DoctorsClinic" unique_id=1980207206]
+texture = ExtResource("13_es31f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DoctorsClinic" unique_id=483117982]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoctorsClinic" unique_id=645539700]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="DoctorsClinic" unique_id=32998215]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Doctor's Clinic"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Library" type="StaticBody2D" parent="." unique_id=531665154 instance=ExtResource("1_2io8m")]
+position = Vector2(2320, 1150)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("14_v1qm4")
+building_name = "Kurtos Archive & Library"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="Library" unique_id=1572199910]
+texture = ExtResource("14_v1qm4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Library" unique_id=1846175987]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Library" unique_id=756165390]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="Library" unique_id=1675554570]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Kurtos Archive & Library"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MayorsResidence" type="StaticBody2D" parent="." unique_id=877222507 instance=ExtResource("1_2io8m")]
+position = Vector2(2320, 1340)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("15_ow162")
+building_name = "Mayor's Manor"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="MayorsResidence" unique_id=708082148]
+texture = ExtResource("15_ow162")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MayorsResidence" unique_id=1336119610]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MayorsResidence" unique_id=1669859059]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="MayorsResidence" unique_id=1979319942]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Mayor's Manor"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HuntersCabin" type="StaticBody2D" parent="." unique_id=755856648 instance=ExtResource("1_2io8m")]
+position = Vector2(1120, 544)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("16_511ho")
+building_name = "Hunter's Cabin"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="HuntersCabin" unique_id=1212175418]
+texture = ExtResource("16_511ho")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HuntersCabin" unique_id=1849359476]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HuntersCabin" unique_id=556866760]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="HuntersCabin" unique_id=334807740]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Hunter's Cabin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LumberjackHouse" type="StaticBody2D" parent="." unique_id=363585645 instance=ExtResource("1_2io8m")]
+position = Vector2(1440, 544)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("17_xnx1v")
+building_name = "Lumberjack's Lodge"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="LumberjackHouse" unique_id=1435334923]
+texture = ExtResource("17_xnx1v")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LumberjackHouse" unique_id=371419365]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LumberjackHouse" unique_id=1830433464]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="LumberjackHouse" unique_id=1345988353]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Lumberjack's Lodge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WatchmakersHouse" type="StaticBody2D" parent="." unique_id=40183450 instance=ExtResource("1_2io8m")]
+position = Vector2(1728, 768)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("18_f30yp")
+building_name = "Watchmaker's Workshop"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="WatchmakersHouse" unique_id=1416448969]
+texture = ExtResource("18_f30yp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WatchmakersHouse" unique_id=1166401197]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WatchmakersHouse" unique_id=1961179363]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="WatchmakersHouse" unique_id=1826007750]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Watchmaker's Workshop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChurchBuilding" type="StaticBody2D" parent="." unique_id=1416849761 instance=ExtResource("1_2io8m")]
+position = Vector2(2240, 768)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("19_gr7py")
+building_name = "Parish Chapel"
+match_asset_collider = true
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(96, 50)
+footprint_offset = Vector2(0, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="ChurchBuilding" unique_id=800668018]
+texture = ExtResource("19_gr7py")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ChurchBuilding" unique_id=367328823]
+polygon = PackedVector2Array(26.5, -61, 23.5, -54, 22.5, -54, 26.5, -45, 26.5, -44, 31.5, -43, 47.5, -43, 47.5, -44, 51.5, -44, 52.5, -48, 53.5, -48, 49.5, -61, 49.5, -62, 26.5, -62)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChurchBuilding" unique_id=424618207]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_footprint")
+disabled = true
+
+[node name="NameLabel" type="Label" parent="ChurchBuilding" unique_id=1439883530]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Parish Chapel"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FishermansHut" type="StaticBody2D" parent="." unique_id=632457727 instance=ExtResource("1_2io8m")]
+position = Vector2(704, 1376)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("20_4rrho")
+building_name = "Fisherman's Shack"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="FishermansHut" unique_id=133764833]
+texture = ExtResource("20_4rrho")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FishermansHut" unique_id=1711921264]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishermansHut" unique_id=2132405646]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="FishermansHut" unique_id=2072195348]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Fisherman's Shack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PottersHouse" type="StaticBody2D" parent="." unique_id=2052857220 instance=ExtResource("1_2io8m")]
+position = Vector2(704, 1664)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("21_rgoc8")
+building_name = "Potter's Kiln House"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="PottersHouse" unique_id=1683616800]
+texture = ExtResource("21_rgoc8")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PottersHouse" unique_id=1745458229]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PottersHouse" unique_id=178180719]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="PottersHouse" unique_id=1220079206]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Potter's Kiln House"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SmallWoodenCottage" type="StaticBody2D" parent="." unique_id=116063629 instance=ExtResource("1_2io8m")]
+position = Vector2(704, 1920)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("22_34odd")
+building_name = "Coastal Cottage"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="SmallWoodenCottage" unique_id=841263801]
+texture = ExtResource("22_34odd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SmallWoodenCottage" unique_id=909082534]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SmallWoodenCottage" unique_id=406966185]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="SmallWoodenCottage" unique_id=1446342909]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Coastal Cottage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BeachCottage" type="StaticBody2D" parent="." unique_id=1361440135 instance=ExtResource("1_2io8m")]
+position = Vector2(704, 2080)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("23_jq0h7")
+building_name = "Beachcomb House"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="BeachCottage" unique_id=1327502009]
+texture = ExtResource("23_jq0h7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BeachCottage" unique_id=1153285934]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BeachCottage" unique_id=1924484508]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="BeachCottage" unique_id=15277740]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Beachcomb House"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BakeryBuilding" type="StaticBody2D" parent="." unique_id=545963720 instance=ExtResource("1_2io8m")]
+position = Vector2(1088, 1024)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("24_djd5l")
+building_name = "Village Bakery"
+match_asset_collider = true
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="BakeryBuilding" unique_id=199376600]
+texture = ExtResource("24_djd5l")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BakeryBuilding" unique_id=1573497575]
+polygon = PackedVector2Array(17, -38, 11, -30, 11, -27, -2, -38, -7, -38, -31, -18, -32, -18, -29, 23, -36, 23, -36, 37, -26, 37, -26, 28, -21, 28, -21, 31, -9, 31, -9, 28, 17, 28, 17, 37, 35, 37, 37, 37, 38, 8, 38, 3, 23, 0, 22, 0, 22, -18, 15, -25, 15, -26, 20, -27, 23, -27, 28, -32, 28, -34, 26, -38, 26, -39, 17, -39)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BakeryBuilding" unique_id=1142748289]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+disabled = true
+
+[node name="NameLabel" type="Label" parent="BakeryBuilding" unique_id=1306621240]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Village Bakery"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlacksmithHouse" type="StaticBody2D" parent="." unique_id=498447109 instance=ExtResource("1_2io8m")]
+position = Vector2(1088, 1312)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("25_cp4i4")
+building_name = "Blacksmith Forge"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="BlacksmithHouse" unique_id=665022394]
+texture = ExtResource("25_cp4i4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BlacksmithHouse" unique_id=1554131406]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlacksmithHouse" unique_id=1279837749]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="BlacksmithHouse" unique_id=1454165464]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Blacksmith Forge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TailorsHouse" type="StaticBody2D" parent="." unique_id=1964671856 instance=ExtResource("1_2io8m")]
+position = Vector2(1088, 1600)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("26_q77ac")
+building_name = "Tailor's Atelier"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="TailorsHouse" unique_id=1067762901]
+texture = ExtResource("26_q77ac")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TailorsHouse" unique_id=946094384]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TailorsHouse" unique_id=533415906]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="TailorsHouse" unique_id=1617596855]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Tailor's Atelier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tavern" type="StaticBody2D" parent="." unique_id=1871755078 instance=ExtResource("1_2io8m")]
+position = Vector2(1088, 1888)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("27_o6h8b")
+building_name = "The Drunken Gull Tavern"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="Tavern" unique_id=333298578]
+texture = ExtResource("27_o6h8b")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tavern" unique_id=1225042653]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tavern" unique_id=500965833]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="Tavern" unique_id=1308976914]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "The Drunken Gull Tavern"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BrewersHouse" type="StaticBody2D" parent="." unique_id=1311363203 instance=ExtResource("1_2io8m")]
+position = Vector2(1088, 2144)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("28_dk88d")
+building_name = "Brewer's Lodge"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="BrewersHouse" unique_id=1962909835]
+texture = ExtResource("28_dk88d")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BrewersHouse" unique_id=912899238]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BrewersHouse" unique_id=898159625]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="BrewersHouse" unique_id=345968119]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Brewer's Lodge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FloristsHouse" type="StaticBody2D" parent="." unique_id=32480973 instance=ExtResource("1_2io8m")]
+position = Vector2(1408, 1024)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("29_85r2t")
+building_name = "Florist's Garden House"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloristsHouse" unique_id=1304537904]
+texture = ExtResource("29_85r2t")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FloristsHouse" unique_id=846794561]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloristsHouse" unique_id=2075492805]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="FloristsHouse" unique_id=1125603318]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Florist's Garden House"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HerbalistHouse" type="StaticBody2D" parent="." unique_id=1591592309 instance=ExtResource("1_2io8m")]
+position = Vector2(1408, 1312)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("30_ltkma")
+building_name = "Herbalist's Cottage"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="HerbalistHouse" unique_id=1469978448]
+texture = ExtResource("30_ltkma")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HerbalistHouse" unique_id=1925773937]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HerbalistHouse" unique_id=32038829]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="HerbalistHouse" unique_id=1405706607]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Herbalist's Cottage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CarpentersHouse" type="StaticBody2D" parent="." unique_id=674841677 instance=ExtResource("1_2io8m")]
+position = Vector2(1408, 1600)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("31_57jj5")
+building_name = "Carpenter's Workshop"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="CarpentersHouse" unique_id=683621400]
+texture = ExtResource("31_57jj5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CarpentersHouse" unique_id=874042005]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CarpentersHouse" unique_id=690115992]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="CarpentersHouse" unique_id=1977240291]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Carpenter's Workshop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ToyMakersHouse" type="StaticBody2D" parent="." unique_id=513601382 instance=ExtResource("1_2io8m")]
+position = Vector2(1408, 1888)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("32_3sj0w")
+building_name = "Toymaker's Cottage"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="ToyMakersHouse" unique_id=41623552]
+texture = ExtResource("32_3sj0w")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ToyMakersHouse" unique_id=1198441086]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToyMakersHouse" unique_id=30004203]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="ToyMakersHouse" unique_id=759516904]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Toymaker's Cottage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusiciansHouse" type="StaticBody2D" parent="." unique_id=1090866387 instance=ExtResource("1_2io8m")]
+position = Vector2(1920, 1760)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("33_esgqt")
+building_name = "Bard's Cottage"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="MusiciansHouse" unique_id=1975585310]
+texture = ExtResource("33_esgqt")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MusiciansHouse" unique_id=1148303167]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusiciansHouse" unique_id=80174684]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="MusiciansHouse" unique_id=809694815]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Bard's Cottage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PostHouse" type="StaticBody2D" parent="." unique_id=1283392830 instance=ExtResource("1_2io8m")]
+position = Vector2(1936, 1920)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("34_fxhm6")
+building_name = "Kurtos Waystation"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="PostHouse" unique_id=2082118584]
+texture = ExtResource("34_fxhm6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PostHouse" unique_id=1275939180]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PostHouse" unique_id=1374698612]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="PostHouse" unique_id=192817299]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Kurtos Waystation"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FarmersHouse" type="StaticBody2D" parent="." unique_id=252147358 instance=ExtResource("1_2io8m")]
+position = Vector2(3264, 1152)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("35_gesbl")
+building_name = "Valley Farmhouse"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="FarmersHouse" unique_id=198642244]
+texture = ExtResource("35_gesbl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FarmersHouse" unique_id=416218810]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FarmersHouse" unique_id=944349549]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="FarmersHouse" unique_id=1310349907]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Valley Farmhouse"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StorageBarn" type="StaticBody2D" parent="." unique_id=2068698427 instance=ExtResource("1_2io8m")]
+position = Vector2(3264, 1472)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("36_r610f")
+building_name = "Harvest Barn"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(80, 40)
+
+[node name="Sprite2D" type="Sprite2D" parent="StorageBarn" unique_id=82678510]
+texture = ExtResource("36_r610f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StorageBarn" unique_id=693628307]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageBarn" unique_id=580010115]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="StorageBarn" unique_id=1917261027]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Harvest Barn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BeekeepersHut" type="StaticBody2D" parent="." unique_id=1127873334 instance=ExtResource("1_2io8m")]
+position = Vector2(3616, 1472)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("37_xmbbq")
+building_name = "Beekeeper's Apiary"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="BeekeepersHut" unique_id=1288011705]
+texture = ExtResource("37_xmbbq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BeekeepersHut" unique_id=579418558]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BeekeepersHut" unique_id=212099356]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="BeekeepersHut" unique_id=853557772]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Beekeeper's Apiary"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MillHouse" type="StaticBody2D" parent="." unique_id=399137375 instance=ExtResource("1_2io8m")]
+position = Vector2(3264, 1760)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("38_ay5xy")
+building_name = "Granary Mill House"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="MillHouse" unique_id=1827515761]
+texture = ExtResource("38_ay5xy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MillHouse" unique_id=521138288]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MillHouse" unique_id=509698419]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="MillHouse" unique_id=375287788]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Granary Mill House"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoastCabin" type="StaticBody2D" parent="." unique_id=1814690575 instance=ExtResource("1_2io8m")]
+position = Vector2(3648, 1760)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("22_34odd")
+building_name = "Eastern Shore Cabin"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="CoastCabin" unique_id=432112754]
+texture = ExtResource("22_34odd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CoastCabin" unique_id=2030637558]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CoastCabin" unique_id=556511818]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="CoastCabin" unique_id=1746012597]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Eastern Shore Cabin"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MinersShed" type="StaticBody2D" parent="." unique_id=453720532 instance=ExtResource("1_2io8m")]
+position = Vector2(3264, 2128)
+script = ExtResource("2_cv2st")
+building_texture = ExtResource("39_ypvt8")
+building_name = "Mine Equipment Depot"
+custom_polygon = PackedVector2Array()
+footprint_size = Vector2(64, 36)
+footprint_offset = Vector2(0, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="MinersShed" unique_id=1797639379]
+texture = ExtResource("39_ypvt8")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MinersShed" unique_id=25633334]
+disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MinersShed" unique_id=1794785482]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_footprint")
+
+[node name="NameLabel" type="Label" parent="MinersShed" unique_id=1625931767]
+visible = false
+z_index = 5
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -120.0
+offset_right = 60.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_00kwj")
+theme_type_variation = &"WorldLabel"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+text = "Mine Equipment Depot"
+horizontal_alignment = 1
+vertical_alignment = 1
