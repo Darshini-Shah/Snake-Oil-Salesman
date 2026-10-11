@@ -12,6 +12,11 @@ class_name SmoothCamera2D
 @export var zoom_step: float = 0.15
 @export var zoom_lerp_speed: float = 8.0
 
+@export var map_limit_left: int = 0
+@export var map_limit_top: int = 0
+@export var map_limit_right: int = 4096
+@export var map_limit_bottom: int = 2816
+
 var target: Node2D = null
 var current_target_zoom: float = 1.25
 
@@ -24,11 +29,11 @@ func _ready() -> void:
 	position_smoothing_enabled = true
 	position_smoothing_speed = smooth_speed
 	
-	# Set map limits (2560 x 1920 full island bounds)
-	limit_left = 0
-	limit_top = 0
-	limit_right = 2560
-	limit_bottom = 1920
+	# Set map limits (4096 x 2816 full island bounds)
+	limit_left = map_limit_left
+	limit_top = map_limit_top
+	limit_right = map_limit_right
+	limit_bottom = map_limit_bottom
 	limit_smoothed = true
 	
 	if has_node(target_node):
@@ -40,6 +45,7 @@ func _ready() -> void:
 	
 	if target:
 		global_position = target.global_position
+		reset_smoothing()
 
 
 func _physics_process(delta: float) -> void:

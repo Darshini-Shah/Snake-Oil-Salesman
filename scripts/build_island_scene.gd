@@ -25,6 +25,7 @@ func _init() -> void:
 	
 	var island_map := Node2D.new()
 	island_map.name = "IslandMap"
+	island_map.set_script(load("res://scripts/island_map.gd"))
 	
 	# 1. GroundLayer (Ocean, Beach, Grass, Farmland)
 	var ground_layer := TileMapLayer.new()
@@ -124,14 +125,14 @@ func _init() -> void:
 	
 	var map_zone_script := load("res://scripts/map_zone.gd")
 	var landmark_zones := [
-		{"name": "ArrivalPier", "pos": Vector2(1280, 1750), "size": Vector2(240, 180), "title": "Southern Arrival Pier", "sub": "Gateway to Kurtos Island"},
-		{"name": "TownPlaza", "pos": Vector2(1280, 880), "size": Vector2(400, 300), "title": "Kurtos Town Plaza", "sub": "The Heart of Commerce"},
-		{"name": "RoyalCitadel", "pos": Vector2(2080, 420), "size": Vector2(450, 350), "title": "Royal Citadel & Fortress", "sub": "Seat of the Crown Sovereign"},
-		{"name": "Farmlands", "pos": Vector2(2050, 800), "size": Vector2(450, 320), "title": "Golden Windmill & Farmlands", "sub": "Agricultural Valley"},
-		{"name": "Lighthouse", "pos": Vector2(200, 650), "size": Vector2(300, 300), "title": "Gull Rock Lighthouse", "sub": "Western Coastal Beacon"},
-		{"name": "SmugglersGrotto", "pos": Vector2(350, 320), "size": Vector2(250, 200), "title": "Smuggler's Grotto", "sub": "Northwest Mountain Caverns"},
-		{"name": "BlossomAcademy", "pos": Vector2(1280, 200), "size": Vector2(380, 250), "title": "Cherry Blossom Sanctuary", "sub": "Northern Scholar Academy"},
-		{"name": "DeepStoneMine", "pos": Vector2(2120, 1220), "size": Vector2(350, 250), "title": "Deep Stone Mine", "sub": "Southeast Mineral Terrace"}
+		{"name": "ArrivalPier", "pos": Vector2(2048, 2560), "size": Vector2(300, 300), "title": "Southern Arrival Pier", "sub": "Gateway to Kurtos Island"},
+		{"name": "TownPlaza", "pos": Vector2(2048, 1400), "size": Vector2(600, 450), "title": "Kurtos Town Plaza", "sub": "The Heart of Commerce"},
+		{"name": "RoyalCitadel", "pos": Vector2(3300, 680), "size": Vector2(700, 550), "title": "Royal Citadel & Fortress", "sub": "Seat of the Crown Sovereign"},
+		{"name": "Farmlands", "pos": Vector2(3280, 1280), "size": Vector2(700, 500), "title": "Golden Windmill & Farmlands", "sub": "Agricultural Valley"},
+		{"name": "Lighthouse", "pos": Vector2(320, 1050), "size": Vector2(450, 450), "title": "Gull Rock Lighthouse", "sub": "Western Coastal Beacon"},
+		{"name": "SmugglersGrotto", "pos": Vector2(560, 520), "size": Vector2(400, 320), "title": "Smuggler's Grotto", "sub": "Northwest Mountain Caverns"},
+		{"name": "BlossomAcademy", "pos": Vector2(2048, 300), "size": Vector2(600, 400), "title": "Cherry Blossom Sanctuary", "sub": "Northern Scholar Academy"},
+		{"name": "DeepStoneMine", "pos": Vector2(3400, 1950), "size": Vector2(550, 400), "title": "Deep Stone Mine", "sub": "Southeast Mineral Terrace"}
 	]
 	
 	for z in landmark_zones:
