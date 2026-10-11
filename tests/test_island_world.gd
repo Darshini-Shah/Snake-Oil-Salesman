@@ -64,7 +64,19 @@ func _init() -> void:
 	assert(characters.get_child_count() >= 50, "Characters container has >= 50 populated island characters")
 	print("  ✅ PASS: Characters container active with %d island inhabitants" % characters.get_child_count())
 
-	# 6. Test UI & Joystick
+	# 6. Test Animals Container
+	var animals = main.get_node_or_null("Animals")
+	assert(animals != null, "Animals node exists in main scene")
+	assert(animals.get_child_count() >= 30, "Animals container has >= 30 animated livestock and pets")
+	print("  ✅ PASS: Animals container active with %d animated critters & livestock" % animals.get_child_count())
+
+	# 7. Test Particles Container
+	var particles = main.get_node_or_null("Particles")
+	assert(particles != null, "Particles node exists in main scene")
+	assert(particles.get_child_count() >= 10, "Particles container has >= 10 environmental emitters")
+	print("  ✅ PASS: Particles container active with %d atmospheric emitters" % particles.get_child_count())
+
+	# 8. Test UI & Joystick
 	var ui = main.get_node_or_null("UI")
 	assert(ui != null, "UI CanvasLayer exists")
 	assert(ui.has_node("HUD"), "HUD exists")

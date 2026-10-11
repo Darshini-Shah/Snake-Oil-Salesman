@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" path="res://scenes/world_buildings.tscn" id="8_buildings"]
 [ext_resource type="PackedScene" path="res://scenes/world_environment.tscn" id="9_environment"]
 [ext_resource type="PackedScene" path="res://scenes/world_characters.tscn" id="10_characters"]
+[ext_resource type="PackedScene" path="res://scenes/world_animals.tscn" id="11_animals"]
+[ext_resource type="PackedScene" path="res://scenes/world_particles.tscn" id="12_particles"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -23,6 +25,10 @@ y_sort_enabled = true
 [node name="Buildings" parent="." instance=ExtResource("8_buildings")]
 
 [node name="Characters" parent="." instance=ExtResource("10_characters")]
+
+[node name="Animals" parent="." instance=ExtResource("11_animals")]
+
+[node name="Particles" parent="." instance=ExtResource("12_particles")]
 
 [node name="Player" parent="." unique_id=1675338021 instance=ExtResource("2_player")]
 position = Vector2(2048, 2560)

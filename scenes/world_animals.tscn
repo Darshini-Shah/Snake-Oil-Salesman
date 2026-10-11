@@ -1,0 +1,349 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/animals/animal_base.tscn" id="1_uo1kw"]
+[ext_resource type="Script" path="res://scripts/world_animal.gd" id="2_kqccl"]
+
+[node name="Animals" type="Node2D" unique_id=294733295]
+y_sort_enabled = true
+
+[node name="Cow_Daisy" type="CharacterBody2D" parent="." unique_id=128065515 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3260, 1320)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+behavior = "graze"
+wander_radius = 20.0
+move_speed = 15.0
+
+[node name="Cow_Buttercup" type="CharacterBody2D" parent="." unique_id=905211647 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3310, 1360)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+behavior = "graze"
+wander_radius = 22.0
+move_speed = 14.0
+
+[node name="Cow_Bessie" type="CharacterBody2D" parent="." unique_id=47611031 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3220, 1380)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+behavior = "graze"
+wander_radius = 18.0
+move_speed = 16.0
+
+[node name="Sheep_Fluffy" type="CharacterBody2D" parent="." unique_id=1873202490 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2980, 1080)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "sheep"
+behavior = "graze"
+wander_radius = 24.0
+move_speed = 18.0
+
+[node name="Sheep_Woolly" type="CharacterBody2D" parent="." unique_id=462811676 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3040, 1060)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "sheep"
+behavior = "graze"
+wander_radius = 20.0
+move_speed = 18.0
+
+[node name="Sheep_Snowball" type="CharacterBody2D" parent="." unique_id=588429895 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3120, 1100)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "sheep"
+behavior = "graze"
+wander_radius = 22.0
+move_speed = 17.0
+
+[node name="Sheep_Cloud" type="CharacterBody2D" parent="." unique_id=1670203280 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3080, 1140)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "sheep"
+behavior = "graze"
+wander_radius = 20.0
+move_speed = 18.0
+
+[node name="Pig_Barnaby" type="CharacterBody2D" parent="." unique_id=1158061471 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3040, 1340)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "pig"
+behavior = "wander"
+wander_radius = 16.0
+move_speed = 20.0
+
+[node name="Pig_Oinky" type="CharacterBody2D" parent="." unique_id=4052469 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3090, 1370)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "pig"
+behavior = "wander"
+wander_radius = 16.0
+move_speed = 18.0
+
+[node name="Chicken_Henrietta" type="CharacterBody2D" parent="." unique_id=1314141373 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3020, 1260)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 18.0
+move_speed = 28.0
+
+[node name="Chicken_Penny" type="CharacterBody2D" parent="." unique_id=1047264753 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3060, 1280)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 26.0
+
+[node name="Chicken_Clucky" type="CharacterBody2D" parent="." unique_id=1982686276 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3110, 1260)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 18.0
+move_speed = 28.0
+
+[node name="Chicken_Goldie" type="CharacterBody2D" parent="." unique_id=873654274 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3520, 1460)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 16.0
+
+[node name="Chicken_Rusty" type="CharacterBody2D" parent="." unique_id=534024225 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3570, 1480)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 16.0
+
+[node name="Cat_Brioche" type="CharacterBody2D" parent="." unique_id=1610846303 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1010, 1000)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+behavior = "sleep"
+wander_radius = 0.0
+move_speed = 0.0
+react_to_player = false
+
+[node name="Chicken_Flour" type="CharacterBody2D" parent="." unique_id=2035926591 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1050, 930)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 24.0
+
+[node name="Cat_Whiskey" type="CharacterBody2D" parent="." unique_id=1729749977 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1070, 1920)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+wander_radius = 0.0
+move_speed = 0.0
+
+[node name="Cat_Paws" type="CharacterBody2D" parent="." unique_id=231099321 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1650, 860)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+wander_radius = 0.0
+move_speed = 0.0
+
+[node name="Chicken_Pippin" type="CharacterBody2D" parent="." unique_id=768207557 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1360, 1630)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 24.0
+
+[node name="Chicken_Dot" type="CharacterBody2D" parent="." unique_id=2072040427 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1380, 1090)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "chicken"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 24.0
+
+[node name="Cat_Mittens" type="CharacterBody2D" parent="." unique_id=1755534140 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1370, 1920)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+behavior = "wander"
+wander_radius = 18.0
+move_speed = 18.0
+
+[node name="Bird_Pigeon1" type="CharacterBody2D" parent="." unique_id=910287942 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2036, 1115)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 12.0
+move_speed = 30.0
+
+[node name="Bird_Pigeon2" type="CharacterBody2D" parent="." unique_id=1119806158 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2076, 1145)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 12.0
+move_speed = 30.0
+
+[node name="Cat_Oliver" type="CharacterBody2D" parent="." unique_id=1446008216 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2010, 910)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+behavior = "sleep"
+wander_radius = 0.0
+move_speed = 0.0
+react_to_player = false
+
+[node name="Bird_Sparrow1" type="CharacterBody2D" parent="." unique_id=883953099 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2120, 890)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 14.0
+move_speed = 30.0
+
+[node name="Bird_Bluejay1" type="CharacterBody2D" parent="." unique_id=1096264467 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3150, 520)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 30.0
+
+[node name="Bird_Bluejay2" type="CharacterBody2D" parent="." unique_id=1312594010 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3450, 520)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 30.0
+
+[node name="Cat_Duchess" type="CharacterBody2D" parent="." unique_id=2075190646 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(3360, 560)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+wander_radius = 0.0
+move_speed = 0.0
+
+[node name="Bird_Owl1" type="CharacterBody2D" parent="." unique_id=2132202154 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2130, 340)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 12.0
+move_speed = 28.0
+
+[node name="Cat_Archimedes" type="CharacterBody2D" parent="." unique_id=1165691580 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(2020, 340)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+wander_radius = 0.0
+move_speed = 0.0
+
+[node name="Bird_Woodpecker" type="CharacterBody2D" parent="." unique_id=623030487 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(1120, 480)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 14.0
+move_speed = 30.0
+
+[node name="Bird_Seagull1" type="CharacterBody2D" parent="." unique_id=1228209670 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(210, 1200)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 30.0
+
+[node name="Bird_Seagull2" type="CharacterBody2D" parent="." unique_id=381020242 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(260, 1240)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 16.0
+move_speed = 30.0
+
+[node name="Cat_Barnacle" type="CharacterBody2D" parent="." unique_id=910196580 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(680, 1030)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "cat"
+wander_radius = 0.0
+move_speed = 0.0
+
+[node name="Bird_Pelican" type="CharacterBody2D" parent="." unique_id=1401763096 groups=["animals"] instance=ExtResource("1_uo1kw")]
+position = Vector2(620, 1020)
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_kqccl")
+animal_type = "bird"
+behavior = "peck"
+wander_radius = 14.0
+move_speed = 28.0
