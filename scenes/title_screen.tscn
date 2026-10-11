@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxab3title123"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_title"]
-[ext_resource type="Texture2D" uid="uid://titlebg456" path="res://assets/new_title_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/new_title_bg.png" id="2_bg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
 bg_color = Color(0.18, 0.12, 0.08, 0.95)

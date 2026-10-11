@@ -1,39 +1,42 @@
 import json
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 from collections import deque
-from scipy.ndimage import binary_dilation, label
+from scipy.ndimage import binary_closing, label, binary_dilation
 
 W, H = 256, 176
 
 ref_path = '/home/raj/.gemini/antigravity-ide/brain/56d2e669-693e-45e2-8b77-d5b2aaf63263/.tempmediaStorage/media_1791703129301.jpg'
 ref = Image.open(ref_path).convert('RGB')
-ref_grid = ref.resize((W, H), Image.Resampling.LANCZOS)
-arr = np.array(ref_grid)
+arr = np.array(ref)
+H_ref, W_ref, _ = arr.shape
 
-# --- 1. PURE OUTER OCEAN DETECTION ---
-is_ocean_color = (arr[:, :, 2] > 105) & (arr[:, :, 2] > arr[:, :, 0] + 25) & (arr[:, :, 1] < 165)
-outer_ocean = np.zeros((H, W), dtype=bool)
+# --- 1. OUTER OCEAN DETECTION VIA BORDER FLOOD-FILL ---
+is_water_color = (arr[:, :, 2] > 105) & (arr[:, :, 2] > arr[:, :, 0] + 25) & (arr[:, :, 1] < 165)
+outer_ocean_1024 = np.zeros((H_ref, W_ref), dtype=bool)
 q = deque()
-for y in range(H):
-    for x in [0, W - 1]:
-        if is_ocean_color[y, x] and not outer_ocean[y, x]:
-            outer_ocean[y, x] = True
+for y in range(H_ref):
+    for x in [0, W_ref - 1]:
+        if is_water_color[y, x] and not outer_ocean_1024[y, x]:
+            outer_ocean_1024[y, x] = True
             q.append((y, x))
-for x in range(W):
-    for y in [0, H - 1]:
-        if is_ocean_color[y, x] and not outer_ocean[y, x]:
-            outer_ocean[y, x] = True
+for x in range(W_ref):
+    for y in [0, H_ref - 1]:
+        if is_water_color[y, x] and not outer_ocean_1024[y, x]:
+            outer_ocean_1024[y, x] = True
             q.append((y, x))
 
 while q:
     cy, cx = q.popleft()
     for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
         ny, nx = cy + dy, cx + dx
-        if 0 <= ny < H and 0 <= nx < W:
-            if not outer_ocean[ny, nx] and is_ocean_color[ny, nx]:
-                outer_ocean[ny, nx] = True
+        if 0 <= ny < H_ref and 0 <= nx < W_ref:
+            if not outer_ocean_1024[ny, nx] and is_water_color[ny, nx]:
+                outer_ocean_1024[ny, nx] = True
                 q.append((ny, nx))
+
+im_ocean_256 = Image.fromarray((outer_ocean_1024 * 255).astype(np.uint8)).resize((W, H), Image.Resampling.NEAREST)
+outer_ocean = np.array(im_ocean_256) > 128
 
 # Solid 3-tile ocean border
 outer_ocean[:3, :] = True
@@ -41,7 +44,6 @@ outer_ocean[-3:, :] = True
 outer_ocean[:, :3] = True
 outer_ocean[:, -3:] = True
 
-# Filter tiny detached land specks (< 15 tiles)
 is_land = ~outer_ocean
 labeled_land, num_land = label(is_land)
 counts = np.bincount(labeled_land.flat)
@@ -51,18 +53,81 @@ for idx, c in enumerate(counts):
     if idx > 0 and idx != main_land_idx and c < 15:
         outer_ocean[labeled_land == idx] = True
 
-# South Arrival Bridge is not ocean
-for y in range(148, H):
-    for x in range(124, 132):
-        outer_ocean[y, x] = False
-
 is_land = ~outer_ocean
 near_ocean = is_land & binary_dilation(outer_ocean, iterations=2)
 
+# --- 2. ORGANIC NATURAL WATER BODIES ---
+# Drawn with smooth, natural curves calibrated to reference artwork
+water_img = Image.new('L', (W, H), 0)
+d_wat = ImageDraw.Draw(water_img)
+
+# A. SW Pond & Islet
+d_wat.ellipse([91, 97, 115, 117], fill=255)
+d_wat.ellipse([88, 102, 106, 115], fill=255)
+# Natural pine tree islet in pond center
+d_wat.ellipse([102, 104, 106, 108], fill=0)
+
+# B. SW River (flows south under Footbridge 1 to cliff waterfall)
+sw_river_pts = [
+    (102, 115), (102, 121), (99, 126), (94, 131), (98, 135), (107, 138), (109, 143), (108, 150)
+]
+for i in range(len(sw_river_pts) - 1):
+    d_wat.line([sw_river_pts[i], sw_river_pts[i+1]], fill=255, width=6)
+for pt in sw_river_pts:
+    d_wat.ellipse([pt[0]-3, pt[1]-3, pt[0]+3, pt[1]+3], fill=255)
+
+# C. SE Wetlands & River
+# Upper wetland pond
+d_wat.ellipse([165, 90, 184, 103], fill=255)
+# Lower wetland lake
+d_wat.ellipse([160, 104, 196, 117], fill=255)
+d_wat.ellipse([156, 107, 175, 115], fill=255)
+d_wat.line([(174, 97), (176, 107)], fill=255, width=6)
+
+# SE River through the rocky gorge
+se_river_pts = [
+    (168, 113), (165, 118), (162, 124), (158, 131), (154, 137), (149, 144), (146, 150)
+]
+for i in range(len(se_river_pts) - 1):
+    d_wat.line([se_river_pts[i], se_river_pts[i+1]], fill=255, width=5)
+for pt in se_river_pts:
+    d_wat.ellipse([pt[0]-2, pt[1]-2, pt[0]+2, pt[1]+2], fill=255)
+
+# D. West Inlet & Village Canal
+# Ocean inlet bay opening to the west
+d_wat.ellipse([34, 69, 45, 78], fill=255)
+# Water directly under Footbridge 2 (connects inlet to canal)
+d_wat.rectangle([44, 73, 49, 78], fill=255)
+# Village canal curving east behind the houses
+west_canal_pts = [
+    (49, 75), (55, 75), (59, 78), (62, 82), (58, 86), (51, 86)
+]
+for i in range(len(west_canal_pts) - 1):
+    d_wat.line([west_canal_pts[i], west_canal_pts[i+1]], fill=255, width=4)
+for pt in west_canal_pts:
+    d_wat.ellipse([pt[0]-2, pt[1]-2, pt[0]+2, pt[1]+2], fill=255)
+
+# E. North Forest Pond
+d_wat.ellipse([149, 36, 161, 49], fill=255)
+
+# F. Orchard Pond
+d_wat.ellipse([54, 98, 62, 106], fill=255)
+
+# G. Kurtos Plaza Central Fountain
+d_wat.ellipse([121, 75, 127, 81], fill=255)
+
+# H. Cliff Waterfalls
+water = np.array(water_img) > 128
+for y in range(148, 154):
+    water[y, 106:110] = True # SW waterfall mouth
+    water[y, 144:148] = True # SE waterfall mouth
+
+# Ensure outer ocean is kept separate from inland water
+water[outer_ocean] = False
+
+# --- 3. ROADS & PLAZA ---
 roads = np.zeros((H, W), dtype=bool)
 plaza = np.zeros((H, W), dtype=bool)
-water = np.zeros((H, W), dtype=bool)
-bridge_cells = set() # Walkable bridge/pier cells
 
 def add_rect(mask, x0, y0, x1, y1):
     x_min, x_max = max(0, min(x0, x1)), min(W - 1, max(x0, x1))
@@ -81,78 +146,72 @@ def add_line(mask, x0, y0, x1, y1, width=3):
                 if 0 <= nx < W and 0 <= ny < H:
                     mask[ny, nx] = True
 
-def add_ellipse(mask, cx, cy, rx, ry):
-    for y in range(max(0, cy - ry), min(H, cy + ry + 1)):
-        for x in range(max(0, cx - rx), min(W, cx + rx + 1)):
-            if ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1.0:
-                mask[y, x] = True
+# Grand South Boulevard (from arrival pier up into plaza)
+add_line(roads, 128, 148, 128, 88, width=5)
 
-# --- 2. INTERNAL WATER BODIES ---
-# A. Southwest River & Waterfall
-add_line(water, 108, 149, 108, 138, width=6)
-add_line(water, 108, 138, 103, 126, width=5)
-add_line(water, 103, 126, 100, 118, width=5)
+# South Crossroads: branches east and west
+add_line(roads, 128, 136, 118, 132, width=4)
+add_line(roads, 118, 132, 108, 121, width=4) # Connects to Footbridge 1 East end
+add_line(roads, 128, 136, 140, 132, width=4) # Connects towards SE mine trail
 
-# B. Southwest Pond (with green tree islet)
-add_ellipse(water, 103, 108, 8, 9)
-add_ellipse(water, 98, 110, 6, 7)
-add_ellipse(water, 107, 106, 6, 7)
-water[106:110, 101:105] = False # Central pine tree islet
+# Kurtos Town Plaza
+add_rect(plaza, 110, 68, 138, 88) # Paved stone plaza square
+add_rect(roads, 108, 66, 140, 70)  # North plaza avenue
+add_rect(roads, 108, 86, 140, 90)  # South plaza avenue
 
-# C. SW Pond upper inlet stream (behind houses)
-add_line(water, 96, 104, 90, 98, width=4)
-add_line(water, 90, 98, 86, 92, width=3)
-add_ellipse(water, 86, 92, 3, 3)
+# Northern Summit Road (Plaza to Cherry Blossom Academy)
+add_line(roads, 128, 68, 128, 26, width=5)
+add_rect(roads, 122, 22, 134, 28) # Academy forecourt
 
-# D. West Harbor Canal (near lighthouse & docks)
-add_ellipse(water, 48, 55, 6, 5)
-add_line(water, 48, 55, 36, 50, width=5) # ocean outlet
-add_line(water, 50, 55, 58, 60, width=4)
-add_ellipse(water, 58, 60, 4, 4)
+# Western Village Roads
+# From Footbridge 1 West end (x=96, y=121) into village
+add_line(roads, 96, 121, 58, 121, width=4)
+add_line(roads, 58, 121, 58, 80, width=4) # Main village avenue
+add_line(roads, 58, 80, 47, 80, width=4)  # Connects to Footbridge 2 South approach
+add_line(roads, 58, 121, 58, 136, width=4) # South to beach
+add_line(roads, 58, 136, 30, 136, width=4) # Beach road
+add_line(roads, 76, 121, 76, 76, width=4)  # Mid-village avenue
+add_line(roads, 76, 76, 110, 76, width=4)  # Connects village to plaza
 
-# E. Southeast River & Waterfall
-add_line(water, 145, 149, 145, 138, width=6)
-add_line(water, 145, 138, 148, 130, width=5)
-add_line(water, 148, 130, 158, 124, width=5)
-add_line(water, 158, 124, 168, 118, width=6)
+# Roads North of Canal & Lighthouse
+add_line(roads, 47, 70, 36, 68, width=4)  # Footbridge 2 North approach west to pier
+add_line(roads, 36, 68, 24, 68, width=4)  # To lighthouse
+add_line(roads, 47, 70, 76, 70, width=4)  # North village road
+add_line(roads, 76, 70, 110, 70, width=4) # To plaza
 
-# F. Southeast Wetland Lake (multi-lobed marsh)
-add_ellipse(water, 178, 118, 12, 6)
-add_ellipse(water, 186, 116, 8, 5)
-add_line(water, 170, 116, 168, 104, width=5)
-add_ellipse(water, 168, 100, 5, 5)
+# Eastern Highway, Farmlands & Mine Trail
+# Runs north of the Upper Wetland Pond cleanly into farmlands
+add_line(roads, 138, 76, 185, 76, width=4) # Plaza east to farmlands
+add_line(roads, 185, 76, 215, 76, width=4) # North farm road
+add_line(roads, 215, 76, 215, 115, width=4) # Farm avenue
+add_line(roads, 215, 115, 215, 135, width=4) # Mine cave trail
+add_rect(roads, 210, 130, 224, 136) # Mine entrance platform
+add_line(roads, 215, 86, 236, 86, width=4) # East pier path
+add_line(roads, 185, 76, 196, 45, width=4) # Up to Royal Citadel
 
-# G. Northeast Forest Lily Pad Pond
-add_ellipse(water, 164, 44, 6, 9)
-add_ellipse(water, 150, 34, 4, 3)
+# --- 4. BRIDGES & PIERS ---
+bridge_cells = set()
 
-# H. Northwest Mountain Stream
-add_line(water, 72, 26, 64, 36, width=3)
-
-# I. Plaza Fountain Pool
-add_ellipse(water, 110, 78, 3, 3)
-
-# --- 3. BRIDGES & PIERS ---
-# Footbridge 1 over SW River (x: 96..103, y: 118..121)
+# Footbridge 1 (horizontal over SW river: x: 96..108, y: 119..123)
+# Width: 13 tiles (208px), Height: 5 tiles (80px)
 footbridge_1 = []
-for by in range(118, 122):
-    for bx in range(96, 104):
+for by in range(119, 124):
+    for bx in range(96, 109):
         footbridge_1.append((bx, by))
         bridge_cells.add((bx, by))
-        water[by, bx] = True # water flows beneath
 
-# Footbridge 2 over West Canal (x: 48..53, y: 53..56)
+# Footbridge 2 (vertical over West canal: x: 44..49, y: 70..80)
+# Width: 6 tiles (96px), Height: 11 tiles (176px)
 footbridge_2 = []
-for by in range(53, 57):
-    for bx in range(48, 54):
+for by in range(70, 81):
+    for bx in range(44, 50):
         footbridge_2.append((bx, by))
         bridge_cells.add((bx, by))
-        water[by, bx] = True # water flows beneath
 
-# Western Ocean Pier (x: 32..43, y: 48..51)
+# Western Ocean Pier (x: 28..39, y: 65..68)
 west_pier = []
-for py in range(48, 52):
-    for px in range(32, 44):
+for py in range(65, 69):
+    for px in range(28, 40):
         west_pier.append((px, py))
         bridge_cells.add((px, py))
 
@@ -163,91 +222,32 @@ for py in range(84, 88):
         east_pier.append((px, py))
         bridge_cells.add((px, py))
 
-# --- 4. ROAD NETWORKS & PLAZA ---
-# A. Grand South Boulevard (8 tiles wide, aligned with south bridge x: 124..131)
-add_rect(roads, 124, 118, 131, 148)
+# Water flows under bridges
+for (bx, by) in footbridge_1:
+    if 99 <= bx <= 105:
+        water[by, bx] = True
 
-# B. Central Crossroads Hub
-add_rect(roads, 123, 117, 132, 122)
+for (bx, by) in footbridge_2:
+    if 73 <= by <= 77:
+        water[by, bx] = True
 
-# C. Central Town Plaza & Enclosing Streets
-add_rect(roads, 124, 56, 129, 118) # East Boulevard
-add_rect(roads, 88, 92, 125, 96)   # South Avenue
-add_rect(roads, 88, 56, 93, 96)    # West Avenue
-add_rect(roads, 88, 56, 125, 60)   # North Avenue
-add_rect(plaza, 94, 61, 123, 91)   # Plaza Stone Pavers
-
-# D. Northern Summit Road (Cherry Blossom Academy)
-add_rect(roads, 125, 18, 130, 56)
-add_rect(roads, 122, 18, 132, 24)  # Academy Forecourt
-add_rect(roads, 58, 40, 125, 44)   # North cross-street
-
-# E. Western Village Streets
-add_rect(roads, 58, 40, 63, 136) # North-South Avenue
-add_rect(roads, 28, 50, 32, 130) # Far-West Residential Street
-# Cross-streets connecting from far west (x: 28) all the way across
-add_rect(roads, 28, 56, 88, 60)  # North cross-street
-add_rect(roads, 28, 92, 88, 96)  # Mid cross-street
-add_rect(roads, 28, 126, 63, 130) # South cross-street
-add_line(roads, 28, 128, 18, 138, width=4) # SW loop
-add_line(roads, 28, 62, 12, 62, width=4)   # Lighthouse road
-add_line(roads, 58, 40, 36, 30, width=4)   # NW Cave road
-add_line(roads, 124, 119, 103, 119, width=4) # Crossroads to footbridge
-add_line(roads, 96, 119, 63, 119, width=4)  # Footbridge to west avenue
-add_line(roads, 58, 56, 53, 55, width=4)   # To canal footbridge
-add_line(roads, 48, 55, 36, 48, width=4)   # To ocean pier
-
-# F. Eastern Village, Castle Highway & Farmlands
-# East-West Avenue from South Plaza (y: 92..96) going east
-add_rect(roads, 129, 92, 172, 96)
-# Southeast village street from crossroads (y: 118..122) going east to residential row
-add_rect(roads, 131, 118, 155, 122)
-
-# Castle Highway curving northeast from (165, 94) to Castle Forecourt
-add_line(roads, 165, 94, 176, 80, width=5)
-add_line(roads, 176, 80, 188, 64, width=5)
-add_line(roads, 188, 64, 200, 52, width=5)
-add_rect(roads, 194, 46, 218, 56) # Castle Forecourt
-
-# Castle to Farm connection
-add_rect(roads, 198, 56, 202, 66)
-
-# Farmlands Roads & Grid
-add_rect(roads, 172, 66, 226, 70)  # North farm road
-add_rect(roads, 165, 85, 226, 88)  # Mid east-west farm road (connected to town avenue)
-add_rect(roads, 172, 104, 226, 108) # South farm road
-add_rect(roads, 170, 66, 174, 108) # West farm road
-add_rect(roads, 197, 66, 201, 108) # Mid north-south farm road
-add_rect(roads, 223, 66, 227, 108) # East farm road
-add_line(roads, 227, 86, 246, 86, width=4) # East Wharf road
-
-# Southeast Mine Trail
-add_line(roads, 198, 108, 206, 116, width=4)
-add_line(roads, 206, 116, 216, 124, width=4)
-add_rect(roads, 214, 122, 224, 128) # Mine cave forecourt
-
-# Clean up masks
-water[outer_ocean] = False
-roads[outer_ocean] = False
-plaza[outer_ocean] = False
-
-# Where roads and water intersect (except bridges), water cuts roads
+# Roads and plaza don't overlap water (except on bridge decks)
 for y in range(H):
     for x in range(W):
         if water[y, x] and (x, y) not in bridge_cells:
             roads[y, x] = False
             plaza[y, x] = False
 
-near_ocean = near_ocean & (~water)
-
-# --- 5. COMPOSE MAP TILES ---
+# --- 5. TILEMAP CELL GENERATION ---
 ground_cells = []
 for y in range(H):
     for x in range(W):
-        if outer_ocean[y, x] or water[y, x]:
-            ground_cells.append([x, y, 0, 0, 0]) # Water
+        if outer_ocean[y, x]:
+            ground_cells.append([x, y, 0, 0, 0]) # Deep Ocean Water
+        elif water[y, x]:
+            ground_cells.append([x, y, 0, 0, 0]) # Inland Water
         elif near_ocean[y, x]:
-            ground_cells.append([x, y, 2, 0, 0]) # Sand
+            ground_cells.append([x, y, 5, 0, 0]) # Sand
         else:
             ground_cells.append([x, y, 1, 0, 0]) # Grass
 
@@ -261,7 +261,7 @@ for y in range(H):
         elif roads[y, x]:
             paths_cells.append([x, y, 2, 0, 0]) # Sand / Dirt Road
 
-# Southern Bridge (from y=148 down to 175, x: 124..131)
+# Southern Arrival Bridge (from y=148 down to 175, x: 124..131)
 for y in range(148, H):
     for x in range(124, 132):
         if x == 124:
@@ -271,29 +271,29 @@ for y in range(148, H):
         else:
             paths_cells.append([x, y, 8, 2, 1]) # deck
 
-# Footbridge 1 (horizontal over SW river: x: 96..103, y: 118..121)
+# Footbridge 1 (horizontal over SW river: x: 96..108, y: 119..123)
 for (bx, by) in footbridge_1:
-    if by == 118:
+    if by == 119:
         paths_cells.append([bx, by, 8, 1, 0]) # top rail
-    elif by == 121:
+    elif by == 123:
         paths_cells.append([bx, by, 8, 1, 2]) # bottom rail
     else:
         paths_cells.append([bx, by, 8, 2, 1]) # deck
 
-# Footbridge 2 (horizontal over West Canal: x: 48..53, y: 53..56)
+# Footbridge 2 (vertical over West canal: x: 44..49, y: 70..80)
 for (bx, by) in footbridge_2:
-    if by == 53:
-        paths_cells.append([bx, by, 8, 1, 0])
-    elif by == 56:
-        paths_cells.append([bx, by, 8, 1, 2])
+    if bx == 44:
+        paths_cells.append([bx, by, 8, 0, 1]) # left rail
+    elif bx == 49:
+        paths_cells.append([bx, by, 8, 5, 1]) # right rail
     else:
-        paths_cells.append([bx, by, 8, 2, 1])
+        paths_cells.append([bx, by, 8, 2, 1]) # deck
 
-# Western Ocean Pier (x: 32..43, y: 48..51)
+# Western Ocean Pier
 for (px, py) in west_pier:
     paths_cells.append([px, py, 8, 2, 1])
 
-# Eastern Ocean Pier (x: 236..247, y: 84..87)
+# Eastern Ocean Pier
 for (px, py) in east_pier:
     paths_cells.append([px, py, 8, 2, 1])
 
@@ -322,7 +322,19 @@ def merge_mask_to_rects(mask, cell_size=16):
             rects.append([x * cell_size, y * cell_size, (x2 - x) * cell_size, (y2 - y) * cell_size])
     return rects
 
-# A. Outer Ocean Colliders (CoastColliders)
+# A. Clear Bridge Corridors in outer_ocean to eliminate ANY stray coast colliders
+# Southern Arrival Bridge walkway
+for y in range(148, H):
+    for x in range(124, 132):
+        outer_ocean[y, x] = False
+
+# Footbridge 2 corridor
+outer_ocean[69:82, 44:50] = False
+# West Pier corridor
+outer_ocean[64:70, 27:41] = False
+# East Pier corridor
+outer_ocean[83:88, 235:248] = False
+
 ocean_colliders = merge_mask_to_rects(outer_ocean, 16)
 # Southern bridge side rails and bottom end stop
 ocean_colliders.append([123 * 16, 148 * 16, 16, (H - 148) * 16])
@@ -330,10 +342,20 @@ ocean_colliders.append([132 * 16, 148 * 16, 16, (H - 148) * 16])
 ocean_colliders.append([124 * 16, (H - 1) * 16, 8 * 16, 16])
 
 # B. Internal Water Colliders (InlandWaterColliders)
-# Exclude bridge walkways (bridge_cells) so the player can cross freely!
+# Exclude bridge walkways completely so players have wide, unblocked passage!
 collidable_internal_water = water.copy()
-for (bx, by) in bridge_cells:
-    collidable_internal_water[by, bx] = False
+
+# Zero out Footbridge 1 corridor (x: 95..109, y: 119..123)
+collidable_internal_water[119:124, 95:110] = False
+
+# Zero out Footbridge 2 corridor (x: 44..49, y: 69..81)
+collidable_internal_water[69:82, 44:50] = False
+
+# Zero out piers
+for (px, py) in west_pier:
+    collidable_internal_water[py, px] = False
+for (px, py) in east_pier:
+    collidable_internal_water[py, px] = False
 
 water_colliders = merge_mask_to_rects(collidable_internal_water, 16)
 
@@ -349,7 +371,7 @@ out_data = {
 with open('assets/maps/clean_map_cells.json', 'w') as f:
     json.dump(out_data, f)
 
-print('Generated Step 2 Map Data Successfully:')
+print('Generated Step 2 Map Data with Natural Organic Water & Working Bridges:')
 print(f'  Ground cells: {len(ground_cells)}')
 print(f'  Paths & Bridge cells: {len(paths_cells)}')
 print(f'  Ocean colliders: {len(ocean_colliders)}')
