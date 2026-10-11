@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/chat_ui.tscn" id="6_chat"]
 [ext_resource type="Script" path="res://scripts/mobile_ui_layout.gd" id="7_layout"]
 [ext_resource type="PackedScene" path="res://scenes/world_buildings.tscn" id="8_buildings"]
+[ext_resource type="PackedScene" path="res://scenes/world_environment.tscn" id="9_environment"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -16,8 +17,7 @@ y_sort_enabled = true
 
 [node name="IslandMap" parent="Ground" instance=ExtResource("1_island_map")]
 
-[node name="Environment" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="Environment" parent="." instance=ExtResource("9_environment")]
 
 [node name="Buildings" parent="." instance=ExtResource("8_buildings")]
 
