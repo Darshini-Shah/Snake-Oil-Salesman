@@ -32,11 +32,30 @@ func _ready():
 	for btn in buttons:
 		if btn:
 			btn.mouse_entered.connect(func(): if not btn.disabled: btn.grab_focus())
+			# Match clicks to the visible pixels, including the notched outer border.
+			var mask := BitMap.new()
+			mask.create_from_image_alpha(btn.texture_normal.get_image(), 0.1)
+			btn.texture_click_mask = mask
+			btn.mouse_entered.connect(_update_button_feedback.bind(btn))
+			btn.mouse_exited.connect(_update_button_feedback.bind(btn))
+			btn.focus_entered.connect(_update_button_feedback.bind(btn))
+			btn.focus_exited.connect(_update_button_feedback.bind(btn))
+			btn.button_down.connect(func(): btn.self_modulate = Color(0.9, 0.9, 0.9))
+			btn.button_up.connect(_update_button_feedback.bind(btn))
+			_update_button_feedback(btn)
 	
 	if not continue_btn.disabled:
 		continue_btn.grab_focus()
 	else:
 		start_btn.grab_focus()
+
+func _update_button_feedback(btn: TextureButton) -> void:
+	if btn.disabled:
+		btn.self_modulate = Color(0.45, 0.45, 0.45)
+	elif btn.is_hovered() or btn.has_focus():
+		btn.self_modulate = Color(1.08, 1.08, 1.08)
+	else:
+		btn.self_modulate = Color.WHITE
 
 func _on_start_pressed():
 	var gs = get_node_or_null("/root/GameState")

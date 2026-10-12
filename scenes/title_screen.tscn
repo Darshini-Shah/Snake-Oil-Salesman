@@ -1,39 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxab3title123"]
+[gd_scene load_steps=7 format=3 uid="uid://cxab3title123"]
 
 [ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_title"]
 [ext_resource type="Texture2D" uid="uid://dp3l3ygy1te0f" path="res://assets/new_title_bg.png" id="2_bg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
-bg_color = Color(0.18, 0.12, 0.08, 0.95)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.68, 0.52, 0.22, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-bg_color = Color(0.28, 0.19, 0.13, 0.95)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.88, 0.72, 0.35, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
+[ext_resource type="Texture2D" path="res://assets/ui/title_buttons/start.png" id="button_start"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_buttons/continue.png" id="button_continue"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_buttons/settings.png" id="button_settings"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_buttons/quit.png" id="button_quit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.121569, 0.121569, 0.121569, 0.882353)
@@ -73,49 +46,53 @@ anchor_bottom = 0.740
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="StartBtn" type="Button" parent="Buttons"]
+[node name="StartBtn" type="TextureButton" parent="Buttons"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
-theme_override_font_sizes/font_size = 24
-text = "Start Game"
+focus_mode = 2
+mouse_default_cursor_shape = 0
+texture_filter = 1
+tooltip_text = "Start Game"
+texture_normal = ExtResource("button_start")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="ContinueBtn" type="Button" parent="Buttons"]
+[node name="ContinueBtn" type="TextureButton" parent="Buttons"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
-theme_override_font_sizes/font_size = 24
-text = "Continue"
+focus_mode = 2
+mouse_default_cursor_shape = 0
+texture_filter = 1
+tooltip_text = "Continue"
+texture_normal = ExtResource("button_continue")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="SettingsBtn" type="Button" parent="Buttons"]
+[node name="SettingsBtn" type="TextureButton" parent="Buttons"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
-theme_override_font_sizes/font_size = 24
-text = "Settings"
+focus_mode = 2
+mouse_default_cursor_shape = 0
+texture_filter = 1
+tooltip_text = "Settings"
+texture_normal = ExtResource("button_settings")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="QuitBtn" type="Button" parent="Buttons"]
+[node name="QuitBtn" type="TextureButton" parent="Buttons"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
-theme_override_font_sizes/font_size = 24
-text = "Quit"
+focus_mode = 2
+mouse_default_cursor_shape = 0
+texture_filter = 1
+tooltip_text = "Quit"
+texture_normal = ExtResource("button_quit")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="SettingsPanel" type="PanelContainer" parent="."]
 visible = false

@@ -1,0 +1,26 @@
+{
+  "source_files": {
+    "start": "ChatGPT Image Oct 13, 2026, 02_11_47 AM-1.png",
+    "continue": "ChatGPT Image Oct 13, 2026, 02_11_49 AM-2.png",
+    "settings": "ChatGPT Image Oct 13, 2026, 02_11_51 AM-3.png",
+    "quit": "ChatGPT Image Oct 13, 2026, 02_11_53 AM-4.png"
+  },
+  "source_sha256": {
+    "start": "8ee7c2776cfdc94d92ebdb1f52f85ff2e8c3ca3cdca985ac4e34e0a4190eba29",
+    "continue": "61cf45abe52cf72610b6937ad962688af0c7cbf196c963872d141361cd308103",
+    "settings": "ac3913c1e9f30208c2d309aa3d1943f5ad460d70090c8bd651589fc12bc512a7",
+    "quit": "2ea36291fbd6867f9081d2d9b5a80b2c249858e1e24c97aab6ec631fc7114db1"
+  },
+  "crop": [
+    281,
+    140,
+    1892,
+    570
+  ],
+  "dimensions": [
+    1611,
+    430
+  ],
+  "resampled": false,
+  "method": "Shared crop of existing RGBA; only external alpha=1 margin speckles trimmed"
+}
