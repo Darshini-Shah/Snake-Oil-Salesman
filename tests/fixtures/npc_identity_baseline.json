@@ -1,0 +1,946 @@
+[
+  {
+    "node_name": "NPC_MayorVance",
+    "id": "npc_mayor_vance",
+    "name": "Mayor Vance",
+    "occupation": "Mayor of Kurtos",
+    "profile_file": "",
+    "gold": 5000,
+    "trust": 40,
+    "suspicion": 30,
+    "max_daily_spend": 350,
+    "position": [
+      2056,
+      920
+    ],
+    "texture": "res://assets/characters/people/mayor_vance.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_Barnaby",
+    "id": "npc_barnaby_merchant",
+    "name": "Barnaby",
+    "occupation": "Curious Merchant",
+    "profile_file": "res://data/npcs/barnaby_merchant.json",
+    "gold": 1200,
+    "trust": 45,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      1850,
+      1140
+    ],
+    "texture": "res://assets/characters/rpg_pack/npc_barnaby.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_DoctorHawthorne",
+    "id": "npc_doctor_hawthorne",
+    "name": "Dr. Hawthorne",
+    "occupation": "Town Physician",
+    "profile_file": "",
+    "gold": 2200,
+    "trust": 60,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      2270,
+      1140
+    ],
+    "texture": "res://assets/characters/people/doctor_hawthorne.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_WatchmakerTock",
+    "id": "npc_watchmaker_tock",
+    "name": "Master Tock",
+    "occupation": "Master Horologist",
+    "profile_file": "",
+    "gold": 1800,
+    "trust": 50,
+    "suspicion": 25,
+    "max_daily_spend": 350,
+    "position": [
+      1850,
+      1370
+    ],
+    "texture": "res://assets/characters/people/watchmaker_tock.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_LibrarianElena",
+    "id": "npc_librarian_elena",
+    "name": "Elena",
+    "occupation": "Chief Archivist",
+    "profile_file": "",
+    "gold": 1100,
+    "trust": 55,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      2520,
+      1370
+    ],
+    "texture": "res://assets/characters/people/librarian_elena.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_Cedric",
+    "id": "npc_cedric_aristocrat",
+    "name": "Lord Cedric",
+    "occupation": "Wealthy Aristocrat",
+    "profile_file": "res://data/npcs/cedric_aristocrat.json",
+    "gold": 8500,
+    "trust": 30,
+    "suspicion": 25,
+    "max_daily_spend": 1200,
+    "position": [
+      2270,
+      1370
+    ],
+    "texture": "res://assets/characters/rpg_pack/npc_cedric.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_JesterPip",
+    "id": "npc_jester_pip",
+    "name": "Pip",
+    "occupation": "Court Jester",
+    "profile_file": "",
+    "gold": 350,
+    "trust": 70,
+    "suspicion": 10,
+    "max_daily_spend": 350,
+    "position": [
+      1990,
+      1128
+    ],
+    "texture": "res://assets/characters/people/jester_pip.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_BardLyra",
+    "id": "npc_bard_lyra",
+    "name": "Lyra",
+    "occupation": "Wandering Minstrel",
+    "profile_file": "",
+    "gold": 450,
+    "trust": 65,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      2120,
+      1128
+    ],
+    "texture": "res://assets/characters/people/bard_lyra.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_CitizenClara",
+    "id": "npc_citizen_clara",
+    "name": "Clara",
+    "occupation": "Plaza Shopper",
+    "profile_file": "",
+    "gold": 600,
+    "trust": 60,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      1940,
+      1220
+    ],
+    "texture": "res://assets/characters/people/citizen_clara.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_CitizenHugo",
+    "id": "npc_citizen_hugo",
+    "name": "Hugo",
+    "occupation": "Townsperson",
+    "profile_file": "",
+    "gold": 750,
+    "trust": 50,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      2170,
+      1220
+    ],
+    "texture": "res://assets/characters/people/citizen_hugo.png",
+    "guard": false
+  },
+  {
+    "node_name": "Guard_TownNorth",
+    "id": "guard_town_north",
+    "name": "Sentry Alden",
+    "occupation": "Civic Sentry",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      2056,
+      980
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/town_guard_1.png"
+  },
+  {
+    "node_name": "Guard_TownSouth",
+    "id": "guard_town_south",
+    "name": "Sentry Nessa",
+    "occupation": "Civic Sentry",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      2056,
+      1280
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/town_guard_2.png"
+  },
+  {
+    "node_name": "NPC_WaystationMaster",
+    "id": "npc_waystation_master",
+    "name": "Clerk Robert",
+    "occupation": "Post Waystation Courier",
+    "profile_file": "",
+    "gold": 900,
+    "trust": 55,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      2270,
+      1630
+    ],
+    "texture": "res://assets/characters/people/citizen_hugo.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_MusicianRowan",
+    "id": "npc_musician_rowan",
+    "name": "Rowan",
+    "occupation": "Fiddle Player",
+    "profile_file": "",
+    "gold": 500,
+    "trust": 65,
+    "suspicion": 10,
+    "max_daily_spend": 350,
+    "position": [
+      1850,
+      1630
+    ],
+    "texture": "res://assets/characters/people/bard_lyra.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_KingReginald",
+    "id": "npc_king_reginald",
+    "name": "King Reginald",
+    "occupation": "Sovereign of Kurtos",
+    "profile_file": "",
+    "gold": 50000,
+    "trust": 25,
+    "suspicion": 45,
+    "max_daily_spend": 350,
+    "position": [
+      3280,
+      580
+    ],
+    "texture": "res://assets/characters/people/king_reginald.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_QueenKatherine",
+    "id": "npc_queen_katherine",
+    "name": "Queen Katherine",
+    "occupation": "Queen of Kurtos",
+    "profile_file": "",
+    "gold": 40000,
+    "trust": 35,
+    "suspicion": 35,
+    "max_daily_spend": 350,
+    "position": [
+      3320,
+      580
+    ],
+    "texture": "res://assets/characters/people/queen_katherine.png",
+    "guard": false
+  },
+  {
+    "node_name": "Guard_RoyalKnightWest",
+    "id": "guard_royal_knight_west",
+    "name": "Sir Jeffrey",
+    "occupation": "Royal Citadel Guard",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      3200,
+      580
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/royal_knight_spear.png"
+  },
+  {
+    "node_name": "Guard_RoyalKnightEast",
+    "id": "guard_royal_knight_east",
+    "name": "Sir Donald",
+    "occupation": "Royal Citadel Guard",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      3400,
+      580
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/heavy_knight_guard.png"
+  },
+  {
+    "node_name": "Guard_CourtyardKnight",
+    "id": "guard_courtyard_knight",
+    "name": "Sentry Edric",
+    "occupation": "Citadel Gate Guard",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      3300,
+      670
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/rpg_pack/guard_knight.png"
+  },
+  {
+    "node_name": "NPC_HeadmasterThaddeus",
+    "id": "npc_headmaster_thaddeus",
+    "name": "Thaddeus",
+    "occupation": "Academy Headmaster",
+    "profile_file": "",
+    "gold": 3500,
+    "trust": 35,
+    "suspicion": 40,
+    "max_daily_spend": 350,
+    "position": [
+      2056,
+      360
+    ],
+    "texture": "res://assets/characters/people/scholar_thaddeus.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ApprenticeLeo",
+    "id": "npc_apprentice_leo",
+    "name": "Leo",
+    "occupation": "Scholar Apprentice",
+    "profile_file": "",
+    "gold": 300,
+    "trust": 75,
+    "suspicion": 10,
+    "max_daily_spend": 350,
+    "position": [
+      2000,
+      360
+    ],
+    "texture": "res://assets/characters/people/apprentice_leo.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_SageAlbus",
+    "id": "npc_sage_albus",
+    "name": "Sage Albus",
+    "occupation": "Ancient Astrologer",
+    "profile_file": "",
+    "gold": 2800,
+    "trust": 45,
+    "suspicion": 30,
+    "max_daily_spend": 350,
+    "position": [
+      2110,
+      360
+    ],
+    "texture": "res://assets/characters/people/sage_albus.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_SmugglerJack",
+    "id": "npc_smuggler_jack",
+    "name": "'Slick' Jack",
+    "occupation": "Contraband Dealer",
+    "profile_file": "",
+    "gold": 4500,
+    "trust": 30,
+    "suspicion": 50,
+    "max_daily_spend": 350,
+    "position": [
+      580,
+      610
+    ],
+    "texture": "res://assets/characters/people/smuggler_jack.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ShadowRogue",
+    "id": "npc_shadow_rogue",
+    "name": "Vesper",
+    "occupation": "Shadow Informant",
+    "profile_file": "",
+    "gold": 2200,
+    "trust": 35,
+    "suspicion": 45,
+    "max_daily_spend": 350,
+    "position": [
+      640,
+      600
+    ],
+    "texture": "res://assets/characters/people/shadow_rogue.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_LighthouseKeeper",
+    "id": "npc_lighthouse_keeper",
+    "name": "Captain Finn",
+    "occupation": "Gull Rock Lighthouse Keeper",
+    "profile_file": "",
+    "gold": 1400,
+    "trust": 60,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      240,
+      1220
+    ],
+    "texture": "res://assets/characters/people/lighthouse_keeper.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_Marla",
+    "id": "npc_marla_baker",
+    "name": "Marla",
+    "occupation": "Empathetic Baker",
+    "profile_file": "res://data/npcs/marla_baker.json",
+    "gold": 650,
+    "trust": 65,
+    "suspicion": 10,
+    "max_daily_spend": 220,
+    "position": [
+      1030,
+      1050
+    ],
+    "texture": "res://assets/characters/rpg_pack/npc_marla.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_BlacksmithBoros",
+    "id": "npc_blacksmith_boros",
+    "name": "Boros",
+    "occupation": "Village Blacksmith",
+    "profile_file": "",
+    "gold": 2100,
+    "trust": 45,
+    "suspicion": 30,
+    "max_daily_spend": 350,
+    "position": [
+      1115,
+      1400
+    ],
+    "texture": "res://assets/characters/people/blacksmith_boros.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_TailorVivienne",
+    "id": "npc_tailor_vivienne",
+    "name": "Vivienne",
+    "occupation": "Master Clothier",
+    "profile_file": "",
+    "gold": 1600,
+    "trust": 55,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      1100,
+      1680
+    ],
+    "texture": "res://assets/characters/people/tailor_vivienne.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_TavernkeeperMaggie",
+    "id": "npc_tavernkeeper_maggie",
+    "name": "Maggie",
+    "occupation": "Drunken Gull Hostess",
+    "profile_file": "",
+    "gold": 2800,
+    "trust": 60,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      1100,
+      1960
+    ],
+    "texture": "res://assets/characters/people/tavernkeeper_maggie.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_FloristLily",
+    "id": "npc_florist_lily",
+    "name": "Lily",
+    "occupation": "Botanist & Florist",
+    "profile_file": "",
+    "gold": 950,
+    "trust": 70,
+    "suspicion": 10,
+    "max_daily_spend": 350,
+    "position": [
+      1400,
+      1050
+    ],
+    "texture": "res://assets/characters/people/florist_lily.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_HerbalistMaeve",
+    "id": "npc_herbalist_maeve",
+    "name": "Maeve",
+    "occupation": "Apothecary & Herbalist",
+    "profile_file": "",
+    "gold": 1400,
+    "trust": 50,
+    "suspicion": 30,
+    "max_daily_spend": 350,
+    "position": [
+      1400,
+      1400
+    ],
+    "texture": "res://assets/characters/people/herbalist_maeve.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_CarpenterWayne",
+    "id": "npc_carpenter_wayne",
+    "name": "Wayne",
+    "occupation": "Master Woodworker",
+    "profile_file": "",
+    "gold": 1750,
+    "trust": 55,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      1400,
+      1680
+    ],
+    "texture": "res://assets/characters/people/carpenter_wayne.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ToymakerOswald",
+    "id": "npc_toymaker_oswald",
+    "name": "Oswald",
+    "occupation": "Master Toymaker",
+    "profile_file": "",
+    "gold": 800,
+    "trust": 70,
+    "suspicion": 10,
+    "max_daily_spend": 350,
+    "position": [
+      1400,
+      1960
+    ],
+    "texture": "res://assets/characters/people/toymaker_oswald.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_PriestJoseph",
+    "id": "npc_priest_joseph",
+    "name": "Father Joseph",
+    "occupation": "Parish Chapel Priest",
+    "profile_file": "",
+    "gold": 1200,
+    "trust": 80,
+    "suspicion": 5,
+    "max_daily_spend": 350,
+    "position": [
+      1620,
+      890
+    ],
+    "texture": "res://assets/characters/people/priest_joseph.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_Arthur",
+    "id": "npc_arthur_elder",
+    "name": "Old Arthur",
+    "occupation": "Superstitious Elder",
+    "profile_file": "res://data/npcs/arthur_elder.json",
+    "gold": 400,
+    "trust": 55,
+    "suspicion": 12,
+    "max_daily_spend": 180,
+    "position": [
+      1620,
+      1420
+    ],
+    "texture": "res://assets/characters/rpg_pack/npc_arthur.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_FishermanFinn",
+    "id": "npc_fisherman_finn",
+    "name": "Old Finn",
+    "occupation": "Canal Angler",
+    "profile_file": "",
+    "gold": 550,
+    "trust": 65,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      656,
+      1050
+    ],
+    "texture": "res://assets/characters/people/fisherman_finn.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_PotterGordon",
+    "id": "npc_potter_gordon",
+    "name": "Gordon",
+    "occupation": "Master Potter",
+    "profile_file": "",
+    "gold": 900,
+    "trust": 60,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      580,
+      1770
+    ],
+    "texture": "res://assets/characters/people/potter_gordon.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_LumberjackKarl",
+    "id": "npc_lumberjack_karl",
+    "name": "Karl",
+    "occupation": "Lumberjack Foreman",
+    "profile_file": "",
+    "gold": 1500,
+    "trust": 50,
+    "suspicion": 25,
+    "max_daily_spend": 350,
+    "position": [
+      1400,
+      510
+    ],
+    "texture": "res://assets/characters/people/lumberjack_karl.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_HunterOrion",
+    "id": "npc_hunter_orion",
+    "name": "Orion",
+    "occupation": "Master Tracker",
+    "profile_file": "",
+    "gold": 1300,
+    "trust": 40,
+    "suspicion": 35,
+    "max_daily_spend": 350,
+    "position": [
+      1080,
+      510
+    ],
+    "texture": "res://assets/characters/people/hunter_orion.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ElderMarta",
+    "id": "npc_elder_marta",
+    "name": "Marta",
+    "occupation": "Coast Matriarch",
+    "profile_file": "",
+    "gold": 600,
+    "trust": 70,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      580,
+      2030
+    ],
+    "texture": "res://assets/characters/people/elder_marta.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ChildTimmy",
+    "id": "npc_child_timmy",
+    "name": "Timmy",
+    "occupation": "Village Youth",
+    "profile_file": "",
+    "gold": 50,
+    "trust": 85,
+    "suspicion": 5,
+    "max_daily_spend": 350,
+    "position": [
+      1260,
+      1200
+    ],
+    "texture": "res://assets/characters/people/child_timmy.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ChildRosie",
+    "id": "npc_child_rosie",
+    "name": "Rosie",
+    "occupation": "Village Youth",
+    "profile_file": "",
+    "gold": 40,
+    "trust": 85,
+    "suspicion": 5,
+    "max_daily_spend": 350,
+    "position": [
+      1300,
+      1200
+    ],
+    "texture": "res://assets/characters/people/child_rosie.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_FarmerGiles",
+    "id": "npc_farmer_giles",
+    "name": "Farmer Giles",
+    "occupation": "Valley Patriarch",
+    "profile_file": "",
+    "gold": 1400,
+    "trust": 55,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      3080,
+      1210
+    ],
+    "texture": "res://assets/characters/people/farmer_giles.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_FarmhandPete",
+    "id": "npc_farmhand_pete",
+    "name": "Pete",
+    "occupation": "Harvest Farmhand",
+    "profile_file": "",
+    "gold": 350,
+    "trust": 70,
+    "suspicion": 10,
+    "max_daily_spend": 350,
+    "position": [
+      2940,
+      1240
+    ],
+    "texture": "res://assets/characters/people/farmhand_pete.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_BeekeeperBeatrice",
+    "id": "npc_beekeeper_beatrice",
+    "name": "Beatrice",
+    "occupation": "Master Apiarist",
+    "profile_file": "",
+    "gold": 1100,
+    "trust": 65,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      3550,
+      1510
+    ],
+    "texture": "res://assets/characters/people/beekeeper_beatrice.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_MillerDonald",
+    "id": "npc_miller_donald",
+    "name": "Donald",
+    "occupation": "Windmill Miller",
+    "profile_file": "",
+    "gold": 1600,
+    "trust": 50,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      3450,
+      1210
+    ],
+    "texture": "res://assets/characters/people/windmill_miller.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_GranaryJacob",
+    "id": "npc_granary_jacob",
+    "name": "Jacob",
+    "occupation": "Granary Miller",
+    "profile_file": "",
+    "gold": 1300,
+    "trust": 55,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      3250,
+      1790
+    ],
+    "texture": "res://assets/characters/people/blacksmith_boros.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_CoastEli",
+    "id": "npc_coast_eli",
+    "name": "Eli",
+    "occupation": "Eastern Shore Cabin Resident",
+    "profile_file": "",
+    "gold": 700,
+    "trust": 60,
+    "suspicion": 20,
+    "max_daily_spend": 350,
+    "position": [
+      3550,
+      1830
+    ],
+    "texture": "res://assets/characters/people/fisherman_finn.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_ForemanIronbeard",
+    "id": "npc_foreman_ironbeard",
+    "name": "Foreman Ironbeard",
+    "occupation": "Mine Overseer",
+    "profile_file": "",
+    "gold": 3200,
+    "trust": 40,
+    "suspicion": 35,
+    "max_daily_spend": 350,
+    "position": [
+      3440,
+      2190
+    ],
+    "texture": "res://assets/characters/people/foreman_ironbeard.png",
+    "guard": false
+  },
+  {
+    "node_name": "NPC_MinerCole",
+    "id": "npc_miner_cole",
+    "name": "Cole",
+    "occupation": "Deep Ore Miner",
+    "profile_file": "",
+    "gold": 900,
+    "trust": 50,
+    "suspicion": 25,
+    "max_daily_spend": 350,
+    "position": [
+      3180,
+      2190
+    ],
+    "texture": "res://assets/characters/people/miner_cole.png",
+    "guard": false
+  },
+  {
+    "node_name": "Guard_BridgeCaptain",
+    "id": "guard_bridge_captain",
+    "name": "Captain Stewart",
+    "occupation": "Gate Commander",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      1980,
+      2390
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/rpg_pack/guard_knight.png"
+  },
+  {
+    "node_name": "Guard_BridgeSentry",
+    "id": "guard_bridge_sentry",
+    "name": "Sentry Lucas",
+    "occupation": "Bridge Gate Guard",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      2116,
+      2390
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/royal_knight_spear.png"
+  },
+  {
+    "node_name": "NPC_TravelerFelix",
+    "id": "npc_traveler_felix",
+    "name": "Felix",
+    "occupation": "Visiting Traveler",
+    "profile_file": "",
+    "gold": 1800,
+    "trust": 65,
+    "suspicion": 15,
+    "max_daily_spend": 350,
+    "position": [
+      2090,
+      2240
+    ],
+    "texture": "res://assets/characters/rpg_pack/player_traveler.png",
+    "guard": false
+  },
+  {
+    "node_name": "Guard_Footbridge1",
+    "id": "guard_footbridge1",
+    "name": "Sentry Bram",
+    "occupation": "River Footbridge Sentry",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      1780,
+      1890
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/town_guard_1.png"
+  },
+  {
+    "node_name": "Guard_Footbridge2",
+    "id": "guard_footbridge2",
+    "name": "Sentry Iona",
+    "occupation": "Canal Footbridge Sentry",
+    "profile_file": "",
+    "gold": 0,
+    "trust": 0,
+    "suspicion": 0,
+    "max_daily_spend": 350,
+    "position": [
+      700,
+      1070
+    ],
+    "texture": "res://assets/characters/rpg_pack/guard_knight.png",
+    "guard": true,
+    "generator_texture": "res://assets/characters/people/town_guard_2.png"
+  }
+]

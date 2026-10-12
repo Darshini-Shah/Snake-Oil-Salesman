@@ -9,9 +9,11 @@ signal player_exited_interaction(npc: TownNPC)
 signal social_state_changed(npc: TownNPC)
 
 @export var character_texture: Texture2D
-@export var npc_name: String = "Barnaby"
-@export var npc_title: String = "Curious Town Merchant"
-@export var npc_data_file: String = "res://data/npcs/barnaby_merchant.json"
+const Profiles = preload("res://scripts/character_profiles.gd")
+@export var character_id: String = ""
+@export var npc_name: String = "Resident"
+@export var npc_title: String = "Townsperson"
+@export var npc_data_file: String = ""
 @export var npc_color: Color = Color(0.2, 0.7, 0.35, 1.0)
 
 # Dynamic authoritative social stats
@@ -91,38 +93,35 @@ func _process(delta: float) -> void:
 
 
 func _load_npc_data() -> void:
-	if not npc_data_file.is_empty() and FileAccess.file_exists(npc_data_file):
-		var file := FileAccess.open(npc_data_file, FileAccess.READ)
-		if file:
-			var json_text := file.get_as_text()
-			var parsed = JSON.parse_string(json_text)
-			if parsed is Dictionary:
-				npc_profile = parsed
-				npc_name = str(npc_profile.get("name", npc_name))
-				npc_title = str(npc_profile.get("occupation", npc_title))
-				gold = int(npc_profile.get("gold", gold))
-				max_daily_spend = int(npc_profile.get("max_daily_spend", max_daily_spend))
-				spent_today = int(npc_profile.get("spent_today", spent_today))
-				trust = int(npc_profile.get("trust", trust))
-				suspicion = int(npc_profile.get("suspicion", suspicion))
-				susceptible_topics = npc_profile.get("susceptible_topics", [])
-				skeptical_topics = npc_profile.get("skeptical_topics", [])
-				memories = npc_profile.get("memories", [])
-	
+	# Explicit legacy files resolve only their registered owner; no default profile.
+	if character_id.is_empty() and not npc_data_file.is_empty():
+		character_id = Profiles.id_for_file(npc_data_file)
+	if not character_id.is_empty():
+		npc_profile = Profiles.load_profile(character_id, npc_data_file)
+	elif not npc_profile.is_empty():
+		# Preserve explicitly supplied runtime profiles used by existing callers/tests.
+		character_id = str(npc_profile.get("id", ""))
+	else:
+		if not npc_data_file.is_empty(): push_warning("Unregistered NPC profile: " + npc_data_file)
+	if character_id.is_empty():
+		# Unassigned runtime-only nodes have isolated histories; world IDs are exported.
+		character_id = "unassigned_%d" % get_instance_id()
 	if npc_profile.is_empty():
-		npc_profile = {
-			"name": npc_name,
-			"occupation": npc_title,
-			"personality": {"trusting": 0.5, "skeptical": 0.5, "empathetic": 0.5, "greedy": 0.5},
-			"values": ["survival"],
-			"goals": ["stay safe"],
-			"fears": ["trouble"]
-		}
-	
+		npc_profile = Profiles.safe_profile(character_id, npc_name, npc_title)
+		susceptible_topics = []
+		skeptical_topics = []
+	else:
+		npc_name = str(npc_profile.get("name", npc_name))
+		npc_title = str(npc_profile.get("occupation", npc_title))
+		susceptible_topics = npc_profile.get("susceptible_topics", []).duplicate(true)
+		skeptical_topics = npc_profile.get("skeptical_topics", []).duplicate(true)
+		# Existing authored memories only seed a new instance; reloading never resets history.
+		if memories.is_empty(): memories = npc_profile.get("memories", []).duplicate(true)
 	_sync_profile()
 
 
 func _sync_profile() -> void:
+	if not character_id.is_empty(): npc_profile["id"] = character_id
 	npc_profile["name"] = npc_name
 	npc_profile["occupation"] = npc_title
 	npc_profile["trust"] = trust

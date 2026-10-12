@@ -274,8 +274,11 @@ func start_conversation(npc: Node2D) -> void:
 			greeting = "Yes? Be brief. A gentleman of my standing has pressing affairs."
 		"npc_arthur_elder":
 			greeting = "Mind your step, traveler. Dark omens linger in the wind today... what do you seek?"
-		"npc_barnaby_merchant", _:
+		"npc_barnaby_merchant":
 			greeting = "Good day, traveler! Barnaby's Curiosities has the finest oddities in the realm. Looking for a bargain?"
+		_:
+			var profile: Dictionary = npc.get_full_profile() if npc.has_method("get_full_profile") else {}
+			greeting = str(profile.get("greeting", "Good day, traveler. What brings you here?"))
 	
 	# Show dialogue log specific to THIS NPC ONLY
 	var history := get_active_npc_history()
@@ -399,13 +402,16 @@ func _on_pitch_pressed() -> void:
 				suggested = "My Lord Cedric, I bring an imported royal silk swatch fit for court regalia, for 60 Kurtos!"
 			else:
 				suggested = "Good day, Lord Cedric. How fare the noble houses and high society in these lands?"
-		"npc_barnaby_merchant", _:
+		"npc_barnaby_merchant":
 			if has_tonic:
 				suggested = "I have a rare miracle tonic sample with high resale value for your shop, for 40 Kurtos!"
 			elif has_fabric:
 				suggested = "I have a vibrant silk swatch for fine tailoring—I'll sell it to your shop for 40 Kurtos!"
 			else:
 				suggested = "Greetings Barnaby! What rare curiosities and wares are trading best in the market today?"
+		_:
+			var name_str := str(active_npc.get("npc_name"))
+			suggested = "Good day, %s. How fares your work today?" % name_str
 	
 	if message_input:
 		message_input.text = suggested

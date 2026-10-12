@@ -91,7 +91,7 @@ func run() -> void:
 	for i in range(2): await physics_frame
 	check(player.global_position.distance_to(origin) > 0.1, "Synthetic movement input moves player")
 	check(player.velocity == Vector2.ZERO, "Releasing movement stops player")
-	var npc: TownNPC = world.get_node("NPC_Barnaby")
+	var npc: TownNPC = world.get_node("Characters/NPC_Barnaby")
 	var chat: ChatUI = world.get_node("UI/ChatUI")
 	chat.local_llm.enabled = false
 	npc._on_interaction_area_body_entered(player)
@@ -141,7 +141,8 @@ func run() -> void:
 	check(state.player_kurtos == 777 and state.current_day == 12 and state.overall_trust == 67, "Continue restores currency, day and reputation")
 	check(state.inventory == JSON.parse_string(JSON.stringify(saved_inventory)), "Continue restores complete inventory through the existing JSON save format")
 	check(not state.is_game_over and not state.has_won and state.can_player_move, "Continue restores gameplay flags")
-	check(world.has_node("NPC_Barnaby") and world.has_node("NPC_Marla") and world.has_node("NPC_Cedric") and world.has_node("NPC_Arthur"), "Continue preserves all conversational NPCs")
+	check(world.has_node("Characters/NPC_Barnaby") and world.has_node("Characters/NPC_Marla") and world.has_node("Characters/NPC_Cedric") and world.has_node("Characters/NPC_Arthur"), "Continue preserves original conversational NPCs")
+	check(get_nodes_in_group("npcs").size() == 46 and get_nodes_in_group("guards").size() == 9, "Continue preserves all 55 world characters")
 	await discard_scene()
 	# This is exclusively the isolated fixture save, enforced at the start.
 	DirAccess.remove_absolute("user://save_game.dat")

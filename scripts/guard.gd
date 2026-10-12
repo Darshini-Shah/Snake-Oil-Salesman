@@ -6,7 +6,11 @@ extends CharacterBody2D
 signal player_detected(guard: TownGuard, player: Node2D)
 signal player_lost(guard: TownGuard, player: Node2D)
 
+const Profiles = preload("res://scripts/character_profiles.gd")
+@export var character_id: String = ""
 @export var guard_name: String = "Gate Guard"
+@export var guard_title: String = "Sentry"
+var character_profile: Dictionary = {}
 @export var is_hostile: bool = false
 @export var challenge_message: String = "Halt! Keep clear of restricted premises!"
 
@@ -17,11 +21,21 @@ var current_facing: String = "down"
 
 
 func _ready() -> void:
+	character_profile = Profiles.load_profile(character_id) if not character_id.is_empty() else {}
+	if character_profile.is_empty():
+		character_profile = Profiles.safe_profile(character_id, guard_name, guard_title)
+	else:
+		guard_name = str(character_profile.name)
+		guard_title = str(character_profile.occupation)
 	add_to_group("guards")
 	add_to_group("enemies")
 	_alert_indicator = get_node_or_null("AlertIndicator") as Label
 	if _alert_indicator:
 		_alert_indicator.visible = false
+
+
+func get_full_profile() -> Dictionary:
+	return character_profile.duplicate(true)
 
 
 func _process(_delta: float) -> void:

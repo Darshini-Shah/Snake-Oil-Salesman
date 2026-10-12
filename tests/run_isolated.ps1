@@ -1,6 +1,6 @@
 param(
     [string]$Godot = 'C:\Zekrui\Godot_v4.7.2-stable_win64_console.exe',
-    [string[]]$Tests = @('test_local_chat.gd', 'test_gameplay_mechanics.gd', 'test_ui_presentation.gd', 'test_mobile_ui.gd', 'test_title_screen.gd')
+    [string[]]$Tests = @('test_npc_identity.gd', 'test_local_chat.gd', 'test_gameplay_mechanics.gd', 'test_ui_presentation.gd', 'test_mobile_ui.gd', 'test_title_screen.gd')
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
@@ -8,9 +8,11 @@ $testRoot = Join-Path $projectRoot '.godot/qwen-test-project'
 New-Item -ItemType Directory -Force -Path $testRoot | Out-Null
 # Shared source/assets, separate application name and user:// save location.
 foreach ($folder in @('assets', 'Characters', 'data', 'scenes', 'scripts', 'shaders', 'tests', 'ui')) {
+    $source = Join-Path $projectRoot $folder
+    if (-not (Test-Path -LiteralPath $source)) { continue }
     $target = Join-Path $testRoot $folder
     if (-not (Test-Path -LiteralPath $target)) {
-        New-Item -ItemType Junction -Path $target -Target (Join-Path $projectRoot $folder) | Out-Null
+        New-Item -ItemType Junction -Path $target -Target $source | Out-Null
     }
 }
 $config = Get-Content -LiteralPath (Join-Path $projectRoot 'project.godot') -Raw
