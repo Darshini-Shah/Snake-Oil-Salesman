@@ -32,6 +32,13 @@ func _ready() -> void:
 	_alert_indicator = get_node_or_null("AlertIndicator") as Label
 	if _alert_indicator:
 		_alert_indicator.visible = false
+	var state = get_node_or_null("/root/GameState")
+	if state: state.register_character(self)
+
+
+func _exit_tree() -> void:
+	var state = get_node_or_null("/root/GameState")
+	if state: state.unregister_character(self)
 
 
 func get_full_profile() -> Dictionary:

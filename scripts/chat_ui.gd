@@ -106,6 +106,7 @@ func _get_game_state() -> Node:
 
 
 func _ready() -> void:
+	add_to_group("npc_persistence_chat")
 	_ensure_ui_nodes()
 	if chat_window:
 		chat_window.visible = false
@@ -139,6 +140,11 @@ func _ready() -> void:
 func _connect_npc_signals() -> void:
 	for node in get_tree().get_nodes_in_group("npcs"):
 		_bind_npc(node)
+
+
+func _exit_tree() -> void:
+	# Restore the complete pre-request memory before characters leave the scene.
+	_cancel_pending_reply()
 
 
 func _bind_npc(npc: Node2D) -> void:
@@ -545,6 +551,9 @@ func _on_llm_response_generated(result: Dictionary) -> void:
 	var turns: int = clampi(local_llm.history_exchanges, 1, 5) * 2 if local_llm is LocalLLM else 10
 	while cur_history.size() > turns:
 		cur_history.pop_front()
+	# Existing economy autosaves occur before counters, memories and dialogue commit.
+	var game_state = _get_game_state()
+	if game_state: game_state.save_game()
 	
 	if is_chatting:
 		_update_header_stats()
@@ -681,13 +690,24 @@ func _cancel_pending_reply() -> void:
 			# NPC.add_conversation_turn may have evicted the oldest turn at its cap.
 			# Restore the complete pre-request history, unless a day reset cleared it.
 			history.assign(_pending_history)
-	if local_llm and local_llm.has_method("cancel_request"):
+	if is_instance_valid(local_llm) and local_llm.has_method("cancel_request"):
 		local_llm.cancel_request()
 	_waiting_for_reply = false
 	_pending_request_id = 0
 	_pending_npc = null
 	_pending_history = []
-	if send_btn:
+	if is_instance_valid(send_btn):
 		send_btn.disabled = false
-	if pitch_btn:
+	if is_instance_valid(pitch_btn):
 		pitch_btn.disabled = false
+
+
+func get_committed_npc_history(npc: Node) -> Variant:
+	if _waiting_for_reply and npc == _pending_npc:
+		return _pending_history
+	return null # Otherwise use the NPC-owned committed array directly.
+
+
+func reset_persistent_conversations() -> void:
+	end_conversation() # Cancels outstanding work before replacing any NPC state.
+	conversation_histories_by_npc.clear()

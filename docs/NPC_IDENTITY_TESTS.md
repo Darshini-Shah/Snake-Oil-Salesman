@@ -1,5 +1,10 @@
 # NPC identity implementation and verification
 
+This document records the Problem 1 baseline. Problem 2 now persists runtime state
+without modifying these profiles; current verification is in
+[NPC_PERSISTENCE.md](NPC_PERSISTENCE.md). Statements below about persistence being
+absent describe the original identity-only implementation.
+
 The current world contains **46 TownNPC instances and 9 TownGuard instances** in
 `scenes/world_characters.tscn`, instanced by `scenes/main.tscn`. All 55 have exported
 stable IDs, catalog assignments and distinct display names after `_ready()`.

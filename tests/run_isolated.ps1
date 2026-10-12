@@ -1,6 +1,6 @@
 param(
     [string]$Godot = 'C:\Zekrui\Godot_v4.7.2-stable_win64_console.exe',
-    [string[]]$Tests = @('test_npc_identity.gd', 'test_local_chat.gd', 'test_gameplay_mechanics.gd', 'test_ui_presentation.gd', 'test_mobile_ui.gd', 'test_title_screen.gd')
+    [string[]]$Tests = @('test_npc_persistence.gd', 'test_npc_identity.gd', 'test_local_chat.gd', 'test_gameplay_mechanics.gd', 'test_ui_presentation.gd', 'test_mobile_ui.gd', 'test_title_screen.gd')
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
@@ -49,6 +49,17 @@ try {
             continue
         }
         if ($testExitCode -ne 0) { throw "$test exited with $testExitCode" }
+        if ($test -eq 'test_npc_persistence.gd') {
+            # Save -> actual Quit -> a fresh Godot process -> actual Continue.
+            foreach ($phase in @('write-process-fixture', 'read-process-fixture')) {
+                $phaseLog = Join-Path $projectRoot ".godot/$test.$phase.log"
+                & $Godot --headless --path $testRoot --log-file $phaseLog --script "tests/$test" -- "--$phase"
+                $phaseExitCode = $LASTEXITCODE
+                if ($phaseExitCode -ne 0 -or (Select-String -LiteralPath $phaseLog -Pattern 'SCRIPT ERROR|Parse Error|Compilation failed' -Quiet)) {
+                    throw "$test $phase failed (exit $phaseExitCode)"
+                }
+            }
+        }
     }
 } finally {
     $env:APPDATA = $previousAppData

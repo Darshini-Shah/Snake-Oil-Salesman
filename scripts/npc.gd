@@ -72,6 +72,13 @@ func _ready() -> void:
 		_speech_bubble.visible = false
 	
 	_load_npc_data()
+	var state = get_node_or_null("/root/GameState")
+	if state: state.register_character(self)
+
+
+func _exit_tree() -> void:
+	var state = get_node_or_null("/root/GameState")
+	if state: state.unregister_character(self)
 
 
 func _process(delta: float) -> void:

@@ -66,5 +66,6 @@ Narrative traits, relationships, ambitions and secrets are dialogue context only
 New identities use the existing neutral numeric trait defaults; authored numeric traits
 and topic affinities for Barnaby, Marla, Cedric and Arthur are unchanged. Scene values
 own gameplay stats. The original authored daily budgets are explicit in the world scene.
-No NPC state persistence is implemented. Unknown or invalid assignments retain their
+Runtime persistence uses these stable IDs; see [NPC_PERSISTENCE.md](NPC_PERSISTENCE.md).
+Unknown or invalid assignments retain their
 scene identity and stats, report a warning, and use a neutral self-only profile.

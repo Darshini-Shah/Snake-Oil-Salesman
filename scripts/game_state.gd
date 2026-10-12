@@ -21,6 +21,14 @@ var inventory: Array[Dictionary] = []
 var is_game_over: bool = false
 var has_won: bool = false
 
+const NPCState = preload("res://scripts/npc_state_codec.gd")
+const Profiles = preload("res://scripts/character_profiles.gd")
+const SAVE_VERSION := 2 # Original unversioned saves are version 1.
+var _npc_states: Dictionary = {}
+var _npc_defaults: Dictionary = {}
+var _characters: Dictionary = {} # Stable ID -> WeakRef; nodes register after _ready defaults.
+var _suspend_saves := false
+
 const ITEMS: Dictionary = {
 	"miracle_tonic_sample": {"name": "Miracle Tonic", "region": Rect2(0, 0, 32, 32), "rarity": "Common", "desc": "A sugary concoction praised in every marketplace and trusted in none.", "effect": "trust_up", "effect_val": 7, "duration": 0, "consumable": true},
 	"coin_purse": {"name": "Coin Purse", "region": Rect2(32, 0, 32, 32), "rarity": "Legendary", "desc": "Heavy enough to impress, light enough to be a disappointment.", "effect": "none", "effect_val": 0, "duration": 0, "consumable": false},
@@ -110,10 +118,13 @@ func use_item(item_id: String) -> bool:
 	return false
 
 func _ready() -> void:
+	# Boot-time debug inventory must never overwrite progress before Continue loads it.
+	_suspend_saves = true
 	if OS.has_feature("debug"):
 		for id in ITEMS.keys():
 			var q = randi() % 10 + 1
 			add_item(id, "", "", q, true)
+	_suspend_saves = false
 
 
 
@@ -156,6 +167,8 @@ func advance_day() -> void:
 	for npc in get_tree().get_nodes_in_group("npcs"):
 		if npc.has_method("on_day_rollover"):
 			npc.on_day_rollover(current_day)
+	for id in _npc_states:
+		if not _live_character(id): NPCState.rollover(_npc_states[id])
 	
 	# Check 30-day limit
 	if current_day > max_days:
@@ -232,6 +245,7 @@ func _evaluate_ending() -> void:
 
 
 func reset_game() -> void:
+	_reset_npc_run()
 	player_kurtos = 50
 	current_day = 1
 	overall_trust = 25
@@ -245,6 +259,7 @@ func reset_game() -> void:
 	emit_signal("overall_trust_changed", overall_trust, 0)
 
 func reset_game_keep_debug() -> void:
+	_reset_npc_run()
 	player_kurtos = 50
 	current_day = 1
 	overall_trust = 25
@@ -268,7 +283,11 @@ func has_save() -> bool:
 	return FileAccess.file_exists("user://save_game.dat")
 
 func save_game() -> void:
+	if _suspend_saves: return
+	_capture_characters()
 	var save_dict = {
+		"save_version": SAVE_VERSION,
+		"npc_states": _npc_states,
 		"player_kurtos": player_kurtos,
 		"current_day": current_day,
 		"overall_trust": overall_trust,
@@ -276,34 +295,116 @@ func save_game() -> void:
 		"has_won": has_won,
 		"inventory": inventory
 	}
-	var file = FileAccess.open("user://save_game.dat", FileAccess.WRITE)
+	# Write a sibling first; a failed write/rename leaves the existing save intact.
+	var file = FileAccess.open("user://save_game.dat.tmp", FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(save_dict))
+		file.flush()
+		var error := file.get_error()
+		file.close()
+		if error == OK and DirAccess.rename_absolute("user://save_game.dat.tmp", "user://save_game.dat") == OK:
+			return
+	push_warning("Could not write save; previous save retained")
 
 func load_game() -> void:
 	if not has_save():
 		return
 	var file = FileAccess.open("user://save_game.dat", FileAccess.READ)
-	if file:
-		var json_string = file.get_as_text()
-		var json = JSON.new()
-		var error = json.parse(json_string)
-		if error == OK:
-			var data = json.data
-			player_kurtos = data.get("player_kurtos", 50)
-			current_day = data.get("current_day", 1)
-			overall_trust = data.get("overall_trust", 25)
-			is_game_over = data.get("is_game_over", false)
-			has_won = data.get("has_won", false)
-			can_player_move = true
-			
-			var loaded_inv = data.get("inventory", [])
-			inventory.clear()
-			for item in loaded_inv:
-				if item is Dictionary:
-					inventory.append(item)
-			
-			emit_signal("kurtos_changed", player_kurtos, 0)
-			emit_signal("day_changed", current_day)
-			emit_signal("overall_trust_changed", overall_trust, 0)
+	if not file or file.get_length() > 16 * 1024 * 1024: return
+	var parser := JSON.new()
+	var error := parser.parse(file.get_as_text())
+	file.close()
+	if error != OK: return
+	var data: Variant = parser.data
+	if not data is Dictionary: return
+	_suspend_saves = true
+	_reset_chat_sessions()
+	player_kurtos = _saved_integer(data, "player_kurtos", 50, 0, NPCState.MAX_INTEGER)
+	current_day = _saved_integer(data, "current_day", 1, 1, max_days + 1)
+	overall_trust = _saved_integer(data, "overall_trust", 25, 0, 100)
+	is_game_over = data.get("is_game_over", false) if data.get("is_game_over", false) is bool else false
+	has_won = data.get("has_won", false) if data.get("has_won", false) is bool else false
+	can_player_move = true
+	inventory.clear()
+	var loaded_inv: Variant = data.get("inventory", [])
+	if loaded_inv is Array:
+		for item in loaded_inv:
+			if item is Dictionary: inventory.append(item.duplicate(true))
+	_npc_states.clear()
+	var saved_states: Variant = data.get("npc_states", {})
+	if _saved_integer(data, "save_version", 1, 1, SAVE_VERSION) == SAVE_VERSION and saved_states is Dictionary:
+		for id in saved_states:
+			if not id is String: continue
+			var entry := Profiles.entry_for(id)
+			if entry.is_empty(): continue
+			var kind: String = "npc" if entry.chat_enabled else "guard"
+			var profile := Profiles.load_profile(id)
+			var valid := NPCState.validate(saved_states[id], id, kind, str(profile.get("name", "")))
+			if not valid.is_empty(): _npc_states[id] = valid
+	for id in _characters:
+		var character = _live_character(id)
+		if character:
+			NPCState.apply(character, _npc_defaults[id])
+			NPCState.apply(character, _npc_states.get(id, {}))
+	emit_signal("kurtos_changed", player_kurtos, 0)
+	emit_signal("day_changed", current_day) # A load is not a day rollover.
+	emit_signal("overall_trust_changed", overall_trust, 0)
+	_suspend_saves = false
+
+
+func _saved_integer(data: Dictionary, field: String, fallback: int, minimum: int, maximum: int) -> int:
+	var value: Variant = data.get(field)
+	return int(value) if NPCState.valid_number(value, minimum, maximum, true) else fallback
+
+
+func _live_character(id: String) -> Node:
+	return _characters[id].get_ref() if _characters.has(id) else null
+
+
+func register_character(character: Node) -> void:
+	var id: String = character.character_id
+	var entry := Profiles.entry_for(id)
+	if entry.is_empty() or bool(entry.chat_enabled) != (character is TownNPC): return
+	if _live_character(id) and _live_character(id) != character:
+		push_warning("Duplicate live character ID ignored for persistence: " + id)
+		return
+	_characters[id] = weakref(character)
+	_npc_defaults[id] = NPCState.capture(character)
+	NPCState.apply(character, _npc_states.get(id, {}))
+
+
+func unregister_character(character: Node) -> void:
+	var id: String = character.character_id
+	if _live_character(id) != character: return
+	_npc_states[id] = _capture_character(character)
+	_characters.erase(id)
+
+
+func _capture_character(character: Node) -> Dictionary:
+	var committed: Variant = null
+	if character is TownNPC and is_inside_tree():
+		for chat in get_tree().get_nodes_in_group("npc_persistence_chat"):
+			committed = chat.get_committed_npc_history(character)
+			if committed != null: break
+	return NPCState.capture(character, committed)
+
+
+func _capture_characters() -> void:
+	for id in _characters:
+		var character = _live_character(id)
+		if character: _npc_states[id] = _capture_character(character)
+
+
+func _reset_chat_sessions() -> void:
+	if not is_inside_tree(): return
+	for chat in get_tree().get_nodes_in_group("npc_persistence_chat"):
+		chat.reset_persistent_conversations()
+
+
+func _reset_npc_run() -> void:
+	_reset_chat_sessions()
+	_npc_states.clear()
+	for id in _characters:
+		var character = _live_character(id)
+		if character: NPCState.apply(character, _npc_defaults[id])
 
