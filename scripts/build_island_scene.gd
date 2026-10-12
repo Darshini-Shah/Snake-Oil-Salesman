@@ -167,5 +167,19 @@ func _init() -> void:
 		quit(1)
 		return
 	
+	# Enforce format=3 and UIDs for backward compatibility with Godot 4.3 LTS
+	var map_read := FileAccess.open("res://scenes/island_map.tscn", FileAccess.READ)
+	if map_read:
+		var scene_text := map_read.get_as_text()
+		map_read.close()
+		scene_text = scene_text.replace("[gd_scene format=4]", "[gd_scene format=3 uid=\"uid://c5q0q5j3oog1a\"]")
+		scene_text = scene_text.replace("path=\"res://scripts/island_map.gd\" id=\"1_j3oog\"", "uid=\"uid://dslol2jtqj4px\" path=\"res://scripts/island_map.gd\" id=\"1_j3oog\"")
+		scene_text = scene_text.replace("path=\"res://assets/maps/island_tileset.tres\" id=\"2_m8kpn\"", "uid=\"uid://dj33g5jgc04am\" path=\"res://assets/maps/island_tileset.tres\" id=\"2_m8kpn\"")
+		scene_text = scene_text.replace("path=\"res://scripts/map_zone.gd\" id=\"3_c1ywl\"", "uid=\"uid://bbu5xikn42dxs\" path=\"res://scripts/map_zone.gd\" id=\"3_c1ywl\"")
+		var map_write := FileAccess.open("res://scenes/island_map.tscn", FileAccess.WRITE)
+		if map_write:
+			map_write.store_string(scene_text)
+			map_write.close()
+	
 	print("✅ Successfully built and saved clean res://scenes/island_map.tscn!")
 	quit(0)

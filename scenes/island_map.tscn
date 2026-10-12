@@ -1,8 +1,8 @@
-[gd_scene format=4]
+[gd_scene format=3 uid="uid://c5q0q5j3oog1a"]
 
-[ext_resource type="Script" path="res://scripts/island_map.gd" id="1_j3oog"]
-[ext_resource type="TileSet" path="res://assets/maps/island_tileset.tres" id="2_m8kpn"]
-[ext_resource type="Script" path="res://scripts/map_zone.gd" id="3_c1ywl"]
+[ext_resource type="Script" uid="uid://dslol2jtqj4px" path="res://scripts/island_map.gd" id="1_j3oog"]
+[ext_resource type="TileSet" uid="uid://dj33g5jgc04am" path="res://assets/maps/island_tileset.tres" id="2_m8kpn"]
+[ext_resource type="Script" uid="uid://bbu5xikn42dxs" path="res://scripts/map_zone.gd" id="3_c1ywl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ffrji"]
 size = Vector2(4096, 48)
