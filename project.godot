@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameState="*res://scripts/game_state.gd"
+DayClock="*res://scripts/day_clock.gd"
 
 [display]
 

@@ -163,6 +163,10 @@ func advance_day() -> void:
 	current_day += 1
 	emit_signal("day_changed", current_day)
 	
+	var clock = get_node_or_null("/root/DayClock")
+	if clock and clock.has_method("reset_day"):
+		clock.reset_day()
+	
 	# Notify all NPCs in the town about day rollover (resets daily spend & cools down anger)
 	for npc in get_tree().get_nodes_in_group("npcs"):
 		if npc.has_method("on_day_rollover"):
@@ -254,6 +258,9 @@ func reset_game() -> void:
 	can_player_move = true
 	inventory.clear()
 	add_item("miracle_tonic_sample", "Miracle Tonic Sample", "A small bottle of colored sugar water.")
+	var clock = get_node_or_null("/root/DayClock")
+	if clock and clock.has_method("reset_day"):
+		clock.reset_day()
 	emit_signal("kurtos_changed", player_kurtos, 0)
 	emit_signal("day_changed", current_day)
 	emit_signal("overall_trust_changed", overall_trust, 0)
@@ -274,6 +281,9 @@ func reset_game_keep_debug() -> void:
 	for item in debug_items:
 		inventory.append(item)
 	add_item("miracle_tonic_sample", "Miracle Tonic Sample", "A small bottle of colored sugar water.")
+	var clock = get_node_or_null("/root/DayClock")
+	if clock and clock.has_method("reset_day"):
+		clock.reset_day()
 	emit_signal("kurtos_changed", player_kurtos, 0)
 	emit_signal("day_changed", current_day)
 	emit_signal("overall_trust_changed", overall_trust, 0)
@@ -295,6 +305,10 @@ func save_game() -> void:
 		"has_won": has_won,
 		"inventory": inventory
 	}
+	var clock = get_node_or_null("/root/DayClock")
+	if clock:
+		save_dict["day_period"] = clock.current_period
+		save_dict["day_elapsed_seconds"] = clock.elapsed_seconds
 	# Write a sibling first; a failed write/rename leaves the existing save intact.
 	var file = FileAccess.open("user://save_game.dat.tmp", FileAccess.WRITE)
 	if file:
@@ -346,6 +360,17 @@ func load_game() -> void:
 		if character:
 			NPCState.apply(character, _npc_defaults[id])
 			NPCState.apply(character, _npc_states.get(id, {}))
+	var clock = get_node_or_null("/root/DayClock")
+	if clock:
+		if data.has("day_elapsed_seconds") and (data.day_elapsed_seconds is float or data.day_elapsed_seconds is int):
+			clock.elapsed_seconds = float(data.day_elapsed_seconds)
+			var period_dur: float = clock.day_real_seconds / 4.0
+			clock.current_period = clampi(int(clock.elapsed_seconds / period_dur), 0, 3)
+			clock.emit_signal("period_changed", clock.current_period, clock.get_period_name())
+		elif data.has("day_period") and data.day_period is int:
+			clock.set_period(int(data.day_period))
+		else:
+			clock.reset_day()
 	emit_signal("kurtos_changed", player_kurtos, 0)
 	emit_signal("day_changed", current_day) # A load is not a day rollover.
 	emit_signal("overall_trust_changed", overall_trust, 0)

@@ -34,6 +34,11 @@ var is_player_in_range: bool = false
 var _target_player: Node2D = null
 var current_facing: String = "down"
 
+@export var walk_speed: float = 60.0
+@export var anim_fps: float = 6.0
+var _anim_timer: float = 0.0
+var _walk_step: int = 0
+
 var memories: Array = []
 var conversation_history: Array = []
 var susceptible_topics: Array = []
@@ -74,6 +79,15 @@ func _ready() -> void:
 	_load_npc_data()
 	var state = get_node_or_null("/root/GameState")
 	if state: state.register_character(self)
+	
+	# Automatically attach NPCSchedule if not already configured in scene
+	if get_node_or_null("NPCSchedule") == null:
+		var sched_script = load("res://scripts/npc_schedule.gd")
+		if sched_script:
+			var s_node = Node.new()
+			s_node.name = "NPCSchedule"
+			s_node.set_script(sched_script)
+			add_child(s_node)
 
 
 func _exit_tree() -> void:
@@ -83,12 +97,14 @@ func _exit_tree() -> void:
 
 func _process(delta: float) -> void:
 	if is_player_in_range:
+		velocity = Vector2.ZERO
 		if not is_instance_valid(_target_player):
 			var players := get_tree().get_nodes_in_group("player")
 			if players.size() > 0:
 				_target_player = players[0] as Node2D
 		if is_instance_valid(_target_player):
 			face_towards(_target_player.global_position)
+		update_walk_animation(delta, false)
 
 	if is_refusing_to_talk:
 		refusal_timer -= delta
@@ -255,9 +271,56 @@ func face_towards(target_pos: Vector2) -> void:
 		set_facing("down" if diff.y > 0.0 else "up")
 
 
+func is_schedule_suspended() -> bool:
+	if is_player_in_range:
+		return true
+	if is_refusing_to_talk:
+		return true
+	var state = get_node_or_null("/root/GameState")
+	if state:
+		if not state.can_player_move or state.is_game_over:
+			return true
+	if _speech_bubble and _speech_bubble.visible:
+		return true
+	return false
+
+
+func update_walk_animation(delta: float, is_moving: bool) -> void:
+	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	if sprite == null or sprite.hframes < 3 or sprite.vframes < 4:
+		return
+
+	if is_moving:
+		if abs(velocity.x) > abs(velocity.y):
+			current_facing = "right" if velocity.x > 0.0 else "left"
+		else:
+			current_facing = "down" if velocity.y > 0.0 else "up"
+
+		_anim_timer += delta * anim_fps
+		if _anim_timer >= 1.0:
+			_anim_timer -= 1.0
+			_walk_step = (_walk_step + 1) % 4
+
+		var row := 0
+		match current_facing:
+			"down": row = 0
+			"left": row = 1
+			"right": row = 2
+			"up": row = 3
+
+		var cycle := [0, 1, 2, 1]
+		sprite.frame = row * 3 + cycle[_walk_step]
+	else:
+		_anim_timer = 0.0
+		_walk_step = 0
+		set_facing(current_facing)
+
+
 func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") or body.name == "Player":
 		is_player_in_range = true
+		velocity = Vector2.ZERO
+		update_walk_animation(0.0, false)
 		_target_player = body
 		face_towards(body.global_position)
 		if _prompt_label:

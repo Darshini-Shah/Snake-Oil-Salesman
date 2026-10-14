@@ -60,6 +60,10 @@ func _ready() -> void:
 		_update_day(game_state.current_day, game_state.max_days)
 		_update_trust(game_state.overall_trust)
 
+	var clock = get_node_or_null("/root/DayClock")
+	if clock:
+		clock.connect("period_changed", Callable(self, "_on_clock_period_changed"))
+
 func _process(delta: float) -> void:
 	if toast_panel.visible:
 		_toast_timer -= delta
@@ -128,6 +132,13 @@ func _on_day_changed(new_day: int) -> void:
 	_update_day(new_day, max_d)
 
 
+func _on_clock_period_changed(_period_index: int, _period_name: String) -> void:
+	var game_state = get_node_or_null("/root/GameState")
+	var cur_d: int = game_state.current_day if game_state else 1
+	var max_d: int = game_state.max_days if game_state else 30
+	_update_day(cur_d, max_d)
+
+
 func _on_overall_trust_changed(new_val: int, _delta: int) -> void:
 	_update_trust(new_val)
 
@@ -145,7 +156,12 @@ func _update_kurtos(val: int, goal: int) -> void:
 
 
 func _update_day(day: int, max_d: int) -> void:
-	day_label.text = "Day %d / %d" % [day, max_d]
+	var period_name := "Morning"
+	var clock = get_node_or_null("/root/DayClock")
+	if clock and clock.has_method("get_period_name"):
+		period_name = clock.get_period_name()
+	day_label.text = "Day %d / %d • %s" % [day, max_d, period_name]
+	layout_requested.emit()
 
 
 func _update_trust(trust: int) -> void:
